@@ -4,7 +4,7 @@
 
 ## Setup
 
-**1. Clone the repository** 
+**1. Clone the repository**
 
 ```bash
 git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git
@@ -36,16 +36,30 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 
 ## Test it
 
-**1. with Post Man** 
+**1. with Post Man**
 
 - Download and install PostMan [download](https://www.postman.com/downloads/)
 - Please follow the steps listed below
 
 ![setup_postman](./images/PostManTest.png?raw=true)
 
-**2. with Apache JMeter** 
+**2. with Apache JMeter**
 
 - Download and install Apache JMeter [download](https://jmeter.apache.org/)
 - Please follow the steps listed below
 
 ![setup_jmeter](./images/JMeterTest.png?raw=true)
+
+**3. with cURL**
+
+- For Windows donwnload the curl application [download](https://curl.se/windows/)
+- copy /images/image.jpg to curl/bin folder
+- cd curl/bin
+
+```bash
+curl -F "file=@image.jpg" localhost:8080/uploadFile
+```
+
+
+
+
