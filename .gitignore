@@ -1,0 +1,15 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.log
+/.idea/
+/output/
+/*.iml
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+src/main/resources/tessdata/*
+!src/main/resources/tessdata/eng.*
+!src/main/resources/tessdata/hun.*
