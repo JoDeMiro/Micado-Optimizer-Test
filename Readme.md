@@ -41,4 +41,4 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 - Download and install PostMan [download](https://www.postman.com/downloads/)
 - Follow the steps showed bellow
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/Images/image.jpg?raw=true)
+![setup_postman](https://github.com/[username]/[reponame]/blob/[branch]/Images/PostManTest.png.png?raw=true)
