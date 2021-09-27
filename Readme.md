@@ -1,13 +1,13 @@
 ## Spring Boot File Upload / Download Rest API Example
 
-**Leírás**: Ez egy kis service amin keresztül tesztelni lehet a MiCado skálázási lehetőségeit. Ez az alkalmazást kell telepíteni a service oldalon.
+**Description**: This is a small java rest api sevice which can be installed on the service side in order to test MiCado Optimizer Auto-Scaling Serice.
 
 ## Setup
 
 **1. Clone the repository** 
 
 ```bash
-git clone https://github.com/JoDeMiro/spring-boot-file-upload-download-rest-api-example.git
+git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git
 ```
 
 **2. Specify the file uploads directory**
@@ -15,7 +15,7 @@ git clone https://github.com/JoDeMiro/spring-boot-file-upload-download-rest-api-
 Open `src/main/resources/application.properties` file and change the property `file.upload-dir` to the path where you want the uploaded files to be stored.
 
 ```
-file.upload-dir=/Users/callicoder/uploads
+file.upload-dir=/uploads
 ```
 
 **2. Run the app using maven**
