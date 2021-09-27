@@ -1,13 +1,13 @@
 ## Spring Boot File Upload / Download Rest API Example
 
-**Leírás**: [Uploading an Downloading files with Spring Boot](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/)
+**Leírás**: Ez egy kis service amin keresztül tesztelni lehet a MiCado skálázási lehetőségeit. Ez az alkalmazást kell telepíteni a service oldalon.
 
-## Steps to Setup
+## Setup
 
 **1. Clone the repository** 
 
 ```bash
-git clone https://github.com/callicoder/spring-boot-file-upload-download-rest-api-example.git
+git clone https://github.com/JoDeMiro/spring-boot-file-upload-download-rest-api-example.git
 ```
 
 **2. Specify the file uploads directory**
