@@ -57,6 +57,10 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 
 ![setup_jmeter](./images/JMeterTest.png?raw=true)
 
+**2. with Apache JMeter for multiple files**
+
+![setup_jmeter](./images/JMeterMultipleTest.png?raw=true)
+
 **3. with cURL**
 
 - For Windows donwnload the curl application [download](https://curl.se/windows/)
@@ -67,7 +71,9 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 curl -F "file=@image.jpg" localhost:8080/uploadFile
 ```
 
-
+```bash
+curl -F "files=@1.jpg" -F "files=@2.jpg" -F "files=@3.jpg" localhost:8080/uploadMultipleFiles
+```
 
 
 ## Help
