@@ -65,3 +65,8 @@ curl -F "file=@image.jpg" localhost:8080/uploadFile
 
 
 
+## Help
+
+Spring Boot file upload rest api example [link](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/)
+
+
