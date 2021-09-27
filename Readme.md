@@ -38,8 +38,7 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 
 **1. with Post Man** 
 
-- Download and install PostMan [http://index.hu](PostMan)
-- 
-```bash
-git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git
-```
+- Download and install PostMan [download](https://www.postman.com/downloads/)
+- Follow the steps showed bellow
+
+![alt text](https://github.com/[username]/[reponame]/blob/[branch]/Images/image.jpg?raw=true)
