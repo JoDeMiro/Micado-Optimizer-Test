@@ -44,6 +44,11 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 
 ![setup_postman](./images/PostManTest.png?raw=true)
 
+**1. with Post Man for mulitple files**
+
+![setup_postman](./images/PostManMultipleTest.png?raw=true)
+
+
 **2. with Apache JMeter**
 
 - Download and install Apache JMeter [download](https://jmeter.apache.org/)
