@@ -39,6 +39,7 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 **1. with Post Man**
 
 - Download and install PostMan [download](https://www.postman.com/downloads/)
+- copy /images/image.jpg to C:\Users\[user]\Postman\files
 - Please follow the steps listed below
 
 ![setup_postman](./images/PostManTest.png?raw=true)
@@ -46,7 +47,8 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 **2. with Apache JMeter**
 
 - Download and install Apache JMeter [download](https://jmeter.apache.org/)
-- Please follow the steps listed below
+- copy /images/image.jpg to JMeter/bin folder
+- Please follow the steps listed below or load the /jmeter/bin/Localhost1.jmx
 
 ![setup_jmeter](./images/JMeterTest.png?raw=true)
 
