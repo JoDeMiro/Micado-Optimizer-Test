@@ -33,3 +33,13 @@ You may also package the application in the form of a jar and then run the jar f
 mvn clean package
 java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 ```
+
+## Test it
+
+**1. with Post Man** 
+
+- Download and install PostMan [http://index.hu](PostMan)
+- 
+```bash
+git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git
+```
