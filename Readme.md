@@ -1,6 +1,6 @@
-## Spring Boot File Upload / Download Rest API Example
+## Spring Boot File Upload - Download Rest API Example
 
-**Description**: This is a small java rest api sevice which can be installed on the service side in order to test MiCado Optimizer Auto-Scaling Serice.
+**Description**:
 
 ## Setup
 
