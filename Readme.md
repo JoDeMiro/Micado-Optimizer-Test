@@ -77,13 +77,13 @@ curl -F "files=@1.jpg" -F "files=@2.jpg" -F "files=@3.jpg" localhost:8080/upload
 
 ## REST API
 
-**Wait (fix 1000 ms)
+**Wait (fix 1000 ms)**
 
 ```bash
 curl -v localhost:8080/wait
 ```
 
-**Wait {time in milisec}
+**Wait {time in milisec}**
 
 ```bash
 curl -v localhost:8080/wait/{time}
