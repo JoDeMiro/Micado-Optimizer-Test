@@ -75,6 +75,20 @@ curl -F "file=@image.jpg" localhost:8080/uploadFile
 curl -F "files=@1.jpg" -F "files=@2.jpg" -F "files=@3.jpg" localhost:8080/uploadMultipleFiles
 ```
 
+## REST API
+
+**Wait (fix 1000 ms)
+
+```bash
+curl -v localhost:8080/wait
+```
+
+**Wait {time in milisec}
+
+```bash
+curl -v localhost:8080/wait/{time}
+```
+
 
 ## Help
 
