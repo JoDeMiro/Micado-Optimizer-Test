@@ -1,6 +1,8 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.computation.cpu.Fibonnaci;
+import com.example.filedemo.responses.CpuResponse;
+import com.example.filedemo.responses.WaitResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +66,7 @@ public class RestConroller {
     }
 
     @GetMapping("/cpu/{number}")
-    public WaitResponse cpu(@PathVariable String number) {
+    public CpuResponse cpu(@PathVariable String number) {
 
         // Start 10 executors
 
@@ -82,12 +84,11 @@ public class RestConroller {
         long stop = System.currentTimeMillis();
         long timeElapsed = stop - start;
 
-        System.out.println("start   = " + start);
-        System.out.println("stop    = " + stop);
-        System.out.println("elapsed = " + timeElapsed);
+        System.out.println("start        = " + start);
+        System.out.println("stop         = " + stop);
+        System.out.println("elapsed (ms) = " + timeElapsed);
 
-        WaitResponse response = new WaitResponse(Long.parseLong(number),
-                "Fibonnaci elapsed time " + timeElapsed);
+        CpuResponse response = new CpuResponse(timeElapsed, number, "CPU GET Request");
 
         return response;
     }

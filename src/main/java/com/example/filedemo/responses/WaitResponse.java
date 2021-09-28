@@ -1,4 +1,4 @@
-package com.example.filedemo.controller;
+package com.example.filedemo.responses;
 
 public class WaitResponse {
 

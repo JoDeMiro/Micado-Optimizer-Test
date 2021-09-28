@@ -91,12 +91,25 @@ curl -v localhost:8080/wait/{time}
 
 **Fibonacci [cpu] {int number}**
 
-number should be less than 30 (30 creates one second long response), above 30 every step create an
-exponential growth in response time.
+number should be less than 30 (it takes least one second to get the response).
 
 ```bash
 curl -v http://localhost:8080/cpu/{number}
 ```
+
+## ToDo
+
+Az idiniai haverom oldlán láttam egy spring boot microsevieces video sorozatot
+amelynek a 22 részeében 6 perc 20 másodpercnél van egy nagyon érdekes kitétel
+arra, hogy lehet beállítani, hogy a spring hány szálat (thread-et) nyisson
+és tartson fennt a bejövő kéréseknek.
+
+Ezt az opciót alaposan ki kell veséznem.
+
+Beszél ugyanis arról is, hogy állítja sorba a spring a kéréseket
+és lehet, hogy ezzel a megoldással meg lehet valósítani azt,
+amit szeretnék elérni, hogy egyszerre, csak egy vagy kettő
+kérést szolgáljon ki a többit viszont tartsa a sorban.
 
 
 

@@ -23,7 +23,6 @@ public class Fibonnaci {
                 @Override
                 public Integer call() throws Exception {
                     Integer result = 0;
-                    // for (int i=0;i < Integer.MAX_VALUE; i++) {
                     for (int i = 0; i < number; i++) {
                         BigInteger fib = fib(new BigInteger(String.valueOf(i)));
                         System.out.println(ID + " worker: " + i + ": " + fib);
