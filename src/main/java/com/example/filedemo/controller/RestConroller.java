@@ -1,5 +1,6 @@
 package com.example.filedemo.controller;
 
+import com.example.filedemo.computation.cpu.Fibonnaci;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 public class RestConroller {
@@ -57,6 +59,35 @@ public class RestConroller {
         }
 
         WaitResponse response = new WaitResponse(Long.parseLong(waitTime), "hello");
+
+        return response;
+    }
+
+    @GetMapping("/cpu/{number}")
+    public WaitResponse cpu(@PathVariable String number) {
+
+        // Start 10 executors
+
+        long start = System.currentTimeMillis();
+
+        Fibonnaci fibonnaci = new Fibonnaci();
+        try {
+            fibonnaci.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long timeElapsed = stop - start;
+
+        System.out.println("start   = " + start);
+        System.out.println("stop    = " + stop);
+        System.out.println("elapsed = " + timeElapsed);
+
+        WaitResponse response = new WaitResponse(Long.parseLong(number),
+                "Fibonnaci elapsed time " + timeElapsed);
 
         return response;
     }

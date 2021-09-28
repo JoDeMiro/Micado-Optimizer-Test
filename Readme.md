@@ -89,6 +89,17 @@ curl -v localhost:8080/wait
 curl -v localhost:8080/wait/{time}
 ```
 
+**Fibonacci [cpu] {int number}**
+
+number should be less than 30 (30 creates one second long response), above 30 every step create an
+exponential growth in response time.
+
+```bash
+curl -v http://localhost:8080/cpu/{number}
+```
+
+
+
 
 ## Help
 
