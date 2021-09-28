@@ -94,4 +94,15 @@ curl -v localhost:8080/wait/{time}
 
 Spring Boot file upload rest api example [link](https://www.callicoder.com/spring-boot-file-upload-download-rest-api-example/)
 
+JMeter JSON Extractor [link](https://www.blazemeter.com/blog/api-testing-with-jmeter-and-the-json-extractor)
+
+JMeter JSON Extractor Plugin [link](https://www.blazemeter.com/blog/how-to-use-the-json-plugin-in-jmeter)
+
+JMeter JSON Testing Example [link](https://octoperf.com/blog/2018/04/23/jmeter-rest-api-testing/#enabling-debug)
+
+JMeter Understanding the results [link](https://chamikakasun.medium.com/rest-api-load-testing-with-apache-jmeter-a4d25ea2b7b6)
+
+JMeter Timer Explained [link](https://www.blazemeter.com/blog/comprehensive-guide-using-jmeter-timers)
+
+JMeter Constant Throughput Timer [link](http://jmeter.apache.org/usermanual/component_reference.html#Constant_Throughput_Timer)
 
