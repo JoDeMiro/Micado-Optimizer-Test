@@ -1,14 +1,15 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.computation.cpu.Fibonnaci;
+import com.example.filedemo.computation.io.FileSizeCalc;
 import com.example.filedemo.responses.CpuResponse;
 import com.example.filedemo.responses.WaitResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ import java.util.concurrent.ExecutionException;
 public class RestConroller {
 
     private static final Logger logger = LoggerFactory.getLogger(RestConroller.class);
+
+    @Autowired
+    FileSizeCalc fileSizeCalc = new FileSizeCalc();
 
     @GetMapping("/wait")
     public List<String> wait(HttpServletRequest request) {
@@ -91,6 +95,36 @@ public class RestConroller {
         CpuResponse response = new CpuResponse(timeElapsed, number, "CPU GET Request");
 
         return response;
+    }
+
+    @GetMapping("/io/1/{path}")
+    public String directorySize(@PathVariable String path) {
+
+        FileSizeCalc fileSizeCalc = new FileSizeCalc();
+
+        String results = null;
+
+        try {
+            final String result = fileSizeCalc.run(10, "c:\\winutils-master");
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    @GetMapping("/io/2/{path}")
+    public String directorySizeAutowired(@PathVariable String path) {
+
+        String results = null;
+
+        try {
+            final String result = fileSizeCalc.run(10, "c:\\winutils-master");
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
 }

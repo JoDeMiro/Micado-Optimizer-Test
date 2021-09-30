@@ -130,3 +130,4 @@ JMeter Timer Explained [link](https://www.blazemeter.com/blog/comprehensive-guid
 
 JMeter Constant Throughput Timer [link](http://jmeter.apache.org/usermanual/component_reference.html#Constant_Throughput_Timer)
 
+JMeter Run Thread Groups sequentially - [link](https://newbedev.com/running-multiple-thread-groups-sequentially-in-jmeter)
