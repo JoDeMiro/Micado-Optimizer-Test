@@ -36,6 +36,19 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080
 java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
 ```
 
+## New | Future | Notes
+
+New application.properties 'name' has been connected to the the com.example.beans.MyBean name property field.
+Via this procedure user can initialize class properties from command line. [this procedure will be developed
+in the future]
+
+Setup 'com.example.beans.MyBean.class' name field via command line
+```bash
+java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
+```
+
+This Bean is accessible via http://localhost:{port}/helloMyBean
+
 ## Test it
 
 **1. with Post Man**

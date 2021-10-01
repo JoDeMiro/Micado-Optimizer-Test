@@ -136,7 +136,9 @@ public class RestConroller {
 
         myBean.run();
 
-        return null;
+        String result = myBean.getName();
+
+        return result;
     }
 
 }
