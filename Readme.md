@@ -32,6 +32,8 @@ You may also package the application in the form of a jar and then run the jar f
 ```bash
 mvn clean package
 java -jar target/file-demo-0.0.1-SNAPSHOT.jar
+java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080
+java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
 ```
 
 ## Test it
@@ -44,7 +46,7 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 
 ![setup_postman](./images/PostManTest.png?raw=true)
 
-**1. with Post Man for mulitple files**
+**1. with Post Man for multiple files**
 
 ![setup_postman](./images/PostManMultipleTest.png?raw=true)
 
@@ -131,3 +133,9 @@ JMeter Timer Explained [link](https://www.blazemeter.com/blog/comprehensive-guid
 JMeter Constant Throughput Timer [link](http://jmeter.apache.org/usermanual/component_reference.html#Constant_Throughput_Timer)
 
 JMeter Run Thread Groups sequentially - [link](https://newbedev.com/running-multiple-thread-groups-sequentially-in-jmeter)
+
+SSH Connection With Java [link](https://www.baeldung.com/java-ssh-connection)
+
+Spring Boot - Overriding one application.property from command line [link](https://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/html/boot-features-external-config.html)
+
+Command-Line Arguments in Spring Boot

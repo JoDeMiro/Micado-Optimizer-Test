@@ -1,5 +1,6 @@
 package com.example.filedemo.controller;
 
+import com.example.filedemo.beans.MyBean;
 import com.example.filedemo.computation.cpu.Fibonnaci;
 import com.example.filedemo.computation.io.FileSizeCalc;
 import com.example.filedemo.responses.CpuResponse;
@@ -23,6 +24,9 @@ public class RestConroller {
 
     @Autowired
     FileSizeCalc fileSizeCalc = new FileSizeCalc();
+
+    @Autowired
+    MyBean myBean = new MyBean();
 
     @GetMapping("/wait")
     public List<String> wait(HttpServletRequest request) {
@@ -125,6 +129,14 @@ public class RestConroller {
             e.printStackTrace();
         }
         return results;
+    }
+
+    @GetMapping("/helloMyBean")
+    public String helloMyBean() {
+
+        myBean.run();
+
+        return null;
     }
 
 }
