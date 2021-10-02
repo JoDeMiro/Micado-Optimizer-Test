@@ -1,16 +1,16 @@
 package com.example.filedemo.responses;
 
-public class CpuResponse {
+public class IoResponse {
 
     String name;
     String parameter;
     Long returnValue;
     Long executionTime;
 
-    public CpuResponse() {
+    public IoResponse() {
     }
 
-    public CpuResponse(String name, String parameter, Long returnValue, Long executionTime) {
+    public IoResponse(String name, String parameter, Long returnValue, Long executionTime) {
         this.name = name;
         this.parameter = parameter;
         this.returnValue = returnValue;
@@ -51,7 +51,7 @@ public class CpuResponse {
 
     @Override
     public String toString() {
-        return "CpuResponse{" +
+        return "IoResponse{" +
                 "name='" + name + '\'' +
                 ", parameter='" + parameter + '\'' +
                 ", returnValue=" + returnValue +

@@ -11,28 +11,28 @@ public class Fibonnaci {
             return fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.ONE).subtract(BigInteger.ONE)));
     }
 
-    public static Integer run(int number) throws ExecutionException, InterruptedException {
+    public static Long run(int number) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-        Integer sum = 0;
+        Long sum = 0L;
 
         for (int j = 0; j < 10; j++) {
             final int ID = j;
 
-            Future<Integer> submit = executorService.submit(new Callable<Integer>() {
+            Future<Long> submit = executorService.submit(new Callable<Long>() {
                 @Override
-                public Integer call() throws Exception {
-                    Integer result = 0;
+                public Long call() throws Exception {
+                    Long result = 0L;
                     for (int i = 0; i < number; i++) {
                         BigInteger fib = fib(new BigInteger(String.valueOf(i)));
                         System.out.println(ID + " worker: " + i + ": " + fib);
-                        result = fib.intValue();
+                        result = fib.longValue();
                     }
                     return result;
                 }
             });
 
-            Integer result = submit.get();
+            Long result = submit.get();
             sum += result;
         }
         System.out.println("Sum = " + sum);

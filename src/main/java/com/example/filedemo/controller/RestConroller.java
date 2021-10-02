@@ -2,8 +2,10 @@ package com.example.filedemo.controller;
 
 import com.example.filedemo.beans.MyBean;
 import com.example.filedemo.computation.cpu.Fibonnaci;
+import com.example.filedemo.computation.cpu.Prime;
 import com.example.filedemo.computation.io.FileSizeCalc;
 import com.example.filedemo.responses.CpuResponse;
+import com.example.filedemo.responses.IoResponse;
 import com.example.filedemo.responses.WaitResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,8 +83,11 @@ public class RestConroller {
         long start = System.currentTimeMillis();
 
         Fibonnaci fibonnaci = new Fibonnaci();
+
+        Long result = 0L;
+
         try {
-            fibonnaci.run(Integer.parseInt(number));
+            result = fibonnaci.run(Integer.parseInt(number));
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -90,26 +95,43 @@ public class RestConroller {
         }
 
         long stop = System.currentTimeMillis();
-        long timeElapsed = stop - start;
+        long elapsedTime = stop - start;
 
         System.out.println("start        = " + start);
         System.out.println("stop         = " + stop);
-        System.out.println("elapsed (ms) = " + timeElapsed);
+        System.out.println("elapsed (ms) = " + elapsedTime);
 
-        CpuResponse response = new CpuResponse(timeElapsed, number, "CPU GET Request");
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
 
         return response;
     }
 
+    @GetMapping("/cpu/prime/{number}")
+    public CpuResponse prime(@PathVariable String number) {
+
+        // Start 10 executors
+
+        Prime prime = new Prime();
+
+        CpuResponse results = null;
+
+        try {
+            final CpuResponse result = prime.run(Integer.parseInt(number));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
     @GetMapping("/io/1/{path}")
-    public String directorySize(@PathVariable String path) {
+    public IoResponse directorySize(@PathVariable String path) {
 
         FileSizeCalc fileSizeCalc = new FileSizeCalc();
 
-        String results = null;
+        IoResponse results = null;
 
         try {
-            final String result = fileSizeCalc.run(10, "c:\\winutils-master");
+            final IoResponse result = fileSizeCalc.run(10, "c:\\winutils-master");
             results = result;
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,12 +140,12 @@ public class RestConroller {
     }
 
     @GetMapping("/io/2/{path}")
-    public String directorySizeAutowired(@PathVariable String path) {
+    public IoResponse directorySizeAutowired(@PathVariable String path) {
 
-        String results = null;
+        IoResponse results = null;
 
         try {
-            final String result = fileSizeCalc.run(10, "c:\\winutils-master");
+            final IoResponse result = fileSizeCalc.run(10, "c:\\winutils-master");
             results = result;
         } catch (Exception e) {
             e.printStackTrace();

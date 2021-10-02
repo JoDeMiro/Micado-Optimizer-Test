@@ -1,6 +1,6 @@
 package com.example.filedemo.computation.io;
 
-import org.springframework.context.annotation.Bean;
+import com.example.filedemo.responses.IoResponse;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -75,7 +75,7 @@ public class FileSizeCalc {
         }
     }
 
-    public String run(int iteration, String folderPath) throws Exception {
+    public IoResponse run(int iteration, String folderPath) throws Exception {
         long sum = 0;
         long elapsedTime = 0;
         for (int i = 0; i < iteration; i++) {
@@ -84,10 +84,12 @@ public class FileSizeCalc {
             sum += total;
             final long end = System.currentTimeMillis();
             elapsedTime += (end - start);
-            System.out.format("Folder size: %dMB%n" , total/(1024*1024));
-            System.out.format("Time spent: %.3fs%n" , (end - start)/1.0e3);
+            System.out.format("Folder size    = %dMB%n" , total/(1024*1024));
+            System.out.format("Execution time = %.3fs%n" , (end - start)/1.0e3);
         }
-        String result = "Result (MB = " + sum / (1024 * 1024) +  "\n " + "Elapsed Time = " + elapsedTime;
-        return result;
+
+        IoResponse response = new IoResponse("IoResponse", folderPath, sum / (1024 * 1024), elapsedTime);
+        System.out.println(response);
+        return response;
     }
 }
