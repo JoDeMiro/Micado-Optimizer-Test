@@ -4,7 +4,9 @@ import com.example.filedemo.beans.MyBean;
 import com.example.filedemo.computation.cpu.Fibonnaci;
 import com.example.filedemo.computation.cpu.Prime;
 import com.example.filedemo.computation.io.FileSizeCalc;
+import com.example.filedemo.computation.memory.StringSizeCalc;
 import com.example.filedemo.responses.CpuResponse;
+import com.example.filedemo.responses.GenericResponse;
 import com.example.filedemo.responses.IoResponse;
 import com.example.filedemo.responses.WaitResponse;
 import org.slf4j.Logger;
@@ -26,6 +28,9 @@ public class RestConroller {
 
     @Autowired
     FileSizeCalc fileSizeCalc = new FileSizeCalc();
+
+    @Autowired
+    StringSizeCalc stringSizeCalc = new StringSizeCalc();
 
     @Autowired
     MyBean myBean = new MyBean();
@@ -146,6 +151,22 @@ public class RestConroller {
 
         try {
             final IoResponse result = fileSizeCalc.run(10, "c:\\winutils-master");
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    @GetMapping("/memory/1/{number}")
+    public GenericResponse stringSizeCalc(@PathVariable String number) {
+
+        StringSizeCalc stringSizeCalc = new StringSizeCalc();
+
+        GenericResponse results = null;
+
+        try {
+            final GenericResponse result = stringSizeCalc.run(Integer.parseInt(number));
             results = result;
         } catch (Exception e) {
             e.printStackTrace();

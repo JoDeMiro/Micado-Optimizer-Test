@@ -120,6 +120,14 @@ number is unconnected - but necessary for later use (ToDo: param is hardcoded).
 curl -v http://localhost:8080/io/2/{number}
 ```
 
+**String length size [memory] {int number}**
+
+```bash
+curl -v http://localhost:8080/memory/1/{number}
+```
+
+
+
 
 ## ToDo
 
@@ -151,3 +159,5 @@ SSH Connection With Java [link](https://www.baeldung.com/java-ssh-connection)
 Spring Boot - Overriding one application.property from command line [link](https://docs.spring.io/spring-boot/docs/1.4.1.RELEASE/reference/html/boot-features-external-config.html)
 
 Command-Line Arguments in Spring Boot
+
+Cikkhez - [link](https://programmer.group/two-concurrent-types-of-java-computing-intensive-and-io-intensive.html)
