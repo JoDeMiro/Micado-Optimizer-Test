@@ -1286,7 +1286,7 @@
           <collectionProp name="Arguments.arguments">
             <elementProp name="Wait_JMeter" elementType="Argument">
               <stringProp name="Argument.name">Wait_JMeter</stringProp>
-              <stringProp name="Argument.value">5000</stringProp>
+              <stringProp name="Argument.value">200</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
           </collectionProp>
