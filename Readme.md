@@ -37,6 +37,17 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanN
 java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
 ```
 
+Override the Apache Tom Cat Web Server Thread Pool Size
+
+```bash
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName" --server.tomcat.max-threads=1
+```
+
+```bash
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName" --server.tomcat.max-threads=1000
+```
+
+
 ## New | Future | Notes
 
 New application.properties 'name' has been connected to the the com.example.beans.MyBean name property field.
@@ -172,7 +183,7 @@ curl -v http://localhost:8080/network/2/
 curl -v localhost:8080/memory-status
 ```
 
-**Spring Info**
+**Spring Info - See the maximum available threads in tomcat web server**
 
 ```bash
 curl -v http://localhost:8080/info
