@@ -172,7 +172,19 @@ curl -v http://localhost:8080/network/2/
 curl -v localhost:8080/memory-status
 ```
 
+**Spring Info**
 
+```bash
+curl -v http://localhost:8080/info
+```
+
+
+
+## JMeter from command line
+
+```bash
+jmeter -n -t Localhost8.jmx -l testresult.jtl
+```
 
 
 
@@ -214,4 +226,11 @@ Spring Boot Setting a Request Timeout [link](https://www.baeldung.com/spring-res
 Spring Boot Disable Caching [link](https://www.yawintutor.com/spring-boot-how-to-enable-and-disable-cache)
 
 Spring Boot Set Memory [link](https://www.baeldung.com/spring-boot-heap-size)
+
+Spring Boot Control the threads [link](https://spring.io/blog/2015/12/10/spring-boot-memory-performance)
+
+JMeter run command line and read the results [link](https://blog.e-zest.com/how-to-run-jmeter-in-non-gui-mode/)
+
+Spring Boot Memory Performance [link](https://spring.io/blog/2015/12/10/spring-boot-memory-performance)
+
 

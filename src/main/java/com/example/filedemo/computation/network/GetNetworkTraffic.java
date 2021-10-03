@@ -26,7 +26,7 @@ public class GetNetworkTraffic {
         elapsedTime += (end - start);
 
         NetworkResponse response = new NetworkResponse("NetworkResponse", number, memory, elapsedTime, createNetworkData.getList());
-        System.out.println(response);
+        // System.out.println(response);
         return response;
     }
 }
