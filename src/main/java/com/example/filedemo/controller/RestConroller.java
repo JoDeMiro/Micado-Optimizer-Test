@@ -6,7 +6,9 @@ import com.example.filedemo.computation.cpu.Fibonnaci;
 import com.example.filedemo.computation.cpu.Prime;
 import com.example.filedemo.computation.io.FileSizeCalc;
 import com.example.filedemo.computation.memory.StringSizeCalc;
+import com.example.filedemo.computation.network.CreateNetworkData;
 import com.example.filedemo.computation.network.GenerateNetworkTraffic;
+import com.example.filedemo.computation.network.GetNetworkTraffic;
 import com.example.filedemo.responses.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,9 @@ public class RestConroller {
 
     @Autowired
     GenerateNetworkTraffic generateNetworkTraffic = new GenerateNetworkTraffic();
+
+    @Autowired
+    private static final CreateNetworkData createNetworkData = new CreateNetworkData(20000);
 
     @Autowired
     MyBean myBean = new MyBean();
@@ -236,6 +241,51 @@ public class RestConroller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return results;
+    }
+
+    // Itt is az a lényeg, hogy egy példányból kéri el az adatokat és nem hozza őket létre újra és újra
+    @GetMapping("/network/1/2/{number}")
+    public NetworkResponse getNetworkTrafficAutowired(@PathVariable int number) {
+
+        /*
+        NetworkResponse results = null;
+
+        try {
+            final NetworkResponse result = createNetworkData.run(number);
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        long elapsedTime = 0;
+        final long start = System.currentTimeMillis();
+
+        ArrayList<String> dataList = this.createNetworkData.getList();
+
+        final long end = System.currentTimeMillis();
+        elapsedTime += (end - start);
+
+        NetworkResponse results = new NetworkResponse("NetworkResponse", 1, 1, elapsedTime, dataList);
+
+        return results;
+    }
+
+    // Itt a run method megkapja createNetworkData példányt és nem hozaz létre újra és újra
+    @GetMapping("/network/2")
+    public NetworkResponse one() {
+
+        GetNetworkTraffic getNetworkTraffic = new GetNetworkTraffic();
+
+        NetworkResponse results = null;
+
+        try {
+            final NetworkResponse result = getNetworkTraffic.run(createNetworkData, 0, false);
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return results;
     }
 

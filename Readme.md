@@ -34,6 +34,7 @@ mvn clean package
 java -jar target/file-demo-0.0.1-SNAPSHOT.jar
 java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080
 java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
 ```
 
 ## New | Future | Notes
@@ -154,6 +155,25 @@ Create a final singleton instance when application started
 curl -v http://localhost:8080/network/2/{number}/{boolean}
 ```
 
+## REST API - Singleton data access
+
+**Network**
+
+```bash
+curl -v http://localhost:8080/network/2/
+```
+
+
+## REST API
+
+**Memory Status (in MB)**
+
+```bash
+curl -v localhost:8080/memory-status
+```
+
+
+
 
 
 ## ToDo
@@ -192,3 +212,6 @@ Cikkhez - [link](https://programmer.group/two-concurrent-types-of-java-computing
 Spring Boot Setting a Request Timeout [link](https://www.baeldung.com/spring-rest-timeout)
 
 Spring Boot Disable Caching [link](https://www.yawintutor.com/spring-boot-how-to-enable-and-disable-cache)
+
+Spring Boot Set Memory [link](https://www.baeldung.com/spring-boot-heap-size)
+
