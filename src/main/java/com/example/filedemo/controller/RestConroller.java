@@ -1,6 +1,7 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.beans.MyBean;
+import com.example.filedemo.computation.memory.MyBeanCalc;
 import com.example.filedemo.computation.cpu.Fibonnaci;
 import com.example.filedemo.computation.cpu.Prime;
 import com.example.filedemo.computation.io.FileSizeCalc;
@@ -31,6 +32,9 @@ public class RestConroller {
 
     @Autowired
     StringSizeCalc stringSizeCalc = new StringSizeCalc();
+
+    @Autowired
+    MyBeanCalc myBeanCalc = new MyBeanCalc();
 
     @Autowired
     MyBean myBean = new MyBean();
@@ -158,7 +162,7 @@ public class RestConroller {
         return results;
     }
 
-    @GetMapping("/memory/1/{number}")
+    @GetMapping("/memory/string/1/{number}")
     public GenericResponse stringSizeCalc(@PathVariable String number) {
 
         StringSizeCalc stringSizeCalc = new StringSizeCalc();
@@ -167,6 +171,36 @@ public class RestConroller {
 
         try {
             final GenericResponse result = stringSizeCalc.run(Integer.parseInt(number));
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    @GetMapping("/memory/beans/1/{number}/{withGC}")
+    public GenericResponse myBeanCalc(@PathVariable int number, @PathVariable boolean withGC) {
+
+        MyBeanCalc myBeanCalc = new MyBeanCalc();
+
+        GenericResponse results = null;
+
+        try {
+            final GenericResponse result = myBeanCalc.memoryTest(number, withGC);
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    @GetMapping("/memory/beans/2/{number}/{withGC}")
+    public GenericResponse myBeanCalcAutowired(@PathVariable int number, @PathVariable boolean withGC) {
+
+        GenericResponse results = null;
+
+        try {
+            final GenericResponse result = myBeanCalc.memoryTest(number, withGC);
             results = result;
         } catch (Exception e) {
             e.printStackTrace();

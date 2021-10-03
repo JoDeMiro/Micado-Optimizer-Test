@@ -19,7 +19,6 @@ public class Prime {
         return isPrime;
     }
 
-
     public static CpuResponse run(int max_number) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 

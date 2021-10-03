@@ -123,7 +123,21 @@ curl -v http://localhost:8080/io/2/{number}
 **String length size [memory] {int number}**
 
 ```bash
-curl -v http://localhost:8080/memory/1/{number}
+curl -v http://localhost:8080/memory/string/1/{number}
+```
+
+**MyBean list filler [memory] {int number}/{boolean withGC}**
+
+Every time creates a new instance when GET request is called
+
+```bash
+curl -v http://localhost:8080/memory/beans/1/{number}/{boolean}
+```
+
+Create a final singleton instance when application started
+
+```bash
+curl -v http://localhost:8080/memory/beans/2/{number}/{boolean}
 ```
 
 
