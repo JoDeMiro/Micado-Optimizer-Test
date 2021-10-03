@@ -140,6 +140,19 @@ Create a final singleton instance when application started
 curl -v http://localhost:8080/memory/beans/2/{number}/{boolean}
 ```
 
+**GenerateNetworkTraffic [network] {int number}/{boolean withGC}**
+
+Every time creates a new instance when GET request is called
+
+```bash
+curl -v http://localhost:8080/network/1/{number}/{boolean}
+```
+
+Create a final singleton instance when application started
+
+```bash
+curl -v http://localhost:8080/network/2/{number}/{boolean}
+```
 
 
 
@@ -175,3 +188,7 @@ Spring Boot - Overriding one application.property from command line [link](https
 Command-Line Arguments in Spring Boot
 
 Cikkhez - [link](https://programmer.group/two-concurrent-types-of-java-computing-intensive-and-io-intensive.html)
+
+Spring Boot Setting a Request Timeout [link](https://www.baeldung.com/spring-rest-timeout)
+
+Spring Boot Disable Caching [link](https://www.yawintutor.com/spring-boot-how-to-enable-and-disable-cache)

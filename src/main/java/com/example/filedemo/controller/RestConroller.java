@@ -6,10 +6,8 @@ import com.example.filedemo.computation.cpu.Fibonnaci;
 import com.example.filedemo.computation.cpu.Prime;
 import com.example.filedemo.computation.io.FileSizeCalc;
 import com.example.filedemo.computation.memory.StringSizeCalc;
-import com.example.filedemo.responses.CpuResponse;
-import com.example.filedemo.responses.GenericResponse;
-import com.example.filedemo.responses.IoResponse;
-import com.example.filedemo.responses.WaitResponse;
+import com.example.filedemo.computation.network.GenerateNetworkTraffic;
+import com.example.filedemo.responses.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +33,9 @@ public class RestConroller {
 
     @Autowired
     MyBeanCalc myBeanCalc = new MyBeanCalc();
+
+    @Autowired
+    GenerateNetworkTraffic generateNetworkTraffic = new GenerateNetworkTraffic();
 
     @Autowired
     MyBean myBean = new MyBean();
@@ -201,6 +202,36 @@ public class RestConroller {
 
         try {
             final GenericResponse result = myBeanCalc.memoryTest(number, withGC);
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    @GetMapping("/network/1/{number}/{withGC}")
+    public NetworkResponse generateNetworkTraffic(@PathVariable int number, @PathVariable boolean withGC) {
+
+        GenerateNetworkTraffic generateNetworkTraffic = new GenerateNetworkTraffic();
+
+        NetworkResponse results = null;
+
+        try {
+            final NetworkResponse result = generateNetworkTraffic.run(number, withGC);
+            results = result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    @GetMapping("/network/2/{number}/{withGC}")
+    public NetworkResponse generateNetworkTrafficAutowired(@PathVariable int number, @PathVariable boolean withGC) {
+
+        NetworkResponse results = null;
+
+        try {
+            final NetworkResponse result = generateNetworkTraffic.run(number, withGC);
             results = result;
         } catch (Exception e) {
             e.printStackTrace();
