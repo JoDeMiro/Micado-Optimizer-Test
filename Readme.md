@@ -285,6 +285,12 @@ Spring Kubernetes Install [link](https://docs.spring.io/spring-boot/docs/current
 
 Spring AWS with Boxfuse [link](https://boxfuse.com/blog/spring-boot-ec2.html)
 
+## Monitoring
+
+Wavefront Dashboard 30-day trial [link](https://docs.wavefront.com/wavefront_springboot.html)
+
+Get API Access - https://longboard.wavefront.com/userprofile/apiaccess
+
 
 ## Kubernetes
 
