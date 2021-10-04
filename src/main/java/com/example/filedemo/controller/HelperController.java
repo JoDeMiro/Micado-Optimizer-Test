@@ -3,8 +3,10 @@ package com.example.filedemo.controller;
 import com.example.filedemo.beans.InfoBean;
 import com.example.filedemo.beans.MemoryStats;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class HelperController {
@@ -29,6 +31,13 @@ public class HelperController {
 
         return infoBean;
 
+    }
+
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public Map<String, Object> hello(@RequestParam(value = "name", defaultValue = "Micado-Tester_service") String name) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("greeting", "Hello " + name + "!");
+        return result;
     }
 
 }

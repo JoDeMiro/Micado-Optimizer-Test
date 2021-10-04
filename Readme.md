@@ -272,6 +272,8 @@ Spring Application Properties [link](https://docs.spring.io/spring-boot/docs/cur
 
 Spring Kubernetes Install [link](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#deployment.cloud.kubernetes)
 
+Spring AWS with Boxfuse [link](https://boxfuse.com/blog/spring-boot-ec2.html)
+
 
 ## Kubernetes
 
