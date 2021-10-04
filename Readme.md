@@ -104,6 +104,17 @@ curl -F "files=@1.jpg" -F "files=@2.jpg" -F "files=@3.jpg" localhost:8080/upload
 
 ## REST API
 
+**Health check**
+
+```bash
+curl -v localhost:8080/actuator
+
+curl -v localhost:8080/actuator/health
+```
+
+
+## REST API
+
 **Wait (fix 1000 ms)**
 
 ```bash
