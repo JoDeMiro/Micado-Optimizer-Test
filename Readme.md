@@ -198,6 +198,19 @@ jmeter -n -t Localhost8.jmx -l testresult.jtl
 ```
 
 
+## Good combination
+
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName" --server.tomcat.max-threads=1
+
+jmeter -n -t Localhost9.jmx -l testresultXX.jtl
+
+Threshold_up = 100~300ms
+
+jmeter -n -t Localhost8Ultimate.jmx -l testresultXX.jtl
+
+Threshold_up = 100~300ms
+
+
 
 ## ToDo
 
@@ -243,5 +256,7 @@ Spring Boot Control the threads [link](https://spring.io/blog/2015/12/10/spring-
 JMeter run command line and read the results [link](https://blog.e-zest.com/how-to-run-jmeter-in-non-gui-mode/)
 
 Spring Boot Memory Performance [link](https://spring.io/blog/2015/12/10/spring-boot-memory-performance)
+
+JMeter command line tricks and tipps [link](https://www.blazemeter.com/blog/9-easy-solutions-jmeter-load-test-%E2%80%9Cout-memory%E2%80%9D-failure)
 
 
