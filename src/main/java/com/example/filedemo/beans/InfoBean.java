@@ -12,6 +12,8 @@ public class InfoBean {
     private String serverTomcatMaxThreads;
     @Value("${file.upload-dir}")
     private String fileUploadDir;
+    // @Value("${spring.task.execution.pool.max-size}")
+    // private String springTaskExecutionPoolMaxSize;
 
     public String getName() {
         return name;
@@ -37,12 +39,21 @@ public class InfoBean {
         this.fileUploadDir = fileUploadDir;
     }
 
+    // public String getSpringTaskExecutionPoolMaxSize() {
+    //     return springTaskExecutionPoolMaxSize;
+    // }
+
+    // public void setSpringTaskExecutionPoolMaxSize(String springTaskExecutionPoolMaxSize) {
+    //     this.springTaskExecutionPoolMaxSize = springTaskExecutionPoolMaxSize;
+    // }
+
     @Override
     public String toString() {
         return "InfoBean{" +
                 "name='" + name + '\'' +
                 ", serverTomcatMaxThreads='" + serverTomcatMaxThreads + '\'' +
                 ", fileUploadDir='" + fileUploadDir + '\'' +
+                //          ", springTaskExecutionPoolMaxSize='" + springTaskExecutionPoolMaxSize + '\'' +
                 '}';
     }
 }

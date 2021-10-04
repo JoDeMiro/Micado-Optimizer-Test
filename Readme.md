@@ -197,6 +197,13 @@ curl -v http://localhost:8080/info
 jmeter -n -t Localhost8.jmx -l testresult.jtl
 ```
 
+**Super useful dashboard - testresult<id>.jtl should be unique from time to time**
+
+```bash
+jmeter -n -t Localhost9.jmx -l testresultXX.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export
+```
+
+
 
 ## Good combination
 
@@ -259,4 +266,5 @@ Spring Boot Memory Performance [link](https://spring.io/blog/2015/12/10/spring-b
 
 JMeter command line tricks and tipps [link](https://www.blazemeter.com/blog/9-easy-solutions-jmeter-load-test-%E2%80%9Cout-memory%E2%80%9D-failure)
 
+Spring Threads - ! - Super Useful [link](https://stackoverflow.com/questions/39002090/spring-boot-limit-on-number-of-connections-created)
 
