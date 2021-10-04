@@ -268,3 +268,32 @@ JMeter command line tricks and tipps [link](https://www.blazemeter.com/blog/9-ea
 
 Spring Threads - ! - Super Useful [link](https://stackoverflow.com/questions/39002090/spring-boot-limit-on-number-of-connections-created)
 
+Spring Application Properties [link](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
+
+Spring Kubernetes Install [link](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#deployment.cloud.kubernetes)
+
+
+## Kubernetes
+
+Read this [link](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#deployment.cloud.kubernetes)
+
+```
+spec:
+  containers:
+  - name: example-container
+    image: example-image
+    lifecycle:
+      preStop:
+        exec:
+          command: ["sh", "-c", "sleep 10"]
+```
+
+
+## AWS
+
+Read this [link](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#deployment.cloud.aws)
+
+Read this [link](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#deployment.cloud.aws.beanstalk)
+
+Test on AWS single jar [test it](https://exampledriven.wordpress.com/2017/01/09/spring-boot-aws-elastic-beanstalk-example)
+
