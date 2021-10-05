@@ -39,16 +39,6 @@ java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8
 
 If WaveFront is installed - otherwise it will not work - Api token should be replaced!
 
-```bash
-java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar ^
- --server.port=8080 \
- --name="MyBean is multiplied" \
- --server.tomcat.max-threads=1 \
- --wavefront.application.name="micadoSecond" \
- --wavefront.application.service="EndpointSecond" \
- --management.metrics.export.wavefront.api-token=fdd01257-fdb4-4cad-a9d3-70682*******
-```
-
 ```shell
 java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar ^
  --server.port=8080 ^
@@ -66,10 +56,6 @@ java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8
 ```
 
 ```bash
-java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName" --server.tomcat.max-threads=1000
-```
-
-```shell
 java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName" --server.tomcat.max-threads=1000
 ```
 
