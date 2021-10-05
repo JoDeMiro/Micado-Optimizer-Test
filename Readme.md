@@ -40,8 +40,8 @@ java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8
 Override the Apache Tom Cat Web Server Thread Pool Size
 
 ```bash
-java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --server.tomcat.max-threads=1
-java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --server.tomcat.max-threads=1000
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.tomcat.max-threads=1
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.tomcat.max-threads=1000
 ```
 
 If WaveFront is installed - otherwise it will not work - Api token should be replaced!
