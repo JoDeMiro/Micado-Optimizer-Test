@@ -37,6 +37,13 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanN
 java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
 ```
 
+Override the Apache Tom Cat Web Server Thread Pool Size
+
+```bash
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --server.tomcat.max-threads=1
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --server.tomcat.max-threads=1000
+```
+
 If WaveFront is installed - otherwise it will not work - Api token should be replaced!
 
 ```shell
@@ -49,15 +56,7 @@ java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar ^
  --management.metrics.export.wavefront.api-token=fdd01257-fdb4-4cad-a9d3-70682*******
 ```
 
-Override the Apache Tom Cat Web Server Thread Pool Size
 
-```bash
-java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName" --server.tomcat.max-threads=1
-```
-
-```bash
-java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName" --server.tomcat.max-threads=1000
-```
 
 ## New | Future | Notes
 
@@ -71,6 +70,7 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanN
 ```
 
 This Bean is accessible via http://localhost:{port}/helloMyBean
+
 
 ## Test it
 
