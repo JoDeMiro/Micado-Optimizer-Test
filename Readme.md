@@ -291,6 +291,8 @@ Wavefront Dashboard 30-day trial [link](https://docs.wavefront.com/wavefront_spr
 
 Get API Access - https://longboard.wavefront.com/userprofile/apiaccess
 
+Wavefront SpringBoot setup [link](https://longboard.wavefront.com/integration/springboot/setup)
+
 
 ## Kubernetes
 
