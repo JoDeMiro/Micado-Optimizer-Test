@@ -42,9 +42,6 @@ public class RestConroller {
     @Autowired
     private static final CreateNetworkData createNetworkData = new CreateNetworkData(20000);
 
-    @Autowired
-    MyBean myBean = new MyBean();
-
     @GetMapping("/wait")
     public List<String> wait(HttpServletRequest request) {
         try {
@@ -287,16 +284,6 @@ public class RestConroller {
         }
 
         return results;
-    }
-
-    @GetMapping("/helloMyBean")
-    public String helloMyBean() {
-
-        myBean.run();
-
-        String result = myBean.getName();
-
-        return result;
     }
 
 }
