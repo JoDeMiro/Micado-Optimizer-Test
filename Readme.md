@@ -37,6 +37,13 @@ java -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanN
 java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBeanName"
 ```
 
+If WaveFront is installed - otherwise it will not work
+
+
+```bash
+java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8081 --name="MyBeanName" --server.tomcat.max-threads=1 --wavefront.application.name="micadoSecond" --wavefront.application.service="EndpointSecond"
+```
+
 Override the Apache Tom Cat Web Server Thread Pool Size
 
 ```bash
