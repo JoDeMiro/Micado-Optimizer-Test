@@ -188,6 +188,11 @@ Create a final singleton instance when application started
 curl -v http://localhost:8080/network/2/{number}/{boolean}
 ```
 
+**Queue [queue] (experimental)**
+
+Implements queue theory. It will not responses until previous request has not been processed.
+- queue length, - max thread, - threadPoolSize, keepAliveTime will be adjustable.
+
 ## REST API - Singleton data access
 
 **Network**
@@ -296,6 +301,14 @@ Spring Kubernetes Install [link](https://docs.spring.io/spring-boot/docs/current
 
 Spring AWS with Boxfuse [link](https://boxfuse.com/blog/spring-boot-ec2.html)
 
+Spring Actuator - Super Useful [link](https://howtodoinjava.com/spring-boot/actuator-endpoints-example/)
+
+Spring Endpoints plus Prometheus [link](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html#actuator.endpoints)
+
+Spring Boot Deployment on Cloud [link](https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment)
+
+Spring Boot Maven Plugin [link](https://docs.spring.io/spring-boot/docs/2.5.5/maven-plugin/reference/htmlsingle/)
+
 ## Monitoring
 
 Wavefront Dashboard 30-day trial [link](https://docs.wavefront.com/wavefront_springboot.html)
@@ -303,6 +316,8 @@ Wavefront Dashboard 30-day trial [link](https://docs.wavefront.com/wavefront_spr
 Get API Access - https://longboard.wavefront.com/userprofile/apiaccess
 
 Wavefront SpringBoot setup [link](https://longboard.wavefront.com/integration/springboot/setup)
+
+Java Queue [link](http://tutorials.jenkov.com/java-collections/queue.html)
 
 
 ## Kubernetes
