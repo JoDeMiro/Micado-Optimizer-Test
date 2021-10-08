@@ -2,14 +2,24 @@ package com.example.filedemo.responses;
 
 public class WaitResponse {
 
-    Long waitTime;
     String name;
+    Long waitTime;
+    Long executionTime;
 
     public WaitResponse() {
     }
 
-    public WaitResponse(Long waitTime, String name) {
+    public WaitResponse(String name, Long waitTime, Long executionTime) {
+        this.name = name;
         this.waitTime = waitTime;
+        this.executionTime = executionTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -21,19 +31,20 @@ public class WaitResponse {
         this.waitTime = waitTime;
     }
 
-    public String getName() {
-        return name;
+    public Long getExecutionTime() {
+        return executionTime;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setExecutionTime(Long executionTime) {
+        this.executionTime = executionTime;
     }
 
     @Override
     public String toString() {
         return "WaitResponse{" +
-                "waitTime=" + waitTime +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", waitTime=" + waitTime +
+                ", executionTime=" + executionTime +
                 '}';
     }
 }

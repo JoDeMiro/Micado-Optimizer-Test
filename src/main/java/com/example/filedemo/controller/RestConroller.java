@@ -59,30 +59,39 @@ public class RestConroller {
     }
 
     @GetMapping("/wait/{waitTime}")
-    public List<String> wait(@PathVariable String waitTime) {
+    public WaitResponse wait(@PathVariable String waitTime) {
+
+        long start = System.currentTimeMillis();
+
         try {
             Thread.sleep(Long.parseLong(waitTime));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        List<String> list = new ArrayList<>();
-        list.add("response");
-        list.add("wait = " + waitTime);
-        list.add("ok");
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
 
-        return list;
+        WaitResponse response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime);
+
+        return response;
     }
 
     @GetMapping("/waiting/{waitTime}")
     public WaitResponse waiting(@PathVariable String waitTime) {
+
+        long start = System.currentTimeMillis();
+
         try {
             Thread.sleep(Long.parseLong(waitTime));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        WaitResponse response = new WaitResponse(Long.parseLong(waitTime), "hello");
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        WaitResponse response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime);
 
         return response;
     }
