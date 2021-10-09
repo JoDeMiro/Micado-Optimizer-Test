@@ -124,14 +124,15 @@ public class RestConroller {
 
         Prime prime = new Prime();
 
-        CpuResponse results = null;
+        CpuResponse response = null;
 
         try {
-            final CpuResponse result = prime.run(Integer.parseInt(number));
+            response = prime.run(Integer.parseInt(number));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+
+        return response;
     }
 
     @GetMapping("/io/1/{path:.+}/{iteration}")

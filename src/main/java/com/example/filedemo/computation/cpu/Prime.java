@@ -30,15 +30,15 @@ public class Prime {
 
             Future<Long> submit = executorService.submit(new Callable<Long>() {
                 @Override
-                public Long call() throws Exception {
+                public synchronized Long call() throws Exception {
                     Long result = 0L;
                     BigInteger number = BigInteger.ONE;
                     for (int i = 0; i < max_number; i++) {
                         boolean prime = isPrime(number);
-                        System.out.println(ID+" worker: "+number + ": " + prime);
+                        System.out.println(ID+" worker: " + number + ": " + prime);
                         number = number.add(BigInteger.ONE);
                         if (prime) {
-                            result += number.longValue();
+                            result += number.longValue() - 1;
                         }
                     }
                     return result;
