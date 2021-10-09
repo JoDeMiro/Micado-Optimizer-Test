@@ -63,7 +63,7 @@
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/cpu/${Number}</stringProp>
+          <stringProp name="HTTPSampler.path">/cpu/fibonacci/${Number}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -220,7 +220,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_fibonacci_test_1.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_fibonacci_test_LC2_1.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -247,7 +247,7 @@
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/cpu/${Number}</stringProp>
+          <stringProp name="HTTPSampler.path">/cpu/fibonacci/${Number}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -404,7 +404,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_fibonacci_test_2.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_fibonacci_test_LC2_2.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -431,7 +431,7 @@
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/cpu/${Number}</stringProp>
+          <stringProp name="HTTPSampler.path">/cpu/fibonacci/${Number}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -588,7 +588,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_fibonacci_test_3.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_fibonacci_test_LC2_3.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

@@ -221,7 +221,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_1.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_LC5_1.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -405,7 +405,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_2.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_LC5_2.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -589,7 +589,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_3.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_LC5_3.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -773,7 +773,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_4.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_LC5_4.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -957,7 +957,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_5.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\memory\memory_1_test_LC5_5.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

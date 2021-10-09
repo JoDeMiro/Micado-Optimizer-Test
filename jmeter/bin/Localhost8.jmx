@@ -62,16 +62,6 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
-      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Report File Name" enabled="true">
-        <collectionProp name="Arguments.arguments">
-          <elementProp name="File_Name" elementType="Argument">
-            <stringProp name="Argument.name">File_Name</stringProp>
-            <stringProp name="Argument.value">network\network_2_test</stringProp>
-            <stringProp name="Argument.metadata">=</stringProp>
-          </elementProp>
-        </collectionProp>
-      </Arguments>
-      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="[network/2] standard test - 2:1" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -253,7 +243,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_1.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_LC8_1.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -437,7 +427,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_2.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_LC8_2.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -621,7 +611,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_3.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_LC8_3.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -805,7 +795,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_4.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_LC8_4.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -989,7 +979,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_5.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_LC8_5.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -1173,7 +1163,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_6.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_LC8_6.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -1357,7 +1347,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_6.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_LC8_7.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

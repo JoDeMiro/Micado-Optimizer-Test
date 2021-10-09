@@ -12,6 +12,17 @@
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
     </TestPlan>
     <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Report Dir Path" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="Report_Dir_Path" elementType="Argument">
+            <stringProp name="Argument.name">Report_Dir_Path</stringProp>
+            <stringProp name="Argument.value">C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">A könyvtár elérési útja ahová a reportokat írja</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="jp@gc - Ultimate Thread Group" enabled="true">
         <collectionProp name="ultimatethreadgroupdata">
           <collectionProp name="-1386317308">
@@ -82,7 +93,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\testresultXXX.jtl</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\network\network_2_test_Ultimate.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

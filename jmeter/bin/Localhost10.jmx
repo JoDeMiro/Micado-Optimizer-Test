@@ -45,7 +45,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="File_Name" elementType="Argument">
             <stringProp name="Argument.name">File_Name</stringProp>
-            <stringProp name="Argument.value">wait_time_1_test</stringProp>
+            <stringProp name="Argument.value">wait_time_1_test_LC10.csv</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -232,7 +232,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}_1.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\${File_Name}</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

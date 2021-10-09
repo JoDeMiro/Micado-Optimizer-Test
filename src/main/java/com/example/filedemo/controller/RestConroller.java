@@ -94,7 +94,7 @@ public class RestConroller {
         return response;
     }
 
-    @GetMapping("/cpu/{number}")
+    @GetMapping("/cpu/fibonacci/{number}")
     public CpuResponse cpu(@PathVariable String number) {
 
         long start = System.currentTimeMillis();

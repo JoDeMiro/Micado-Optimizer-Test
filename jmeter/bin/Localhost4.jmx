@@ -221,7 +221,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_1.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_LC4_1.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -405,7 +405,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_2.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_LC4_2.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -589,7 +589,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_3.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_LC4_3.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -773,7 +773,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_4.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\cpu\cpu_prime_test_LC4_4.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

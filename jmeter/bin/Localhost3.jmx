@@ -29,6 +29,17 @@
         </collectionProp>
       </Arguments>
       <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Dir_Path @Request Param" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="Dir_Path" elementType="Argument">
+            <stringProp name="Argument.name">Dir_Path</stringProp>
+            <stringProp name="Argument.value">null</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">a REST API-nak átadott paraméter</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Report Dir Path" enabled="true">
         <collectionProp name="Arguments.arguments">
           <elementProp name="Report_Dir_Path" elementType="Argument">
@@ -63,7 +74,7 @@
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/io/2/${Number}</stringProp>
+          <stringProp name="HTTPSampler.path">/io/2/${Dir_Path}/${Number}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -220,7 +231,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_1.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_LC3_1.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -247,7 +258,7 @@
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/io/2/${Number}</stringProp>
+          <stringProp name="HTTPSampler.path">/io/2/${Dir_Path}/${Number}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -404,7 +415,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_2.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_LC3_2.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -431,7 +442,7 @@
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/io/2/${Number}</stringProp>
+          <stringProp name="HTTPSampler.path">/io/2/${Dir_Path}/${Number}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -588,7 +599,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_3.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_LC3_3.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -615,7 +626,7 @@
           <stringProp name="HTTPSampler.port">8080</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">/io/2/${Number}</stringProp>
+          <stringProp name="HTTPSampler.path">/io/2/${Dir_Path}/${Number}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -772,7 +783,7 @@
               <connectTime>true</connectTime>
             </value>
           </objProp>
-          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_4.txt</stringProp>
+          <stringProp name="filename">${Report_Dir_Path}\report\io\io_test_LC3_4.csv</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>

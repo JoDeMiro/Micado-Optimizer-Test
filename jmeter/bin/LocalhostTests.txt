@@ -1,0 +1,15 @@
+jmeter -n -t Localhost1.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost1.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost1
+
+
+jmeter -n -t Localhost2.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost2.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost2
+
+
+jmeter -n -t Localhost3.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost3.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost3
+
+
+jmeter -n -t Localhost4.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost4.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost4
+
+
+jmeter -n -t Localhost5.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost5.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost5
+
+
