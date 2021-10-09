@@ -134,7 +134,7 @@ public class RestConroller {
         return results;
     }
 
-    @GetMapping("/io/1/{iteration}/{path:.+}")
+    @GetMapping("/io/1/{path:.+}/{iteration}")
     public IoResponse directorySize(@PathVariable String path, @PathVariable String iteration) {
 
         FileSizeCalc fileSizeCalc = new FileSizeCalc();
@@ -149,8 +149,8 @@ public class RestConroller {
         return response;
     }
 
-    @GetMapping("/io/2/{iteration}/{path:.+}")
-    public IoResponse directorySizeAutowired(@PathVariable String iteration, @PathVariable String path) {
+    @GetMapping("/io/2/{path:.+}/{iteration}")
+    public IoResponse directorySizeAutowired(@PathVariable String path, @PathVariable String iteration) {
 
         IoResponse results = null;
 
