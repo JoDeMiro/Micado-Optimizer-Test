@@ -13,9 +13,7 @@ import com.example.filedemo.responses.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -99,8 +97,6 @@ public class RestConroller {
     @GetMapping("/cpu/{number}")
     public CpuResponse cpu(@PathVariable String number) {
 
-        // Start 10 executors
-
         long start = System.currentTimeMillis();
 
         Fibonnaci fibonnaci = new Fibonnaci();
@@ -118,10 +114,6 @@ public class RestConroller {
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        System.out.println("start        = " + start);
-        System.out.println("stop         = " + stop);
-        System.out.println("elapsed (ms) = " + elapsedTime);
-
         CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
 
         return response;
@@ -129,8 +121,6 @@ public class RestConroller {
 
     @GetMapping("/cpu/prime/{number}")
     public CpuResponse prime(@PathVariable String number) {
-
-        // Start 10 executors
 
         Prime prime = new Prime();
 
@@ -144,29 +134,28 @@ public class RestConroller {
         return results;
     }
 
-    @GetMapping("/io/1/{path}")
-    public IoResponse directorySize(@PathVariable String path) {
+    @GetMapping("/io/1/{iteration}/{path:.+}")
+    public IoResponse directorySize(@PathVariable String path, @PathVariable String iteration) {
 
         FileSizeCalc fileSizeCalc = new FileSizeCalc();
 
-        IoResponse results = null;
+        IoResponse response = null;
 
         try {
-            final IoResponse result = fileSizeCalc.run(10, "c:\\winutils-master");
-            results = result;
+            response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+        return response;
     }
 
-    @GetMapping("/io/2/{path}")
-    public IoResponse directorySizeAutowired(@PathVariable String path) {
+    @GetMapping("/io/2/{iteration}/{path:.+}")
+    public IoResponse directorySizeAutowired(@PathVariable String iteration, @PathVariable String path) {
 
         IoResponse results = null;
 
         try {
-            final IoResponse result = fileSizeCalc.run(10, "c:\\winutils-master");
+            final IoResponse result = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
             results = result;
         } catch (Exception e) {
             e.printStackTrace();

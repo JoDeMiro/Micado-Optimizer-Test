@@ -146,12 +146,12 @@ number should be less than 30 (it takes least one second to get the response).
 curl -v http://localhost:8080/cpu/{number}
 ```
 
-**Directory size [io] {int number}**
+**Directory size [io] {string dir_path}{int number}**
 
-number is unconnected - but necessary for later use (ToDo: param is hardcoded).
+number is the number of the executed iteration
 
 ```bash
-curl -v http://localhost:8080/io/2/{number}
+curl -v http://localhost:8080/io/2/{dir_path}/{number}
 ```
 
 **String length size [memory] {int number}**

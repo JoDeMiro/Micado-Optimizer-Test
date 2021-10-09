@@ -25,7 +25,7 @@ public class Fibonnaci {
                     Long result = 0L;
                     for (int i = 0; i < number; i++) {
                         BigInteger fib = fib(new BigInteger(String.valueOf(i)));
-                        System.out.println(ID + " worker: " + i + ": " + fib);
+                        // System.out.println(ID + " worker: " + i + ": " + fib);
                         result = fib.longValue();
                     }
                     return result;
