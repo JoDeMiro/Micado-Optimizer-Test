@@ -13,3 +13,63 @@ jmeter -n -t Localhost4.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\rep
 jmeter -n -t Localhost5.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost5.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost5
 
 
+jmeter -n -t Localhost6.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost6.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost6  ( ez még sok szál esetén is kiakad )
+
+
+jmeter -n -t Localhost7.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost7.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost7  ( sok szálon ez simán lefutott )
+
+
+jmeter -n -t Localhost8.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost8.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost8  ( sok szálon ez simán lefuttott és jól meg is hajtotta a procit )
+
+
+jmeter -n -t Localhost8Ultimate.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost8Ultimate.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost8Ultimate  ( sok szálon ez is simán lefutott )
+
+
+jmeter -n -t Localhost9.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost9.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost9  ( sok szálon ez is simán lefutott és jól meg is hajtotta a procit )
+
+
+jmeter -n -t Localhost10queue.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost10queue.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost10queue
+
+--
+
+A Localhost1.jmx csak simán végig próbálja a REST API-k egy részét
+
+jmeter -n -t Localhost1.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost1queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost1queue1thread  ( hiba nélkül lefutott ez a lényeg )
+
+
+jmeter -n -t Localhost2.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost2queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost2queue1thread  ( nem nagyon mozdul meg a cpu bizonyára kevés kérés de a válaszidőben volt elmozdulás 2000ms -> 20000ms )
+
+
+jmeter -n -t Localhost3.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost3queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost3queue1thread  ( cpu szempontból gyönyorűen lépked föl széles spektrumban 0-100 a válaszidő 1000ms -> 20000ms közötti tartományban )
+
+
+jmeter -n -t Localhost4.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost4queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost4queue1thread  ( ezzel igen csak széles sávba lehetett húzni a válaszidőt 2000ms -> 80000ms anélkül, hogy az cpu vagy ram nagyon kiakadt volna ~30% )
+
+
+jmeter -n -t Localhost5.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost5queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost5queue1thread  ( elég magasról indul 400ms -> 4000ms )
+
+
+jmeter -n -t Localhost6.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost6queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost6queue1thread  ( szépen egyenletesen emelkedik a processor használat és a válaszidő is 100ms -> 12000ms )
+
+
+jmeter -n -t Localhost7.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost7queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost7queue1thread ( !! működgetni látszik, de tovább kéne növelni a tesztben a kérések számát, hogy jobban lássam )
+
+
+jmeter -n -t Localhost8.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost8queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost8queue1thread  ( ez is egy szimpatikus futástesztett hozott 50ms -> 3500ms )
+
+
+jmeter -n -t Localhost8Ultimate.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost8Ultimatequeue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost8Ultimatequeue1thread  ( ez is érdekes meg kéne majd nézni hogy mik voltak a válaszidők )
+
+
+jmeter -n -t Localhost9.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost9queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost9queue1thread  ( itt is jók lettek az eredmények utolagosan ki lehet elemezni JMeterben )
+
+
+jmeter -n -t Localhost10.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost10queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost10queue1thread  ( pont úgy működik ahogy kell a későbbi kérések szépen várnak a sorukra )
+
+
+
+
+
+
+
+
