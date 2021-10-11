@@ -47,8 +47,15 @@ public class Initializer {
 
     @Bean
     @Order(1)
-    public static void fak() {
-        File file = new File("C:\\uploads\\");
+    public void clearDirectory() {
+
+        // Unix / Window Problem could be handled here
+
+        Path uploadDirLocation = this.fileStorageService.getFileStorageLocation();
+        System.out.println("fileStorageService.getFileStorageLocation = " + uploadDirLocation);
+
+        // File file = new File("C:\\uploads\\");
+        File file = new File(String.valueOf(uploadDirLocation));
         deleteDirectoryLegacyIO(file);
     }
 

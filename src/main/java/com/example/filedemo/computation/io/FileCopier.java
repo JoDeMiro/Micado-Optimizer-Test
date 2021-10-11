@@ -34,7 +34,6 @@ public class FileCopier {
         System.out.println(" Hello FileCopier run() ");
 
         uploadDirLocation = this.fileStorageService.getFileStorageLocation();
-        System.out.println("--------------------");
         System.out.println(this.uploadDirLocation);
         System.out.println("--------------------");
 
