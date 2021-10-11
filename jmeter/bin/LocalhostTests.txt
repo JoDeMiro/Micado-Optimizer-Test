@@ -30,6 +30,9 @@ jmeter -n -t Localhost9.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\rep
 
 jmeter -n -t Localhost10queue.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost10queue.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost10queue
 
+
+jmeter -n -t Localhost11.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost11.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost11
+
 --
 
 A Localhost1.jmx csak simán végig próbálja a REST API-k egy részét

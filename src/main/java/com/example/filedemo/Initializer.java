@@ -55,7 +55,7 @@ public class Initializer {
 
             // Path targetLocation = Paths.get("C:\\uploads\\5_4096_4096.png");
 
-            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\5_4096_4096.png");
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\4096_4096.png");
 
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -72,7 +72,7 @@ public class Initializer {
 
             // Path targetLocation = Paths.get("C:\\uploads\\6_2048_2048.png");
 
-            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\6_2048_2048.png");
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\2048_2048.png");
 
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -87,7 +87,7 @@ public class Initializer {
 
             // Path targetLocation = Paths.get("C:\\uploads\\7_1024_1024.png");
 
-            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\7_1024_1024.png");
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\1024_1024.png");
 
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -98,9 +98,9 @@ public class Initializer {
         try {
             System.out.println("---------version 8---------------");
 
-            InputStream inputStream = getClass().getResourceAsStream("/install/1024_1024.png");
+            InputStream inputStream = getClass().getResourceAsStream("/install/1024_768.png");
 
-            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\8_1024_1024.png");
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\1024_768.png");
 
             System.out.println("-------------------------------------------------------------------------");
             System.out.println(targetLocation);
