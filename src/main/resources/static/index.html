@@ -4,6 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
         <title>Spring Boot File Upload / Download Rest API Example</title>
         <link rel="stylesheet" href="/css/main.css" />
+
+        <!-- Link Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     </head>
     <body>
         <noscript>
@@ -45,13 +51,31 @@
                     <h3>REST API</h3>
                     <div class="upload-response">
                         <div>
-                            <a href="/actuator">localhost:8080/actuator</a>
+                            <a href="/actuator" data-toggle="popover"
+                               title="Actuator"
+                               data-content="Actuator is the endpoint of the Application Monitoring Interface. To more information click on the link."
+                               data-placement="right"
+                               data-trigger="hover">
+                                localhost:8080/actuator
+                            </a>
                         </div>
                         <div>
-                            <a href="/actuator/health">localhost:8080/actuator/health</a>
+                            <a href="/actuator/health" data-toggle="popover"
+                               title="Health check"
+                               data-content="This is part of the actuator. It shows the state of application."
+                               data-placement="right"
+                               data-trigger="hover">
+                                localhost:8080/actuator/health
+                            </a>
                         </div>
                         <div>
-                            <a href="/wait">localhost:8080/wait</a>
+                            <a href="/wait" data-toggle="popover"
+                               title="Wait"
+                               data-content="Create a thread and hold it for a second before return with the response."
+                               data-placement="right"
+                               data-trigger="hover">
+                                localhost:8080/wait
+                            </a>
                         </div>
                         <div>
                             <a href="/wait/1000">localhost:8080/wait/1000</a>
@@ -75,6 +99,11 @@
                             <a href="/io/2/dir_path/1">localhost:8080/io/2/{dir_path}/{1}</a>
                             <a href="/io/2/dir_path/10">{10}</a>
                             <a href="/io/2/dir_path/50">{50}</a>
+                        </div>
+                        <div>
+                            <a href="/io/copy/1">localhost:8080/io/copy/{1}</a>
+                            <a href="/io/copy/10">{10}</a>
+                            <a href="/io/copy/50">{50}</a>
                         </div>
                         <div>
                             <a href="/memory/string/1/1">localhost:8080/memory/string/1/{1}</a>
@@ -112,6 +141,38 @@
                         <div>
                             <a href="/queue">localhost:8080/queue</a>
                         </div>
+
+
+
+
+
+
+
+
+                        <div>
+                            <div class="container">
+                                <h3>Popover Example</h3>
+                                <ul class="list-inline">
+                                    <li><a href="#" title="Header"
+                                           data-toggle="popover"
+                                           data-placement="top"
+                                           data-content="Content"
+                                           data-trigger="hover">
+                                        JoDeMiro
+                                    </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function(){
+                            $('[data-toggle="popover"]').popover();
+                            });
+                        </script>
+
+
+
                     </div>
                 </div>
             </div>

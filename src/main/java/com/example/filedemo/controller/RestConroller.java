@@ -291,11 +291,13 @@ public class RestConroller {
     private FileStorageService fileStorageService;
 
     @GetMapping("/io/copy/{times}")
-    public void copyTest(@PathVariable int times) {
+    public IoResponse copyTest(@PathVariable int times) {
 
         FileCopier fileCopier = new FileCopier(fileStorageService);
 
-        fileCopier.run(times);
+        IoResponse result = fileCopier.run(times);
+
+        return result;
     }
 
 }

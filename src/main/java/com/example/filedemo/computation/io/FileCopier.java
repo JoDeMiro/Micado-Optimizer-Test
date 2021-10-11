@@ -1,5 +1,6 @@
 package com.example.filedemo.computation.io;
 
+import com.example.filedemo.responses.IoResponse;
 import com.example.filedemo.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +30,16 @@ public class FileCopier {
         this.fileStorageService = fileStorageService;
     }
 
-    public void run(int times) {
+    public IoResponse run(int times) {
 
         System.out.println(" Hello FileCopier run() ");
 
         uploadDirLocation = this.fileStorageService.getFileStorageLocation();
         System.out.println(this.uploadDirLocation);
         System.out.println("--------------------");
+
+        long elapsedTime = 0;
+        final long start = System.currentTimeMillis();
 
 
         for (int i = 0; i < times; i++) {
@@ -51,6 +55,13 @@ public class FileCopier {
                 logger.info("File Not Found");
             }
         }
+
+        final long end = System.currentTimeMillis();
+        elapsedTime += (end - start);
+
+        IoResponse response = new IoResponse("IoResponse > FileCopier", String.valueOf(times), 0L, elapsedTime);
+        System.out.println(response);
+        return response;
 
     }
 

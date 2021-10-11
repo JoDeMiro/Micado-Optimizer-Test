@@ -154,6 +154,14 @@ number is the number of the executed iteration
 curl -v http://localhost:8080/io/2/{dir_path}/{number}
 ```
 
+**Copy files [io] {int times}**
+
+Copy and save a new file n times
+
+```bash
+curl -v http://localhost:8080/io/copy/{times}
+```
+
 **String length size [memory] {int number}**
 
 ```bash
