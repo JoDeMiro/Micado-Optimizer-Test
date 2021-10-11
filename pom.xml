@@ -121,6 +121,7 @@
 				<configuration>
 					<addResources>true</addResources>
 					<executable>true</executable>
+					<mainClass>com.example.filedemo.FileDemoApplication</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

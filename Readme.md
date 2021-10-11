@@ -309,6 +309,12 @@ Spring Boot Deployment on Cloud [link](https://docs.spring.io/spring-boot/docs/c
 
 Spring Boot Maven Plugin [link](https://docs.spring.io/spring-boot/docs/2.5.5/maven-plugin/reference/htmlsingle/)
 
+Spring point to resources folder tutorial [link](https://stackoverflow.com/questions/44399422/read-file-from-resources-folder-in-spring-boot)
+
+Spring this is the only one good solution for JAR Resource problem [link](https://stackoverflow.com/questions/25869428/classpath-resource-not-found-when-running-as-jar)
+
+Spring where is the resource folder after packaging JAR - explanation [link](https://www.baeldung.com/java-classpath-resource-cannot-be-opened)
+
 ## Monitoring
 
 Wavefront Dashboard 30-day trial [link](https://docs.wavefront.com/wavefront_springboot.html)
