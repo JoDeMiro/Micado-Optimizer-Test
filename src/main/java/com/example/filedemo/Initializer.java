@@ -1,6 +1,5 @@
 package com.example.filedemo;
 
-import com.example.filedemo.exception.FileStorageException;
 import com.example.filedemo.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -24,7 +20,6 @@ public class Initializer {
 
     private static final Logger logger = LoggerFactory.getLogger(Initializer.class);
 
-
     @Autowired
     private FileStorageService fileStorageService;
 
@@ -32,8 +27,10 @@ public class Initializer {
     public void setupDownloadFile() {
         System.out.println("Hello Initializer");
 
-        // A letöltés file helye
-        System.out.println();
+        // Unix / Window Problem could be handled here
+
+        Path uploadDirLocation = this.fileStorageService.getFileStorageLocation();
+        System.out.println("fileStorageService.getFileStorageLocation = " + uploadDirLocation);
 
         // From C:\\
         /*
@@ -56,7 +53,10 @@ public class Initializer {
 
             InputStream inputStream = cpr.getInputStream();
 
-            Path targetLocation = Paths.get("C:\\uploads\\5_4096_4096.png");
+            // Path targetLocation = Paths.get("C:\\uploads\\5_4096_4096.png");
+
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\5_4096_4096.png");
+
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
@@ -70,7 +70,10 @@ public class Initializer {
 
             InputStream inputStream = cpr.getInputStream();
 
-            Path targetLocation = Paths.get("C:\\uploads\\6_2048_2048.png");
+            // Path targetLocation = Paths.get("C:\\uploads\\6_2048_2048.png");
+
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\6_2048_2048.png");
+
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
@@ -82,7 +85,26 @@ public class Initializer {
 
             InputStream inputStream = getClass().getResourceAsStream("/install/1024_1024.png");
 
-            Path targetLocation = Paths.get("C:\\uploads\\7_1024_1024.png");
+            // Path targetLocation = Paths.get("C:\\uploads\\7_1024_1024.png");
+
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\7_1024_1024.png");
+
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 8
+        try {
+            System.out.println("---------version 8---------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/1024_1024.png");
+
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\8_1024_1024.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
