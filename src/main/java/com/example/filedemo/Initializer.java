@@ -5,15 +5,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+
 
 @Component
 public class Initializer {
@@ -23,7 +26,34 @@ public class Initializer {
     @Autowired
     private FileStorageService fileStorageService;
 
+    public static void deleteDirectoryLegacyIO(File file) {
+
+        File[] list = file.listFiles();
+        if (list != null) {
+            for (File temp : list) {
+                //recursive delete
+                System.out.println("Visit " + temp);
+                deleteDirectoryLegacyIO(temp);
+            }
+        }
+
+        if (file.delete()) {
+            System.out.printf("Delete : %s%n", file);
+        } else {
+            System.err.printf("Unable to delete file or directory : %s%n", file);
+        }
+
+    }
+
     @Bean
+    @Order(1)
+    public static void fak() {
+        File file = new File("C:\\uploads\\");
+        deleteDirectoryLegacyIO(file);
+    }
+
+    @Bean
+    @Order(2)
     public void setupDownloadFile() {
         System.out.println("Hello Initializer");
 
@@ -31,6 +61,7 @@ public class Initializer {
 
         Path uploadDirLocation = this.fileStorageService.getFileStorageLocation();
         System.out.println("fileStorageService.getFileStorageLocation = " + uploadDirLocation);
+
 
         // From C:\\
         /*

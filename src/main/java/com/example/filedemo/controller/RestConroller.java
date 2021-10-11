@@ -1,6 +1,6 @@
 package com.example.filedemo.controller;
 
-import com.example.filedemo.beans.MyBean;
+import com.example.filedemo.computation.io.FileCopier;
 import com.example.filedemo.computation.memory.MyBeanCalc;
 import com.example.filedemo.computation.cpu.Fibonnaci;
 import com.example.filedemo.computation.cpu.Prime;
@@ -10,6 +10,7 @@ import com.example.filedemo.computation.network.CreateNetworkData;
 import com.example.filedemo.computation.network.GenerateNetworkTraffic;
 import com.example.filedemo.computation.network.GetNetworkTraffic;
 import com.example.filedemo.responses.*;
+import com.example.filedemo.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -267,7 +268,7 @@ public class RestConroller {
         return results;
     }
 
-    // Itt a run method megkapja createNetworkData példányt és nem hozaz létre újra és újra
+    // Itt a run method megkapja createNetworkData példányt és nem hoz létre újra és újra
     @GetMapping("/network/2")
     public NetworkResponse one() {
 
@@ -283,6 +284,18 @@ public class RestConroller {
         }
 
         return results;
+    }
+
+
+    @Autowired
+    private FileStorageService fileStorageService;
+
+    @GetMapping("/io/copy/{times}")
+    public void copyTest(@PathVariable int times) {
+
+        FileCopier fileCopier = new FileCopier(fileStorageService);
+
+        fileCopier.run(times);
     }
 
 }
