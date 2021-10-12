@@ -57,6 +57,15 @@ public class Initializer {
         // File file = new File("C:\\uploads\\");
         File file = new File(String.valueOf(uploadDirLocation));
         deleteDirectoryLegacyIO(file);
+
+        try {
+            System.out.println(" -------------------------------------------------------- ");
+            System.out.println("           DELETE DIRECTORY THREAD SLEEP                  ");
+            System.out.println(" -------------------------------------------------------- ");
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Bean
@@ -68,6 +77,28 @@ public class Initializer {
 
         Path uploadDirLocation = this.fileStorageService.getFileStorageLocation();
         System.out.println("fileStorageService.getFileStorageLocation = " + uploadDirLocation);
+
+        // -------------------------------------------------------------------
+
+        // Create Directory
+        try {
+            // Path path = Paths.get("C:\\uploads");
+            Path path = Paths.get(uploadDirLocation.toString());
+            //java.nio.file.Files;
+            Files.createDirectories(path);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
+        try {
+            System.out.println(" -------------------------------------------------------- ");
+            System.out.println("           CREATE DIRECTORY THREAD SLEEP                  ");
+            System.out.println(" -------------------------------------------------------- ");
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         // From C:\\
@@ -147,6 +178,34 @@ public class Initializer {
         } catch (IOException e) {
             logger.info("File Not Found");
         }
+
+
+
+
+        // -------------------------------------------------------------------
+
+        // Create Directory
+        /*
+        try {
+            Path path = Paths.get("C:\\uploads");
+            //java.nio.file.Files;
+            Files.createDirectories(path);
+            System.out.println("Directory is created!");
+        } catch (IOException e) {
+            System.err.println("Failed to create directory!" + e.getMessage());
+        }
+
+
+        try {
+            System.out.println(" -------------------------------------------------------- ");
+            System.out.println("           CREATE DIRECTORY THREAD SLEEP                  ");
+            System.out.println(" -------------------------------------------------------- ");
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        */
 
     }
 }

@@ -33,7 +33,18 @@ jmeter -n -t Localhost10queue.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\b
 
 jmeter -n -t Localhost11.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost11.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost11
 
---
+
+jmeter -n -t Localhost12.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost12.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost12
+
+
+jmeter -n -t Localhost12MultiThread.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost12MultiThread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost12MultiThread
+
+
+jmeter -n -t Localhost12VariableParam.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost12VariableParam.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost12VariableParam
+
+
+------------------------------------------------------------------
+
 
 A Localhost1.jmx csak simán végig próbálja a REST API-k egy részét
 
@@ -70,7 +81,7 @@ jmeter -n -t Localhost9.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\rep
 jmeter -n -t Localhost10.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost10queue1htread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost10queue1thread  ( pont úgy működik ahogy kell a későbbi kérések szépen várnak a sorukra )
 
 
-
+jmeter -n -t Localhost12SingleThread.jmx -l C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\report\Localhost12SingleThread.jtl -e -o C:\Users\lpds\Desktop\apache-jmeter-5.2.1\bin\export\Localhost12SingleThread
 
 
 
