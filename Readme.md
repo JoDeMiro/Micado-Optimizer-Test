@@ -333,6 +333,12 @@ Wavefront SpringBoot setup [link](https://longboard.wavefront.com/integration/sp
 
 Java Queue [link](http://tutorials.jenkov.com/java-collections/queue.html)
 
+## Prometeus
+
+Connect with Spring [link](https://docs.spring.io/spring-metrics/docs/current/public/prometheus)
+
+Woooow [link](https://www.callicoder.com/spring-boot-actuator-metrics-monitoring-dashboard-prometheus-grafana/)
+
 
 ## Kubernetes
 
