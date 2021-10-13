@@ -62,7 +62,7 @@ public class Initializer {
             System.out.println(" -------------------------------------------------------- ");
             System.out.println("           DELETE DIRECTORY THREAD SLEEP                  ");
             System.out.println(" -------------------------------------------------------- ");
-            Thread.sleep(10000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

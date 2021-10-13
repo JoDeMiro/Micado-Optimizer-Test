@@ -201,6 +201,26 @@ curl -v http://localhost:8080/network/2/{number}/{boolean}
 Implements queue theory. It will not responses until previous request has not been processed.
 - queue length, - max thread, - threadPoolSize, keepAliveTime will be adjustable.
 
+
+**Queue LongPolling [queue] (experimental)**
+
+This method can handle request parallel until the request number reach max.thread set in Tom Cat conf.
+
+```bash
+curl -v http://localhost:8080/queue/bake4/{string bakedGood}/{int bakeTime}
+```
+
+This method does not handle the request parallel but standing them into a queue.
+
+```bash
+curl -v http://localhost:8080/queue/bake4/{string bakedGood}/{int bakeTime}
+```
+
+
+
+
+
+
 ## REST API - Singleton data access
 
 **Network**
