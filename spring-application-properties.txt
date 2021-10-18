@@ -1,0 +1,384 @@
+## Doc
+##
+## https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
+
+
+## Core properties
+
+spring.task.execution.pool.allow-core-thread-timeout=true
+
+Whether core threads are allowed to time out. This enables dynamic growing and shrinking of the pool.
+
+
+
+
+spring.task.execution.pool.core-size=8
+
+Core number of threads.
+
+
+
+
+spring.task.execution.pool.keep-alive=60s
+
+Time limit for which threads may remain idle before being terminated.
+
+
+
+spring.task.execution.pool.max-size=???
+
+Maximum allowed number of threads. If tasks are filling up the queue, the pool can expand up to that size to accommodate the load. Ignored if the queue is unbounded.
+
+
+spring.task.execution.pool.queue-capacity=???
+
+Queue capacity. An unbounded capacity does not increase the pool and therefore ignores the "max-size" property.
+
+
+spring.task.execution.shutdown.await-termination=false
+
+Whether the executor should wait for scheduled tasks to complete on shutdown.
+
+
+spring.task.execution.shutdown.await-termination-period=???
+
+Maximum time the executor should wait for remaining tasks to complete.
+
+
+spring.task.scheduling.pool.size=1
+
+Maximum allowed number of threads.
+
+
+spring.task.scheduling.shutdown.await-termination=false
+
+Whether the executor should wait for scheduled tasks to complete on shutdown.
+
+
+spring.task.scheduling.shutdown.await-termination-period=???
+
+Maximum time the executor should wait for remaining tasks to complete.
+
+
+
+## Cache properties
+
+spring.cache.cache-names=???
+
+Comma-separated list of cache names to create if supported by the underlying cache manager. Usually, this disables the ability to create additional caches on-the-fly.
+
+
+## Data properties
+
+spring.couchbase.env.io.max-endpoints=12
+
+Maximum number of sockets per node.
+
+spring.couchbase.env.io.min-endpoints=12
+
+Minimum number of sockets per node.
+
+
+spring.data.web.pageable.default-page-size=20
+
+Default page size.
+
+
+spring.data.web.pageable.max-page-size=2000
+
+Maximum page size to be accepted.
+
+
+spring.servlet.multipart.max-file-size=1MB
+
+Max file size.
+
+spring.servlet.multipart.max-request-size=10MB
+
+Max request size.
+
+
+spring.session.timeout=??????
+
+Session timeout. If a duration suffix is not specified, seconds will be used.
+
+
+spring.web.resources.cache.cachecontrol.no-store=???????
+
+Indicate to not cache the response in any case.
+
+
+## Templating properties
+
+spring.thymeleaf.cache=true
+
+Whether to enable template caching.
+
+
+## Server properties
+
+server.compression.enabled=false
+
+Whether response compression is enabled.
+
+
+server.port=8080
+
+Server HTTP port.
+
+
+
+server.servlet.session.persistent=false
+
+Whether to persist session data between restarts.
+
+
+server.servlet.session.timeout=30m
+
+Session timeout. If a duration suffix is not specified, seconds will be used.
+
+
+
+## Server properties - TomCat
+
+server.tomcat.accept-count=100
+
+Maximum queue length for incoming connection requests when all possible request processing threads are in use.
+
+
+server.tomcat.accesslog.buffered=true
+
+Whether to buffer output such that it is flushed only periodically.
+
+
+server.tomcat.accesslog.directory=logs
+
+Directory in which log files are created. Can be absolute or relative to the Tomcat base dir.
+
+
+
+server.tomcat.accesslog.enabled=false
+
+Enable access log.
+
+
+
+server.tomcat.background-processor-delay=10s
+
+Delay between the invocation of backgroundProcess methods. If a duration suffix is not specified, seconds will be used.
+
+
+
+server.tomcat.basedir=????
+
+Tomcat base directory. If not specified, a temporary directory is used.
+
+
+
+server.tomcat.keep-alive-timeout=?????
+
+Time to wait for another HTTP request before the connection is closed. When not set the connectionTimeout is used. When set to -1 there will be no timeout.
+
+
+
+server.tomcat.max-connections=8192
+
+Maximum number of connections that the server accepts and processes at any given time. Once the limit has been reached, the operating system may still accept connections based on the "acceptCount" property.
+
+
+
+server.tomcat.max-http-form-post-size=2MB
+
+Maximum size of the form content in any HTTP post request.
+
+
+
+
+server.tomcat.max-keep-alive-requests=100
+
+Maximum number of HTTP requests that can be pipelined before the connection is closed. When set to 0 or 1, keep-alive and pipelining are disabled. When set to -1, an unlimited number of pipelined or keep-alive requests are allowed.
+
+
+
+server.tomcat.processor-cache=200
+
+Maximum number of idle processors that will be retained in the cache and reused with a subsequent request. When set to -1 the cache will be unlimited with a theoretical maximum size equal to the maximum number of connections.
+
+
+server.tomcat.resource.allow-caching=true
+
+Whether static resource caching is permitted for this web application.
+
+
+
+server.tomcat.threads.max=200
+
+Maximum amount of worker threads.
+
+
+server.tomcat.threads.min-spare=10
+
+Minimum amount of worker threads.
+
+
+
+
+## Actuator properties
+
+## Prometheus
+
+management.metrics.export.prometheus.descriptions=true
+
+Whether to enable publishing descriptions as part of the scrape payload to Prometheus. Turn this off to minimize the amount of data sent on each scrape.
+
+management.metrics.export.prometheus.enabled=true
+
+Whether exporting of metrics to Prometheus is enabled.
+
+management.metrics.export.prometheus.histogram-flavor=prometheus
+
+Histogram type for backing DistributionSummary and Timer.
+
+
+management.metrics.export.prometheus.pushgateway.base-url=http://localhost:9091
+
+Base URL for the Pushgateway.
+
+
+
+management.metrics.export.prometheus.pushgateway.enabled=false
+
+Enable publishing via a Prometheus Pushgateway.
+
+
+management.metrics.export.prometheus.pushgateway.grouping-key.*
+
+Grouping key for the pushed metrics.
+
+
+
+management.metrics.export.prometheus.pushgateway.password
+
+Login password of the Prometheus Pushgateway.
+
+
+management.metrics.export.prometheus.pushgateway.push-rate=1m
+
+Frequency with which to push metrics.
+
+
+
+management.metrics.export.prometheus.pushgateway.username
+
+Login user of the Prometheus Pushgateway.
+
+
+
+management.metrics.export.prometheus.step=1m
+
+Step size (i.e. reporting frequency) to use.
+
+
+
+management.metrics.web.client.max-uri-tags=100
+
+Maximum number of unique URI tag values allowed. After the max number of tag values is reached, metrics with additional tag values are denied by filter.
+
+
+management.metrics.web.client.request.autotime.enabled=true
+
+Whether to automatically time web client requests.
+
+
+
+management.metrics.web.client.request.autotime.percentiles
+
+Computed non-aggregable percentiles to publish.
+
+
+management.metrics.web.server.request.autotime.percentiles-histogram=false
+
+Whether percentile histograms should be published.
+
+
+
+management.server.address
+
+Network address to which the management endpoints should bind. Requires a custom management.server.port.
+
+
+
+
+management.server.base-path
+
+Management endpoint base path (for instance, `/management`). Requires a custom management.server.port.
+
+
+
+
+management.server.port
+
+Management endpoint HTTP port (uses the same port as the application by default). Configure a different port to use management-specific SSL.
+
+
+
+
+--------------------------------------------------------------------------
+
+server.tomcat.accept-count=100 # Maximum queue length for incoming connection requests when all possible request processing threads are in use.
+server.tomcat.additional-tld-skip-patterns= # Comma-separated list of additional patterns that match jars to ignore for TLD scanning.
+server.tomcat.background-processor-delay=10s # Delay between the invocation of backgroundProcess methods. If a duration suffix is not specified, seconds will be used.
+server.tomcat.basedir= # Tomcat base directory. If not specified, a temporary directory is used.
+server.tomcat.max-connections=10000 # Maximum number of connections that the server accepts and processes at any given time.
+server.tomcat.max-http-header-size=0 # Maximum size in bytes of the HTTP message header.
+server.tomcat.max-http-post-size=2097152 # Maximum size in bytes of the HTTP post content.
+server.tomcat.max-threads=200 # Maximum amount of worker threads.
+server.tomcat.min-spare-threads=10 # Minimum amount of worker threads.
+server.tomcat.port-header=X-Forwarded-Port # Name of the HTTP header used to override the original port value.
+server.tomcat.protocol-header= # Header that holds the incoming protocol, usually named "X-Forwarded-Proto".
+server.tomcat.protocol-header-https-value=https # Value of the protocol header indicating whether the incoming request uses SSL.
+server.tomcat.redirect-context-root=true # Whether requests to the context root should be redirected by appending a / to the path.
+server.tomcat.remote-ip-header= # Name of the HTTP header from which the remote IP is extracted. For instance, `X-FORWARDED-FOR`.
+server.tomcat.resource.cache-ttl= # Time-to-live of the static resource cache.
+server.tomcat.uri-encoding=UTF-8 # Character encoding to use to decode the URI.
+server.tomcat.use-relative-redirects= # Whether HTTP 1.1 and later location headers generated by a call to sendRedirect will use relative or absolute redirects.
+
+
+
+accept-count is the connection request in the queue that waiting for process, this is the queue size.max-connections means the max connection count that can process at the same time, this is max connection size. Normally, max-connections should be greater than accept-count. – 
+Bruce
+
+
+
+# Kubernetes shut-down mehanizmussal összhangba kell hozni a lelövési időt
+# https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#deployment.cloud.kubernetes
+spring.lifecycle.timeout-per-shutdown-phase=30s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
