@@ -56,6 +56,11 @@ java -Xms512m -Xmx1024m -jar target/file-demo-0.0.1-SNAPSHOT.jar ^
  --management.metrics.export.wavefront.api-token=fdd01257-fdb4-4cad-a9d3-70682*******
 ```
 
+## Monitoring
+
+git clone https://github.com/aristocratos/bashtop
+cd bashtop
+bash bashtop
 
 
 ## New | Future | Notes
