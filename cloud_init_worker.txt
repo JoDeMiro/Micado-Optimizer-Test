@@ -41,8 +41,6 @@ write_files:
   permissions: '755'
 
 
-
-
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
 - /bin/worker-add-base-tools.sh
