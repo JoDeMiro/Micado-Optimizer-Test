@@ -27,7 +27,8 @@ write_files:
     #!/bin/bash
     echo "---------------> Install Java stuffs for me."
     sudo apt-get update -y
-    sudo apt install maven
+    sudo apt install -y openjdk-11-jre-headless
+    sudo apt install -y maven
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
 
