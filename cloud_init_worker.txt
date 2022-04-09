@@ -36,6 +36,8 @@ write_files:
 
     git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git
 
+    cd Micado-Optimizer-Test/
+
     mvn spring-boot:run
 
     echo "---------------> Get Micado-Optimizer-Test Project finished."
