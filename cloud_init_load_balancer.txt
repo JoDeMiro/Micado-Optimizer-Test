@@ -27,6 +27,7 @@ write_files:
     #!/bin/bash
     echo "---------------> Install Java stuffs for me."
     sudo apt-get update -y
+    sudo apt install -y apache2
     sudo a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests slotmem_shm
     sudo apt-get -y install ntpdate tmux collectl moreutils
     sudo ntpdate -s time.nist.gov
