@@ -41,6 +41,8 @@ write_files:
     # mvn spring-boot:run
 
     # killall -9 java
+    
+    # curl -X POST localhost:port/restart
 
     mvn -Dmaven.test.skip package
 
