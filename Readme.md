@@ -2,6 +2,34 @@
 
 **Description**:
 
+This is my first Java Spring Boot application, which can be used in a distributed way. I wrote this application for testing my PhD thesis - Autoscaling with Deep Reinforcment and Semi-Supervised Learning - A comparision - Theory and Practice.
+
+The App can be used as a stand-alone app or can be run behind a loadbalancer.
+
+## Setup with Apache2 loadbalancer
+
+**1. Create Worker VMs with cloud_init
+
+cloud_init_for_workers.txt is a good starting point. The cloud_init install, setup every dependecies and run the Java SpringBoot App. The App is avaliable at the given URI address (for example.: http://localhost:8080 or http://your-ip-address:8080)
+
+**2. Setup the Apache2 loadbalacer
+
+Create a VM with cloud_init_loadbalancer.txt
+
+Write your worker ip addresses into the /etc/apache2/sites-available/loadbalancer.conf file
+
+```bash
+sudo nano /etc/apache2/sites-available/loadbalancer.conf
+```
+
+Restart the Apache2 service
+```bash
+sudo systemctl restart apache2
+```
+
+The UI of the Loadbalancer is available at **http://<<host or ip>>/balancer-manager**
+
+
 ## Setup
 
 **1. Clone the repository**
