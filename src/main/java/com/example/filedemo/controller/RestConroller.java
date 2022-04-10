@@ -53,7 +53,7 @@ public class RestConroller {
     @GetMapping("/gc")
     public void garbage(HttpServletRequest request) {
         System.gc();
-        Runtime.gc();
+        Runtime.getRuntime().gc();
     }
 
     @GetMapping("/wait")
@@ -133,7 +133,7 @@ public class RestConroller {
         CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
 
         System.gc();
-        Runtime.gc();
+        Runtime.getRuntime().gc();
 
         return response;
     }
