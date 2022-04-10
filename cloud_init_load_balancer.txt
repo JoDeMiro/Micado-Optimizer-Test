@@ -59,9 +59,16 @@ write_files:
     sudo mkdir /var/www/loadbalancer
     sudo chown -R $USER:$USER /var/www/loadbalancer
     sudo chmod -R 755 /var/www/loadbalancer
+    sudo printf "<html><head><title>Hello Loadbalancer</title></head><body>Hello</body></html>" >> index.html
+    sudo cp index.html /var/www/loadbalancer/index.html
     
     wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/loadbalancer.conf
     sudo cp loadbalancer.conf /etc/apache2/sites-available/loadbalancer.conf
+    sudo a2ensite loadbalancer.conf
+    sudo a2dissite 000-default.conf
+    sudo apache2ctl configtest
+    
+    sudo systemctl restart apache2
     sudo systemctl reload apache2
 
     echo "---------------> Get Micado-Optimizer-Tes Project"
