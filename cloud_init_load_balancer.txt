@@ -52,6 +52,10 @@ write_files:
     # https://stackoverflow.com/questions/52433480/spring-boot-application-load-balanced-with-apache
 
     # http://193.2xx.xxx.xxx/balancer-manager/myapp
+    
+    wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/loadbalancer.conf
+    sudo cp loadbalancer.conf /etc/apache2/sites-available/loadbalancer.conf
+    sudo systemctl reload apache2
 
     echo "---------------> Get Micado-Optimizer-Tes Project"
 
