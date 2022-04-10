@@ -29,6 +29,9 @@ write_files:
     sudo apt-get update -y
     sudo apt install -y apache2
     sudo apt install -y libapache2-mod-jk
+    sudo ufw app list
+    sudo ufw allow 'Apache'
+    sudo ufw status
     sudo a2enmod proxy
     sudo a2enmod proxy_http
     sudo a2enmod proxy_balancer
@@ -52,6 +55,10 @@ write_files:
     # https://stackoverflow.com/questions/52433480/spring-boot-application-load-balanced-with-apache
 
     # http://193.2xx.xxx.xxx/balancer-manager/myapp
+    
+    sudo mkdir /var/www/loadbalancer
+    sudo chown -R $USER:$USER /var/www/loadbalancer
+    sudo chmod -R 755 /var/www/loadbalancer
     
     wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/loadbalancer.conf
     sudo cp loadbalancer.conf /etc/apache2/sites-available/loadbalancer.conf
