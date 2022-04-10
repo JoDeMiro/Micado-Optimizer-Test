@@ -49,6 +49,12 @@ public class RestConroller {
     public void restart(HttpServletRequest request) {
         restartEndpoint.restart();
     }
+    
+    @GetMapping("/gc")
+    public void restart(HttpServletRequest request) {
+        System.gc();
+        Runtime.gc();
+    }
 
     @GetMapping("/wait")
     public List<String> wait(HttpServletRequest request) {
@@ -127,6 +133,7 @@ public class RestConroller {
         CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
 
         System.gc();
+        Runtime.gc();
 
         return response;
     }
