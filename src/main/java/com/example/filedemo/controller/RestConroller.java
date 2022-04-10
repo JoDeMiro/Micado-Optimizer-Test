@@ -126,6 +126,8 @@ public class RestConroller {
 
         CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
 
+        System.gc();
+
         return response;
     }
 
