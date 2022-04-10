@@ -28,11 +28,30 @@ write_files:
     echo "---------------> Install Java stuffs for me."
     sudo apt-get update -y
     sudo apt install -y apache2
-    sudo a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests slotmem_shm
+    sudo apt install -y libapache2-mod-jk
+    sudo a2enmod proxy
+    sudo a2enmod proxy_http
+    sudo a2enmod proxy_balancer
+    sudo a2enmod lbmethod_byrequests
+    sudo a2enmod slotmem_shm
     sudo apt install -y ntpdate tmux collectl moreutils
     sudo ntpdate -s time.nist.gov
+    sudo systemctl restart apache2
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
+    
+    # Load Balancer for Java TomCat
+
+    # https://madurad.wordpress.com/2014/08/27/tomcat-server-loab-balancing-using-multiple-tomcat-server-instances-in-ubuntu
+    # https://www.xmodulo.com/configure-tomcat-cluster-ubuntu.html
+    # https://medium.com/@sanjayadesilva6/setting-up-apache-loadbalancer-46072177ec66
+    # https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04-quickstart
+    # https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-20-04
+    # https://ubuntu.com/tutorials/install-and-configure-apache#5-activating-virtualhost-file
+    # https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html
+    # https://stackoverflow.com/questions/52433480/spring-boot-application-load-balanced-with-apache
+
+    # http://193.2xx.xxx.xxx/balancer-manager/myapp
 
     echo "---------------> Get Micado-Optimizer-Tes Project"
 
