@@ -51,7 +51,7 @@ public class RestConroller {
     }
     
     @GetMapping("/gc")
-    public void restart(HttpServletRequest request) {
+    public void garbage(HttpServletRequest request) {
         System.gc();
         Runtime.gc();
     }
