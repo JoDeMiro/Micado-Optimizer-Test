@@ -66,8 +66,3 @@ runcmd:
 - /bin/worker-add-base-tools.sh
 - su - ubuntu -c /bin/worker-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
-- echo 'EC2 public hostname allocated to instance: {{
-  ds.meta_data.public_hostname }}' > /tmp
-- echo 'EC2 avaiability zone: {{ v1.availability_zone }}' >>
-  /tmp
-- echo "---------------> JoDeMiro Deployment finished."
