@@ -39,7 +39,7 @@ write_files:
     cd Micado-Optimizer-Test/
     
     # Set Wawefront VM Name
-    echo 'wavefront.application.name='$HOSTNAME >> ./src/main/resources/application.properties
+    echo "wavefront.application.name="$HOSTNAME >> ./src/main/resources/application.properties
 
     # mvn spring-boot:run
 
