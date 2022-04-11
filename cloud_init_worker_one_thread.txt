@@ -34,7 +34,7 @@ write_files:
 
     echo "---------------> Get Micado-Optimizer-Tes Project"
 
-    git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git
+    git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git --depth 1
 
     cd Micado-Optimizer-Test/
     
