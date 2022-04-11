@@ -36,6 +36,11 @@ write_files:
     sudo a2enmod proxy_http
     sudo a2enmod proxy_balancer
     sudo a2enmod lbmethod_byrequests
+    # sudo a2enmod lbmethod_bytraffic
+    # sudo a2enmod lbmethod_bybusyness
+    # sudo a2enmod lbmethod_heartbeat
+    # https://httpd.apache.org/docs/2.4/mod/mod_lbmethod_byrequests.html
+    # https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html
     sudo a2enmod slotmem_shm
     sudo apt install -y ntpdate tmux collectl moreutils
     sudo ntpdate -s time.nist.gov
