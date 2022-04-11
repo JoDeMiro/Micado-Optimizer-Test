@@ -45,6 +45,9 @@ public class RestConroller {
     @Autowired
     private RestartEndpoint restartEndpoint;
 
+    @Autowired
+    Fibonnaci fibonnaci = new Fibonnaci();
+
     @GetMapping("/restart")
     public void restart(HttpServletRequest request) {
         restartEndpoint.restart();
@@ -115,7 +118,8 @@ public class RestConroller {
 
         long start = System.currentTimeMillis();
 
-        Fibonnaci fibonnaci = new Fibonnaci();
+        // Nem itt hozom létre, helyette megkapja Bean-ben
+        // Fibonnaci fibonnaci = new Fibonnaci();
 
         Long result = 0L;
 

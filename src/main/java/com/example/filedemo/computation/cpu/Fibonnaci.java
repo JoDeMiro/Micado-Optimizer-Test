@@ -1,8 +1,11 @@
 package com.example.filedemo.computation.cpu;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigInteger;
 import java.util.concurrent.*;
 
+@Component
 public class Fibonnaci {
 
     public static BigInteger fib(BigInteger n) {
