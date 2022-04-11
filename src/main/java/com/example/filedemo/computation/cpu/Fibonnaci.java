@@ -39,7 +39,7 @@ public class Fibonnaci {
             sum += result;
         }
         System.out.println("Sum = " + sum);
-        executorService.shutdown();
+        // executorService.shutdown();
         return sum;
     }
 }
