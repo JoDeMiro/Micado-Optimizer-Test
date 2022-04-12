@@ -40,9 +40,6 @@ write_files:
 
     cd Micado-Optimizer-Test/
     
-    # Start metrica collector
-    nohup collectl | rotatelogs -n 1 mylog.log 1M &
-    
     # Set Wawefront VM Name
     echo "wavefront.application.name=$HOSTNAME" >> ./src/main/resources/application.properties
 
@@ -61,6 +58,16 @@ write_files:
     echo "---------------> Get Micado-Optimizer-Test Project finished."
   permissions: '755'
 
+- path: /bin/worker-start-metric.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start Nohup metrics starts."
+    
+    nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    
+    echo "---------------> Start Nohup metrics finished."
+  permissions: '755'
+
 
 
 # https://cloudinit.readthedocs.io/en/latest/topics/examples.html
@@ -69,4 +76,5 @@ runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
 - /bin/worker-add-base-tools.sh
 - su - ubuntu -c /bin/worker-install.sh
+- su - ubuntu -c /bin/worker-start-metric.sh
 - echo "---------------> JoDeMiro Deployment finished."
