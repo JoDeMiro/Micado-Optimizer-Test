@@ -51,7 +51,7 @@ write_files:
     # java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=1
     
     # With Wavefront
-    java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=2 --wavefront.application.service="JVMSpring" --management.metrics.export.wavefront.api-token=*****
+    java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=20 --wavefront.application.service="JVMSpring" --management.metrics.export.wavefront.api-token=*****
     
 
     echo "---------------> Get Micado-Optimizer-Test Project finished."
