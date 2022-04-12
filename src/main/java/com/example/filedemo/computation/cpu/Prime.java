@@ -1,9 +1,12 @@
 package com.example.filedemo.computation.cpu;
 
 import com.example.filedemo.responses.CpuResponse;
+import org.springframework.stereotype.Component;
+
 import java.math.BigInteger;
 import java.util.concurrent.*;
 
+@Component
 public class Prime {
 
     public static boolean isPrime(BigInteger n) {
@@ -52,6 +55,8 @@ public class Prime {
         String parameter = String.valueOf(max_number);
         CpuResponse response = new CpuResponse("CpuResponse", parameter, sum, elapsedTime);
         System.out.println(response);
+        executorService.shutdown();
+        executorService.shutdownNow();
         return response;
     }
 }

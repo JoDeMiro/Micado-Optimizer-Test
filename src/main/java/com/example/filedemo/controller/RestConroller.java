@@ -48,6 +48,9 @@ public class RestConroller {
     @Autowired
     Fibonnaci fibonnaci = new Fibonnaci();
 
+    @Autowired
+    Prime prime = new Prime();
+
     @GetMapping("/restart")
     public void restart(HttpServletRequest request) {
         restartEndpoint.restart();
@@ -118,9 +121,6 @@ public class RestConroller {
 
         long start = System.currentTimeMillis();
 
-        // Nem itt hozom létre, helyette megkapja Bean-ben
-        // Fibonnaci fibonnaci = new Fibonnaci();
-
         Long result = 0L;
 
         try {
@@ -144,8 +144,6 @@ public class RestConroller {
 
     @GetMapping("/cpu/prime/{number}")
     public CpuResponse prime(@PathVariable String number) {
-
-        Prime prime = new Prime();
 
         CpuResponse response = null;
 
