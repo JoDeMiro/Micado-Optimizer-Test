@@ -29,6 +29,8 @@ write_files:
     sudo apt-get update -y
     sudo apt install -y openjdk-11-jre-headless
     sudo apt install -y maven
+    sudo apt install -y ntpdate tmux collectl moreutils
+    sudo ntpdate -s time.nist.gov
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
 
