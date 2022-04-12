@@ -22,8 +22,8 @@ write_files:
     cd
     pwd
     whoami
-    # nohup collectl | rotatelogs -n 1 mylog.log 1M &
-    collectl | rotatelogs -n 1 mylog.log
+    nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    # collectl | rotatelogs -n 1 mylog.log 1M
     echo "---------------> Start Nohup metrics finished."
   permissions: '755'
 
