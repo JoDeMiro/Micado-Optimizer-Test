@@ -27,7 +27,12 @@ Restart the Apache2 service
 sudo systemctl restart apache2
 ```
 
-The UI of the Loadbalancer is available at **http://<<host or ip>>/balancer-manager**
+The UI of the Loadbalancer is available at **http://host or ip/balancer-manager**
+
+To get the metrics from worker if the cloud_init_worker install was succed
+```
+ssh -A ubuntu@192.168.0.xxx tail -n 10 mylog.log | grep '[0-9]' | sed 's/ \+/ /g' | cut -d ' ' -f '2-5,8-' | awk '{for (i=1;i<=NF;i++){a[i]+=$i;}} END {for (i=1;i<=NF;i++){printf "%f ", a[i]/NR;}}'
+```
 
 
 ## Setup
