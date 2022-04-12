@@ -26,7 +26,8 @@ public class Prime {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         Long sum = 0L;
-        long elapsedTime = 0;
+
+        long start = System.currentTimeMillis();
 
         for (int j = 0; j < 10; j++) {
             final int ID = j;
@@ -51,6 +52,8 @@ public class Prime {
             Long result = submit.get();
             sum += result;
         }
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
         System.out.println("Sum = " + sum);
         String parameter = String.valueOf(max_number);
         CpuResponse response = new CpuResponse("CpuResponse", parameter, sum, elapsedTime);

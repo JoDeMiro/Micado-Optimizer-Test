@@ -1,5 +1,6 @@
 package com.example.filedemo.controller;
 
+import com.example.filedemo.beans.InfoStats;
 import com.example.filedemo.computation.io.FileCopier;
 import com.example.filedemo.computation.memory.MyBeanCalc;
 import com.example.filedemo.computation.cpu.Fibonnaci;
@@ -18,6 +19,7 @@ import org.springframework.cloud.context.restart.RestartEndpoint;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -51,6 +53,9 @@ public class RestConroller {
     @Autowired
     Prime prime = new Prime();
 
+    @Autowired
+    InfoStats infoStats = new InfoStats();
+
     @GetMapping("/restart")
     public void restart(HttpServletRequest request) {
         restartEndpoint.restart();
@@ -60,6 +65,18 @@ public class RestConroller {
     public void garbage(HttpServletRequest request) {
         System.gc();
         Runtime.getRuntime().gc();
+    }
+
+    @GetMapping("/stats")
+    public List<String> stats(HttpServletRequest request) {
+        ArrayList<String> list = infoStats.getUsage();
+
+        list.add("response");
+        list.add("Stats");
+        list.add("InfoStats");
+        list.add("ok");
+
+        return  list;
     }
 
     @GetMapping("/wait")
