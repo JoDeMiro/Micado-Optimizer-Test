@@ -41,7 +41,7 @@ write_files:
     cd Micado-Optimizer-Test/
     
     # Start metrica collector
-    collectl | rotatelogs -n 1 mylog.log 1M
+    nohup collectl | rotatelogs -n 1 mylog.log 1M &
     
     # Set Wawefront VM Name
     echo "wavefront.application.name=$HOSTNAME" >> ./src/main/resources/application.properties
