@@ -65,8 +65,8 @@ write_files:
     cd
     pwd
     whoami
-    # nohup collectl | rotatelogs -n 1 mylog.log 1M &
-    collectl | rotatelogs -n 1 mylog.log
+    nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    # collectl | rotatelogs -n 1 mylog.log
     echo "---------------> Start Nohup metrics finished."
   permissions: '755'
 
@@ -76,6 +76,6 @@ write_files:
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
 - /bin/worker-add-base-tools.sh
-- su - ubuntu -c /bin/worker-install.sh
 - su - ubuntu -c /bin/worker-start-metric.sh
+- su - ubuntu -c /bin/worker-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
