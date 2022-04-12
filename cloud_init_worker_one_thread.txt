@@ -37,7 +37,7 @@ write_files:
     echo "---------------> Get Micado-Optimizer-Tes Project"
 
     git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git --depth 1
-
+    
     cd Micado-Optimizer-Test/
     
     # Set Wawefront VM Name
@@ -53,7 +53,7 @@ write_files:
     # java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=1
     
     # With Wavefront
-    # java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=20 --wavefront.application.service="JVMSpring" --management.metrics.export.wavefront.api-token=*****    
+    java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=20 --wavefront.application.service="JVMSpring" --management.metrics.export.wavefront.api-token=****
 
     echo "---------------> Get Micado-Optimizer-Test Project finished."
   permissions: '755'
@@ -62,12 +62,9 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Start Nohup metrics starts."
-    
     nohup collectl | rotatelogs -n 1 mylog.log 1M &
-    
     echo "---------------> Start Nohup metrics finished."
   permissions: '755'
-
 
 
 # https://cloudinit.readthedocs.io/en/latest/topics/examples.html
