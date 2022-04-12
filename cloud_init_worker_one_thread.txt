@@ -62,7 +62,11 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Start Nohup metrics starts."
-    nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    cd
+    pwd
+    whoami
+    # nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    collectl | rotatelogs -n 1 mylog.log
     echo "---------------> Start Nohup metrics finished."
   permissions: '755'
 
