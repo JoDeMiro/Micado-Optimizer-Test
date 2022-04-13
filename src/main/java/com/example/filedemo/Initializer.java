@@ -134,9 +134,15 @@ public class Initializer {
 
             // Path targetLocation = Paths.get("C:\\uploads\\6_2048_2048.png");
 
+            // Ez a Windows path
             Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\2048_2048.png");
 
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/2048_2048.png");
+
+            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
         }
@@ -149,9 +155,15 @@ public class Initializer {
 
             // Path targetLocation = Paths.get("C:\\uploads\\7_1024_1024.png");
 
+            // Ez a Windows path
             Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\1024_1024.png");
 
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/1024_1024.png");
+
+            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
         }
@@ -162,12 +174,18 @@ public class Initializer {
 
             InputStream inputStream = getClass().getResourceAsStream("/install/1024_768.png");
 
+            // Ez a Windows path
             Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\1024_768.png");
 
             System.out.println("-------------------------------------------------------------------------");
             System.out.println(targetLocation);
             System.out.println("-------------------------------------------------------------------------");
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/1024_768.png");
+
+            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
         }
