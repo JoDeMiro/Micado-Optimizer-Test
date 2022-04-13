@@ -39,7 +39,7 @@ public class Prime {
                     BigInteger number = BigInteger.ONE;
                     for (int i = 0; i < max_number; i++) {
                         boolean prime = isPrime(number);
-                        System.out.println(ID+" worker: " + number + ": " + prime);
+                        // System.out.println(ID+" worker: " + number + ": " + prime);
                         number = number.add(BigInteger.ONE);
                         if (prime) {
                             result += number.longValue() - 1;
