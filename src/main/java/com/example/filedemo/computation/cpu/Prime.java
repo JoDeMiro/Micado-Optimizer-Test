@@ -54,7 +54,7 @@ public class Prime {
         }
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
-        System.out.println("Sum = " + sum);
+        // System.out.println("Sum = " + sum);
         String parameter = String.valueOf(max_number);
         CpuResponse response = new CpuResponse("CpuResponse", parameter, sum, elapsedTime);
         System.out.println(response);
