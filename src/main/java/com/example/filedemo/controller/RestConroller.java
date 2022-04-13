@@ -1,6 +1,7 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.beans.InfoStats;
+import com.example.filedemo.computation.download.StaticDownloader;
 import com.example.filedemo.computation.io.FileCopier;
 import com.example.filedemo.computation.memory.MyBeanCalc;
 import com.example.filedemo.computation.cpu.Fibonnaci;
@@ -60,6 +61,9 @@ public class RestConroller {
 
     @Autowired
     private FileStorageService fileStorageService;
+
+    @Autowired
+    private StaticDownloader staticDownloader;
 
     @GetMapping("/restart")
     public void restart(HttpServletRequest request) {
@@ -385,6 +389,14 @@ public class RestConroller {
         FileCopier fileCopier = new FileCopier(fileStorageService);
 
         IoResponse result = fileCopier.run(times);
+
+        return result;
+    }
+
+    @GetMapping("/downloader/static/{length}")
+    public String downloader1(@PathVariable int length) {
+
+        String result = staticDownloader.getStaticData(length);
 
         return result;
     }
