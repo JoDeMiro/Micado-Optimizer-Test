@@ -101,19 +101,6 @@ public class Initializer {
         }
 
 
-        // From C:\\
-        /*
-        try {
-            Path from = Paths.get("C:\\1024_768.png");
-            Path targetLocation = Paths.get("C:\\uploads\\1024_768.png");
-            Files.copy(from, targetLocation, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            logger.info("Initializer setup files from C:\\ failed.");
-            throw new FileStorageException("Could not set file", e);
-        }
-        */
-
-
         // version 5
         try {
             System.out.println("---------version 5---------------");
@@ -122,11 +109,17 @@ public class Initializer {
 
             InputStream inputStream = cpr.getInputStream();
 
-            // Path targetLocation = Paths.get("C:\\uploads\\5_4096_4096.png");
-
+            // Ez a Windows path
             Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\4096_4096.png");
 
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/4096_4096.png");
+
+            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+
+
         } catch (IOException e) {
             logger.info("File Not Found");
         }

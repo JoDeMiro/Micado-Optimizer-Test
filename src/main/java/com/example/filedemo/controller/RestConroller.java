@@ -112,7 +112,6 @@ public class RestConroller {
             Path uploadDirLocation = fileStorageService.getFileStorageLocation();
             System.out.println("fileStorageService.getFileStorageLocation = " + uploadDirLocation);
 
-            // File file = new File("C:\\uploads\\");
             File file = new File(String.valueOf(uploadDirLocation));
             deleteDirectoryLegacyIO(file);
         } catch (Exception e) {
