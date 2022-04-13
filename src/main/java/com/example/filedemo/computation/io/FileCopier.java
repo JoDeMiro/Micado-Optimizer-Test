@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Properties;
 import java.util.Random;
 
 @Component("FileCopier")
@@ -49,8 +50,18 @@ public class FileCopier {
             try {
                 ClassPathResource cpr = new ClassPathResource("install/2048_2048.png");
                 InputStream inputStream = cpr.getInputStream();
-                Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\CopiedFile " + a + ".png");
-                Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+                // Get the name of the OS
+                Properties properties = System.getProperties();
+                String os = properties.getProperty("os.name");
+
+                if (os.contains("Linux")) {
+                    Path targetLocation = Paths.get(uploadDirLocation.toString() + "/CopiedFile " + a + ".png");
+                    Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+                } else {
+                    Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\CopiedFile " + a + ".png");
+                    Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+                }
             } catch (IOException e) {
                 logger.info("File Not Found");
             }
