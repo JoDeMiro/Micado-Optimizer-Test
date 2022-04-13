@@ -23,6 +23,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -71,6 +72,21 @@ public class RestConroller {
         Runtime.getRuntime().gc();
     }
 
+    @GetMapping("/os")
+    public List<String> os(HttpServletRequest request) {
+        ArrayList<String> list = new ArrayList<>();
+
+        System.getProperties().list(System.out);
+
+        Properties properties = System.getProperties();
+
+        String os = properties.getProperty("os.name");
+        System.out.println("-----------------------");
+        System.out.println(os);
+        System.out.println("-----------------------");
+
+        return list;
+    }
     @GetMapping("/stats")
     public List<String> stats(HttpServletRequest request) {
         ArrayList<String> list = infoStats.getUsage();
