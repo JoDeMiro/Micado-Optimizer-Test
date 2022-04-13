@@ -19,7 +19,8 @@ import org.springframework.cloud.context.restart.RestartEndpoint;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Array;
+import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -56,6 +57,9 @@ public class RestConroller {
     @Autowired
     InfoStats infoStats = new InfoStats();
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     @GetMapping("/restart")
     public void restart(HttpServletRequest request) {
         restartEndpoint.restart();
@@ -77,6 +81,43 @@ public class RestConroller {
         list.add("ok");
 
         return  list;
+    }
+
+    public static void deleteDirectoryLegacyIO(File file) {
+
+        File[] list = file.listFiles();
+        if (list != null) {
+            for (File temp : list) {
+                if( temp.getName().contains("_") == false ){
+                    //recursive delete
+                    System.out.println("Visit " + temp);
+                    deleteDirectoryLegacyIO(temp);
+                }
+            }
+        }
+
+        if (file.delete()) {
+            System.out.printf("Delete : %s%n", file);
+        } else {
+            System.err.printf("Unable to delete file or directory : %s%n", file);
+        }
+
+    }
+
+    @GetMapping("/cleardisk")
+    public void cleardisk(HttpServletRequest request) {
+        try {
+            // Unix / Window Problem could be handled here
+
+            Path uploadDirLocation = fileStorageService.getFileStorageLocation();
+            System.out.println("fileStorageService.getFileStorageLocation = " + uploadDirLocation);
+
+            // File file = new File("C:\\uploads\\");
+            File file = new File(String.valueOf(uploadDirLocation));
+            deleteDirectoryLegacyIO(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @GetMapping("/wait")
@@ -322,10 +363,6 @@ public class RestConroller {
 
         return results;
     }
-
-
-    @Autowired
-    private FileStorageService fileStorageService;
 
     @GetMapping("/io/copy/{times}")
     public IoResponse copyTest(@PathVariable int times) {
