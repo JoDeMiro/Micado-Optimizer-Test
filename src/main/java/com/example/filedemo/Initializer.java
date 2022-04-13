@@ -109,6 +109,10 @@ public class Initializer {
 
             InputStream inputStream = cpr.getInputStream();
 
+            ClassPathResource cprLinux = new ClassPathResource("install/4096_4096.png");
+
+            InputStream inputStreamLinux = cpr.getInputStream();
+
             // Ez a Windows path
             Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\4096_4096.png");
 
@@ -117,7 +121,7 @@ public class Initializer {
             // Ez a Linux path
             Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/4096_4096.png");
 
-            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
 
 
         } catch (IOException e) {
@@ -132,6 +136,10 @@ public class Initializer {
 
             InputStream inputStream = cpr.getInputStream();
 
+            ClassPathResource cprLinux = new ClassPathResource("install/2048_2048.png");
+
+            InputStream inputStreamLinux = cprLinux.getInputStream();
+
             // Path targetLocation = Paths.get("C:\\uploads\\6_2048_2048.png");
 
             // Ez a Windows path
@@ -142,7 +150,7 @@ public class Initializer {
             // Ez a Linux path
             Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/2048_2048.png");
 
-            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
         }
@@ -152,6 +160,7 @@ public class Initializer {
             System.out.println("---------version 7---------------");
 
             InputStream inputStream = getClass().getResourceAsStream("/install/1024_1024.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/1024_1024.png");
 
             // Path targetLocation = Paths.get("C:\\uploads\\7_1024_1024.png");
 
@@ -163,7 +172,7 @@ public class Initializer {
             // Ez a Linux path
             Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/1024_1024.png");
 
-            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
         }
@@ -173,6 +182,7 @@ public class Initializer {
             System.out.println("---------version 8---------------");
 
             InputStream inputStream = getClass().getResourceAsStream("/install/1024_768.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/1024_768.png");
 
             // Ez a Windows path
             Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\1024_768.png");
@@ -185,7 +195,7 @@ public class Initializer {
             // Ez a Linux path
             Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/1024_768.png");
 
-            Files.copy(inputStream, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
         }
