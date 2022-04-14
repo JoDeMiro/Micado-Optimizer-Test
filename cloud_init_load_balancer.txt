@@ -81,8 +81,15 @@ write_files:
     # Run apache2 configtest
     sudo apache2ctl configtest
     
+    echo "---------------> Start Apache 2 Load Balancer"
+    
     sudo systemctl restart apache2
     sudo systemctl reload apache2
+    
+    echo "---------------> Get Test Project which is able to catch The Response Time"
+    wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/proba.py
+    # sudo python3 proba.py
+    
 
     echo "---------------> Get Micado-Optimizer-Tes Project"
 
