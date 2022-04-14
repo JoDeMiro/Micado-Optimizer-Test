@@ -73,6 +73,12 @@ write_files:
     sudo cp loadbalancer.conf /etc/apache2/sites-available/loadbalancer.conf
     sudo a2ensite loadbalancer.conf
     sudo a2dissite 000-default.conf
+    
+    # Make log more readable to get Response Time
+    wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/apache2.conf
+    sudo cp apache2.conf /etc/apache2/apache2.conf
+    
+    # Run apache2 configtest
     sudo apache2ctl configtest
     
     sudo systemctl restart apache2
