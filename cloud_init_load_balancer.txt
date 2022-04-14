@@ -19,6 +19,7 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
+    pip3 install numpy
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
