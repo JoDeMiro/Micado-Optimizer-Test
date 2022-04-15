@@ -60,6 +60,7 @@ write_files:
     # https://ubuntu.com/tutorials/install-and-configure-apache#5-activating-virtualhost-file
     # https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html
     # https://stackoverflow.com/questions/52433480/spring-boot-application-load-balanced-with-apache
+    # https://www.datadoghq.com/blog/collect-apache-performance-metrics
 
     # http://193.2xx.xxx.xxx/balancer-manager/myapp
     
