@@ -56,7 +56,12 @@ write_files:
     sudo systemctl enable mongod
 
     # create empty collection named expense_tracker
+    echo "---------------> Critical part starts."
+    echo 'use local' | mongosh local
     echo 'db.createCollection("expense_tracker")' | mongosh local
+    echo "use local" | mongosh local
+    echo 'db.createCollection("expense_tracker")' | mongosh local
+    echo "---------------> Critical part finished."
 
     # uninstall
     # sudo service mongod stop
