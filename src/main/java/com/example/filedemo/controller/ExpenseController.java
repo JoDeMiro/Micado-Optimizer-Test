@@ -56,6 +56,12 @@ public class ExpenseController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping("/generate/{number}")
+    public ResponseEntity<Object> generateExpenseSample(@PathVariable int number) {
+        expenseService.generateExpenseSample(number);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @GetMapping("/regex/{name}")
     public ResponseEntity<List<Expense>> getExpenseByRegex(@PathVariable String name) {
         return ResponseEntity.ok(expenseService.getExpenseByQuery(name));
@@ -64,5 +70,11 @@ public class ExpenseController {
     @GetMapping("/startswith/{name}")
     public ResponseEntity<List<Expense>> findByNameStartingWith(@PathVariable String name) {
         return ResponseEntity.ok(expenseService.findByNameStartingWith(name));
+    }
+
+    @GetMapping("/clear")
+    public ResponseEntity<Object> clear() {
+        expenseService.clearExpense();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

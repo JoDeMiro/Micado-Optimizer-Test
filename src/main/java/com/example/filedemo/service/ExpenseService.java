@@ -50,6 +50,34 @@ public class ExpenseService {
         }
     }
 
+    public void generateExpenseSample(int number) {
+        Expense expense;
+        for (int i = 0; i < number; i++) {
+            expense = new Expense();
+            // Random random
+            // Random r = new Random( System.currentTimeMillis() );
+            // Random Fixed
+            Random r = new Random( i );
+
+            int value =  ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
+            BigDecimal amount = new BigDecimal(value);
+            expense.setExpenseAmount(amount);
+            expense.setExpenseCategory(ExpenseCategory.RESEARCH);
+
+            int leftLimit = 97; // letter 'a'
+            int rightLimit = 122; // letter 'z'
+            int targetStringLength = 6;
+
+            String generatedString = r.ints(leftLimit, rightLimit + 1)
+                    .limit(targetStringLength)
+                    .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                    .toString();
+
+            expense.setExpenseName(generatedString);
+            expenseRepository.insert(expense);
+        }
+    }
+
     public void updateExpense(Expense expense) {
         Expense savedExpense = expenseRepository.findById(expense.getId()).orElseThrow(() -> new RuntimeException(
                 String.format("Cannot Find Expense by ID %s", expense.getId())
@@ -83,6 +111,10 @@ public class ExpenseService {
 
     public void deleteExpense(String id) {
         expenseRepository.deleteById(id);
+    }
+
+    public void clearExpense() {
+        expenseRepository.deleteAll();
     }
 
 }
