@@ -59,6 +59,7 @@ write_files:
     # https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-20-04
     # https://ubuntu.com/tutorials/install-and-configure-apache#5-activating-virtualhost-file
     # https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html
+    # https://aws.amazon.com/premiumsupport/knowledge-center/elb-fix-high-latency-on-alb
     # https://stackoverflow.com/questions/52433480/spring-boot-application-load-balanced-with-apache
     # https://www.datadoghq.com/blog/collect-apache-performance-metrics
 
