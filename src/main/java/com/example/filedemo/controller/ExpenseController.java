@@ -59,7 +59,7 @@ public class ExpenseController {
     @GetMapping("/generate/{number}")
     public ResponseEntity<Object> generateExpenseSample(@PathVariable int number) {
         expenseService.generateExpenseSample(number);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("/regex/{name}")
@@ -75,6 +75,29 @@ public class ExpenseController {
     @GetMapping("/clear")
     public ResponseEntity<Object> clear() {
         expenseService.clearExpense();
+        expenseService.setInitialized(false);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/init")
+    public ResponseEntity<Object> init() {
+        // If initialized then skip
+        // Clear first if you want to initialize again
+        if (expenseService.isInitialized() == false) {
+            expenseService.generateExpenseSample(1000);
+            expenseService.setInitialized(true);
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/init/{sample}")
+    public ResponseEntity<Object> init(@PathVariable int sample) {
+        // If initialized then skip
+        // Clear first if you want to initialize again
+        if (expenseService.isInitialized() == false) {
+            expenseService.generateExpenseSample(sample);
+            expenseService.setInitialized(true);
+        }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

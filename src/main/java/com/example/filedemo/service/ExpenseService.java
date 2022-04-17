@@ -14,8 +14,18 @@ public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
 
+    private boolean initialized = false;
+
     public ExpenseService(ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
+    }
+
+    public boolean isInitialized() {
+        return initialized;
+    }
+
+    public void setInitialized(boolean initialized) {
+        this.initialized = initialized;
     }
 
     public void addExpense(Expense expense) {
