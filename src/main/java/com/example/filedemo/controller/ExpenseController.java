@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -45,5 +46,23 @@ public class ExpenseController {
     public ResponseEntity<Object> deleteExpense(@PathVariable String id) {
         expenseService.deleteExpense(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    // Extra
+    @GetMapping("/create")
+    public ResponseEntity<Object> createExpenseSample() {
+        expenseService.createExpenseSample();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/regex/{name}")
+    public ResponseEntity<List<Expense>> getExpenseByRegex(@PathVariable String name) {
+        return ResponseEntity.ok(expenseService.getExpenseByQuery(name));
+    }
+
+    @GetMapping("/startswith/{name}")
+    public ResponseEntity<List<Expense>> findByNameStartingWith(@PathVariable String name) {
+        return ResponseEntity.ok(expenseService.findByNameStartingWith(name));
     }
 }
