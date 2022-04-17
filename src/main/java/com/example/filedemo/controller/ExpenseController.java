@@ -84,8 +84,8 @@ public class ExpenseController {
         // If initialized then skip
         // Clear first if you want to initialize again
         if (expenseService.isInitialized() == false) {
-            expenseService.generateExpenseSample(1000);
             expenseService.setInitialized(true);
+            expenseService.generateExpenseSample(1000);
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -95,8 +95,8 @@ public class ExpenseController {
         // If initialized then skip
         // Clear first if you want to initialize again
         if (expenseService.isInitialized() == false) {
-            expenseService.generateExpenseSample(sample);
             expenseService.setInitialized(true);
+            expenseService.generateExpenseSample(sample);
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
