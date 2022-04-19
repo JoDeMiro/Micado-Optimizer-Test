@@ -6,6 +6,7 @@ public class CpuResponse {
     String parameter;
     Long returnValue;
     Long executionTime;
+    String workerIPAddress;
 
     public CpuResponse() {
     }
@@ -15,6 +16,14 @@ public class CpuResponse {
         this.parameter = parameter;
         this.returnValue = returnValue;
         this.executionTime = executionTime;
+    }
+
+    public CpuResponse(String name, String parameter, Long returnValue, Long executionTime, String ip) {
+        this.name = name;
+        this.parameter = parameter;
+        this.returnValue = returnValue;
+        this.executionTime = executionTime;
+        this.workerIPAddress = ip;
     }
 
     public String getName() {
@@ -49,6 +58,14 @@ public class CpuResponse {
         this.executionTime = executionTime;
     }
 
+    public String getWorkerIPAddress() {
+        return workerIPAddress;
+    }
+
+    public void setWorkerIPAddress(String workerIPAddress) {
+        this.workerIPAddress = workerIPAddress;
+    }
+
     @Override
     public String toString() {
         return "CpuResponse{" +
@@ -56,6 +73,7 @@ public class CpuResponse {
                 ", parameter='" + parameter + '\'' +
                 ", returnValue=" + returnValue +
                 ", executionTime=" + executionTime +
+                ", workerIPAddress='" + workerIPAddress + '\'' +
                 '}';
     }
 }

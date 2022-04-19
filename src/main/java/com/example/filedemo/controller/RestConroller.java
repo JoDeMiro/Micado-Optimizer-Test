@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,17 @@ import java.util.concurrent.ExecutionException;
 public class RestConroller {
 
     private static final Logger logger = LoggerFactory.getLogger(RestConroller.class);
+
+    private static String ipAddress;
+
+    static {
+        try {
+            InetAddress ip = InetAddress.getLocalHost();
+            ipAddress = ip.getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Autowired
     FileSizeCalc fileSizeCalc = new FileSizeCalc();
@@ -211,7 +224,9 @@ public class RestConroller {
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+        // CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
+
 
         System.gc();
         Runtime.getRuntime().gc();
@@ -226,6 +241,7 @@ public class RestConroller {
 
         try {
             response = prime.run(Integer.parseInt(number));
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -242,6 +258,7 @@ public class RestConroller {
 
         try {
             response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -251,15 +268,15 @@ public class RestConroller {
     @GetMapping("/io/2/{path:.+}/{iteration}")
     public IoResponse directorySizeAutowired(@PathVariable String path, @PathVariable String iteration) {
 
-        IoResponse results = null;
+        IoResponse response = null;
 
         try {
-            final IoResponse result = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
-            results = result;
+            response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+        return response;
     }
 
     @GetMapping("/memory/string/1/{number}")
@@ -267,15 +284,15 @@ public class RestConroller {
 
         StringSizeCalc stringSizeCalc = new StringSizeCalc();
 
-        GenericResponse results = null;
+        GenericResponse response = null;
 
         try {
-            final GenericResponse result = stringSizeCalc.run(Integer.parseInt(number));
-            results = result;
+            response = stringSizeCalc.run(Integer.parseInt(number));
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+        return response;
     }
 
     @GetMapping("/memory/beans/1/{number}/{withGC}")

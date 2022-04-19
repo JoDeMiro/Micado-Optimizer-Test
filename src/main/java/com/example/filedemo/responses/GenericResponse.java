@@ -6,6 +6,7 @@ public class GenericResponse<String, P, R, Long> {
     P parameter;
     R returnValue;
     Long executionTime;
+    String workerIPAddress;
 
     public GenericResponse() {
     }
@@ -49,6 +50,14 @@ public class GenericResponse<String, P, R, Long> {
         this.executionTime = executionTime;
     }
 
+    public String getWorkerIPAddress() {
+        return workerIPAddress;
+    }
+
+    public void setWorkerIPAddress(String workerIPAddress) {
+        this.workerIPAddress = workerIPAddress;
+    }
+
     @Override
     public java.lang.String toString() {
         return "GenericResponse{" +
@@ -56,6 +65,7 @@ public class GenericResponse<String, P, R, Long> {
                 ", parameter=" + parameter +
                 ", returnValue=" + returnValue +
                 ", executionTime=" + executionTime +
+                ", workerIPAddress=" + workerIPAddress +
                 '}';
     }
 }
