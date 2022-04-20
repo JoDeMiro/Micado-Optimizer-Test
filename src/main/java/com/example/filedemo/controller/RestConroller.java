@@ -300,29 +300,29 @@ public class RestConroller {
 
         MyBeanCalc myBeanCalc = new MyBeanCalc();
 
-        GenericResponse results = null;
+        GenericResponse response = null;
 
         try {
-            final GenericResponse result = myBeanCalc.memoryTest(number, withGC);
-            results = result;
+            response = myBeanCalc.memoryTest(number, withGC);
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+        return response;
     }
 
     @GetMapping("/memory/beans/2/{number}/{withGC}")
     public GenericResponse myBeanCalcAutowired(@PathVariable int number, @PathVariable boolean withGC) {
 
-        GenericResponse results = null;
+        GenericResponse response = null;
 
         try {
-            final GenericResponse result = myBeanCalc.memoryTest(number, withGC);
-            results = result;
+            response = myBeanCalc.memoryTest(number, withGC);
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+        return response;
     }
 
     @GetMapping("/network/1/{number}/{withGC}")
@@ -330,29 +330,29 @@ public class RestConroller {
 
         GenerateNetworkTraffic generateNetworkTraffic = new GenerateNetworkTraffic();
 
-        NetworkResponse results = null;
+        NetworkResponse response = null;
 
         try {
-            final NetworkResponse result = generateNetworkTraffic.run(number, withGC);
-            results = result;
+            response = generateNetworkTraffic.run(number, withGC);
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+        return response;
     }
 
     @GetMapping("/network/2/{number}/{withGC}")
     public NetworkResponse generateNetworkTrafficAutowired(@PathVariable int number, @PathVariable boolean withGC) {
 
-        NetworkResponse results = null;
+        NetworkResponse response = null;
 
         try {
-            final NetworkResponse result = generateNetworkTraffic.run(number, withGC);
-            results = result;
+            response = generateNetworkTraffic.run(number, withGC);
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return results;
+        return response;
     }
 
     // Itt is az a lényeg, hogy egy példányból kéri el az adatokat és nem hozza őket létre újra és újra
@@ -377,9 +377,10 @@ public class RestConroller {
         final long end = System.currentTimeMillis();
         elapsedTime += (end - start);
 
-        NetworkResponse results = new NetworkResponse("NetworkResponse", 1, 1, elapsedTime, dataList);
+        NetworkResponse response = new NetworkResponse("NetworkResponse", 1, 1, elapsedTime, dataList);
+        response.setWorkerIPAddress(ipAddress);
 
-        return results;
+        return response;
     }
 
     // Itt a run method megkapja createNetworkData példányt és nem hoz létre újra és újra
@@ -388,16 +389,16 @@ public class RestConroller {
 
         GetNetworkTraffic getNetworkTraffic = new GetNetworkTraffic();
 
-        NetworkResponse results = null;
+        NetworkResponse response = null;
 
         try {
-            final NetworkResponse result = getNetworkTraffic.run(createNetworkData, 0, false);
-            results = result;
+            response = getNetworkTraffic.run(createNetworkData, 0, false);
+            response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return results;
+        return response;
     }
 
     @GetMapping("/io/copy/{times}")
@@ -405,9 +406,10 @@ public class RestConroller {
 
         FileCopier fileCopier = new FileCopier(fileStorageService);
 
-        IoResponse result = fileCopier.run(times);
+        IoResponse response = fileCopier.run(times);
+        response.setWorkerIPAddress(ipAddress);
 
-        return result;
+        return response;
     }
 
     @GetMapping("/downloader/static/{length}")

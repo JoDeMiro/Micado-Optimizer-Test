@@ -9,6 +9,7 @@ public class NetworkResponse<String, P, R, Long> {
     R returnValue;
     Long executionTime;
     ArrayList<String> message;
+    String workerIPAddress;
 
     public NetworkResponse() {
     }
@@ -61,6 +62,14 @@ public class NetworkResponse<String, P, R, Long> {
         this.message = message;
     }
 
+    public String getWorkerIPAddress() {
+        return workerIPAddress;
+    }
+
+    public void setWorkerIPAddress(String workerIPAddress) {
+        this.workerIPAddress = workerIPAddress;
+    }
+
     @Override
     public java.lang.String toString() {
         return "NetworkResponse{" +
@@ -69,6 +78,7 @@ public class NetworkResponse<String, P, R, Long> {
                 ", returnValue=" + returnValue +
                 ", executionTime=" + executionTime +
                 ", message=" + message +
+                ", workerIPAddress=" + workerIPAddress +
                 '}';
     }
 }
