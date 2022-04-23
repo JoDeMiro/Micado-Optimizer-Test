@@ -150,6 +150,7 @@ write_files:
     echo "---------------> Warning !."
     echo " "
 
+    # jupyter notebook password
     # jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse
 
     echo "---------------> Jupyter Notebook has to start manually."
@@ -157,12 +158,58 @@ write_files:
     echo " "
   permissions: '755'
 
+- path: /bin/worker-install-scaler.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Scaler."
+    echo " "
+
+    git clone https://github.com/JoDeMiro/Scaler.git
+
+    echo " "
+    echo "---------------> Install Scaler finished."
+    echo " "
+
+- path: /bin/worker-install-ssh.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Nyomorek id_rsa-t fell kell rakni az .ssh konyvtrba onnan meg at a root-nak hogy elerje a workereket."
+    echo " "
+
+    # cp /home/ubuntu/.ssh/id_rsa /root/.ssh/
+
+    echo " "
+    echo "---------------> Nyomorek id_rsa-t fell kell rakni az .ssh konyvtrba onnan meg at a root-nak hogy elerje a workereket."
+    echo " "
+
+
+- path: /bin/worker-install-latex.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Latex started."
+    echo " "
+
+    # sudo apt-get install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
+
+    sudo apt install -y dvipng texlive-latex-extra texlive-fonts-recommended cm-super
+
+    echo " "
+    echo "---------------> Install Latex finishted."
+    echo " "
+
+
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
 - /bin/worker-add-base-tools.sh
 - su - ubuntu -c /bin/worker-update.sh
+- su - ubuntu -c /bin/worker-install-scaler.sh
 - su - ubuntu -c /bin/worker-install-bashtop.sh
 - su - ubuntu -c /bin/worker-install-jupyter.sh
 - su - ubuntu -c /bin/worker-install-loadbalancer.sh
+- su - ubuntu -c /bin/worker-install-latex.sh
+- su - ubuntu -c /bin/worker-install-ssh.sh
 - echo "---------------> JoDeMiro Deployment finished."
