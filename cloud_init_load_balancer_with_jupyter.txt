@@ -11,42 +11,42 @@ write_files:
   content: |
     #!/bin/bash
     export USR='ubuntu'
-    echo "---------------> Creating user \"$USR\" starts."
+    echo "\n---------------> Creating user \"$USR\" starts."
     adduser --disabled-password --gecos "" $USR
-    echo "---------------> Creating user \"$USR\" finished."
+    echo "\n---------------> Creating user \"$USR\" finished."
   permissions: '755'
 
 - path: /bin/worker-add-base-tools.sh
   content: |
     #!/bin/bash
-    echo "---------------> Installing base tools (pip,venv) starts."
-    echo "---------------> Installing base tools (pip,venv) finished."
+    echo "\n---------------> Installing base tools (pip,venv) starts."
+    echo "\n---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
 - path: /bin/worker-update.sh
   content: |
     #!/bin/bash
-    echo "---------------> Update Ubuntu."
+    echo "\n---------------> Update Ubuntu."
     sudo apt-get update -y
-    echo "---------------> Update Ubuntu finished."
+    echo "\n---------------> Update Ubuntu finished."
   permissions: '755'
 
 - path: /bin/worker-install-bashtop.sh
   content: |
     #!/bin/bash
-    echo "---------------> Install Bashtop."    
+    echo "\n---------------> Install Bashtop."    
     git clone https://github.com/aristocratos/bashtop
 
     # cd bashtop
     # bash bashtop
 
-    echo "---------------> Install Bashtop finished."
+    echo "\n---------------> Install Bashtop finished."
   permissions: '755'
 
 - path: /bin/worker-install-loadbalancer.sh
   content: |
     #!/bin/bash
-    echo "---------------> Install Apache 2 Loadbalancer."
+    echo "\n---------------> Install Apache 2 Loadbalancer."
     sudo apt install -y apache2
     sudo apt install -y libapache2-mod-jk
     sudo ufw app list
@@ -100,46 +100,37 @@ write_files:
     # Run apache2 configtest
     sudo apache2ctl configtest
 
-    echo "---------------> Start Apache 2 Loadbalancer"
+    echo "\n---------------> Start Apache 2 Loadbalancer"
     
     sudo systemctl restart apache2
     sudo systemctl reload apache2
 
-    echo "---------------> Install Apache 2 Loadbalancer finished."
+    echo "\n---------------> Install Apache 2 Loadbalancer finished."
   permissions: '755'
 
 - path: /bin/worker-install-jupyter.sh
   content: |
     #!/bin/bash
-    echo "---------------> Install Python stuffs for me."
+    echo "\n---------------> Install Python stuffs for me."
     pip3 install --upgrade pip
     pip3 install virtualenv
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
     virtualenv notebook
     source notebook/bin/activate
-    wget --no-cache https://raw.githubusercontent.com/JoDeMiro/TMP/main/requirements_jupyter.txt
-    pip3 install -r requirements_driver.txt
+    wget --no-cache https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/requirements_jupyter.txt
+    pip3 install -r requirements_jupyter.txt
     jupyter notebook --generate-config jupyter notebook --generate-config
     jupyter contrib nbextension install --user
     jupyter nbextension available
 
-    echo "---------------> Warning !."
+    echo "\n---------------> Warning !."
 
     # jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse
 
-    echo "---------------> Jupyter Notebook has to start manually."
-    echo "---------------> Install Jupyter, Scikit, etc finished."
+    echo "\n---------------> Jupyter Notebook has to start manually."
+    echo "\n---------------> Install Jupyter, Scikit, etc finished."
   permissions: '755'
-
-
-
-
-
-
-
-
-
 
 
 runcmd:
