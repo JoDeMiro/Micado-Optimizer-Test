@@ -158,19 +158,6 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-install-scaler.sh
-  content: |
-    #!/bin/bash
-    echo " "
-    echo "---------------> Install Scaler."
-    echo " "
-
-    git clone https://github.com/JoDeMiro/Scaler.git
-
-    echo " "
-    echo "---------------> Install Scaler finished."
-    echo " "
-
 - path: /bin/worker-install-ssh.sh
   content: |
     #!/bin/bash
@@ -220,7 +207,6 @@ runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
 - /bin/worker-add-base-tools.sh
 - su - ubuntu -c /bin/worker-update.sh
-- su - ubuntu -c /bin/worker-install-scaler.sh
 - su - ubuntu -c /bin/worker-install-bashtop.sh
 - su - ubuntu -c /bin/worker-install-jupyter.sh
 - su - ubuntu -c /bin/worker-install-loadbalancer.sh
