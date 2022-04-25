@@ -183,7 +183,7 @@ write_files:
     echo " "
     echo "---------------> Nyomorek id_rsa-t fell kell rakni az .ssh konyvtrba onnan meg at a root-nak hogy elerje a workereket."
     echo " "
-
+  permissions: '755'
 
 - path: /bin/worker-install-latex.sh
   content: |
@@ -192,14 +192,28 @@ write_files:
     echo "---------------> Install Latex started."
     echo " "
 
-    # sudo apt-get install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
+    sudo apt-get install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
 
-    sudo apt install -y dvipng texlive-latex-extra texlive-fonts-recommended cm-super
+    # sudo apt install -y dvipng texlive-latex-extra texlive-fonts-recommended cm-super
 
     echo " "
     echo "---------------> Install Latex finishted."
     echo " "
+  permissions: '755'
 
+- path: /bin/worker-install-scaler.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Scaler started."
+    echo " "
+
+    git clone https://github.com/JoDeMiro/Scaler.git
+
+    echo " "
+    echo "---------------> Install Scaler finishted."
+    echo " "
+  permissions: '755'
 
 
 runcmd:
@@ -212,4 +226,5 @@ runcmd:
 - su - ubuntu -c /bin/worker-install-loadbalancer.sh
 - su - ubuntu -c /bin/worker-install-latex.sh
 - su - ubuntu -c /bin/worker-install-ssh.sh
+- su - ubuntu -c /bin/worker-install-scaler.sh
 - echo "---------------> JoDeMiro Deployment finished."
