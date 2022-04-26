@@ -1,11 +1,10 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.beans.InfoStats;
+import com.example.filedemo.computation.cpu.*;
 import com.example.filedemo.computation.download.StaticDownloader;
 import com.example.filedemo.computation.io.FileCopier;
 import com.example.filedemo.computation.memory.MyBeanCalc;
-import com.example.filedemo.computation.cpu.Fibonnaci;
-import com.example.filedemo.computation.cpu.Prime;
 import com.example.filedemo.computation.io.FileSizeCalc;
 import com.example.filedemo.computation.memory.StringSizeCalc;
 import com.example.filedemo.computation.network.CreateNetworkData;
@@ -65,6 +64,12 @@ public class RestConroller {
 
     @Autowired
     Fibonnaci fibonnaci = new Fibonnaci();
+
+    @Autowired
+    Count count = new Count();
+
+    @Autowired
+    Instance instance = new Instance();
 
     @Autowired
     Prime prime = new Prime();
@@ -225,11 +230,35 @@ public class RestConroller {
         long elapsedTime = stop - start;
 
         CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-        // CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime);
-
 
         System.gc();
         Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/fibonacci_no_gc/{number}")
+    public CpuResponse cpu_no_gc(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            result = fibonnaci.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
 
         return response;
     }
@@ -245,6 +274,187 @@ public class RestConroller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.gc();
+        Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/prime_no_gc/{number}")
+    public CpuResponse prime_no_gc(@PathVariable String number) {
+
+        CpuResponse response = null;
+
+        try {
+            response = prime.run(Integer.parseInt(number));
+            response.setWorkerIPAddress(ipAddress);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/count/{number}")
+    public CpuResponse count(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            result = count.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        System.gc();
+        Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/count_no_gc/{number}")
+    public CpuResponse count_no_gc(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            result = count.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/instance/{number}")
+    public CpuResponse instance(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            result = instance.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        System.gc();
+        Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/instance_no_gc/{number}")
+    public CpuResponse instance_no_gc(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            result = instance.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/individum/{number}")
+    public CpuResponse individum(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        Individum individum = new Individum();
+
+        try {
+            result = individum.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        System.gc();
+        Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/individum_no_gc/{number}")
+    public CpuResponse individum_no_gc(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        Individum individum = new Individum();
+
+        try {
+            result = individum.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
 
         return response;
     }

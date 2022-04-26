@@ -50,6 +50,16 @@
                 <div class="single-upload">
                     <h3>REST API</h3>
                     <div class="upload-response">
+
+                        <div>
+                            <a href="/restart" data-toggle="popover"
+                               title="Restart"
+                               data-content="Restart Tomcat."
+                               data-placement="right"
+                               data-trigger="hover">
+                                localhost:8080/restart
+                            </a>
+                        </div>
                         <div>
                             <a href="/actuator" data-toggle="popover"
                                title="Actuator"
@@ -108,14 +118,54 @@
                             <a href="/wait/1000">localhost:8080/wait/1000</a>
                         </div>
                         <div>
-                            <a href="/cpu/fibonacci/10"><local></local>host:8080/fibonacci/cpu/{10}</a>
+                            <a href="/cpu/fibonacci/10">localhost:8080/fibonacci/cpu/{10}</a>
                             <a href="/cpu/fibonacci/20">{20}</a>
                             <a href="/cpu/fibonacci/30">{30}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/fibonacci_no_gc/10">localhost:8080/fibonacci_no_gc/cpu/{10}</a>
+                            <a href="/cpu/fibonacci_no_gc/20">{20}</a>
+                            <a href="/cpu/fibonacci_no_gc/30">{30}</a>
                         </div>
                         <div>
                             <a href="/cpu/prime/10">localhost:8080/cpu/prime/{10}</a>
                             <a href="/cpu/prime/200">{200}</a>
                             <a href="/cpu/prime/1000">{1000}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/prime_no_gc/10">localhost:8080/cpu/prime_no_gc/{10}</a>
+                            <a href="/cpu/prime_no_gc/200">{200}</a>
+                            <a href="/cpu/prime_no_gc/1000">{1000}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/count/10">localhost:8080/cpu/count/{10}</a>
+                            <a href="/cpu/count/20">{20}</a>
+                            <a href="/cpu/count/30">{30}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/count_no_gc/10">localhost:8080/cpu/count_no_gc/{10}</a>
+                            <a href="/cpu/count_no_gc/20">{20}</a>
+                            <a href="/cpu/count_no_gc/30">{30}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/instance/10">localhost:8080/cpu/instance/{10}</a>
+                            <a href="/cpu/instance/20">{20}</a>
+                            <a href="/cpu/instance/30">{30}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/instance_no_gc/10">localhost:8080/cpu/instance_no_gc/{10}</a>
+                            <a href="/cpu/instance_no_gc/20">{20}</a>
+                            <a href="/cpu/instance_no_gc/30">{30}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/individum/10">localhost:8080/cpu/individum/{10}</a>
+                            <a href="/cpu/individum/20">{20}</a>
+                            <a href="/cpu/individum/30">{30}</a>
+                        </div>
+                        <div>
+                            <a href="/cpu/individum_no_gc/10">localhost:8080/cpu/individum_no_gc/{10}</a>
+                            <a href="/cpu/individum_no_gc/20">{20}</a>
+                            <a href="/cpu/individum_no_gc/30">{30}</a>
                         </div>
                         <div>
                             <a href="/io/1/dir_path/1">localhost:8080/io/1/{dir_path}/{1}</a>
