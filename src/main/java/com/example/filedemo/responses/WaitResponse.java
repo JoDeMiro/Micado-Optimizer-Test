@@ -1,10 +1,15 @@
 package com.example.filedemo.responses;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class WaitResponse {
 
     String name;
     Long waitTime;
     Long executionTime;
+    String workerIPAddress;
+
 
     public WaitResponse() {
     }
@@ -13,6 +18,13 @@ public class WaitResponse {
         this.name = name;
         this.waitTime = waitTime;
         this.executionTime = executionTime;
+    }
+
+    public WaitResponse(String name, Long waitTime, Long executionTime, String workerIPAddress) {
+        this.name = name;
+        this.waitTime = waitTime;
+        this.executionTime = executionTime;
+        this.workerIPAddress = workerIPAddress;
     }
 
     public String getName() {
@@ -39,12 +51,21 @@ public class WaitResponse {
         this.executionTime = executionTime;
     }
 
+    public String getWorkerIPAddress() {
+        return workerIPAddress;
+    }
+
+    public void setWorkerIPAddress(String workerIPAddress) {
+        this.workerIPAddress = workerIPAddress;
+    }
+
     @Override
     public String toString() {
         return "WaitResponse{" +
                 "name='" + name + '\'' +
                 ", waitTime=" + waitTime +
                 ", executionTime=" + executionTime +
+                ", workerIPAddress='" + workerIPAddress + '\'' +
                 '}';
     }
 }

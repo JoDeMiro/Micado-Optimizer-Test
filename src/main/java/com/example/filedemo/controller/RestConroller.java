@@ -83,6 +83,9 @@ public class RestConroller {
     @Autowired
     private StaticDownloader staticDownloader;
 
+    @Autowired
+    private WaitResponse waitResponse;
+
     @GetMapping("/restart")
     public void restart(HttpServletRequest request) {
         restartEndpoint.restart();
@@ -169,6 +172,7 @@ public class RestConroller {
         list.add("response");
         list.add("wait = 1000");
         list.add("ok");
+        list.add(ipAddress);
 
         return list;
     }
@@ -187,7 +191,7 @@ public class RestConroller {
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        WaitResponse response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime);
+        WaitResponse response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime, ipAddress);
 
         return response;
     }
@@ -206,9 +210,9 @@ public class RestConroller {
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        WaitResponse response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime);
+        waitResponse = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime, ipAddress);
 
-        return response;
+        return waitResponse;
     }
 
     @GetMapping("/cpu/fibonacci/{number}")
