@@ -15,7 +15,7 @@ import com.example.filedemo.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.context.restart.RestartEndpoint;
+// import org.springframework.cloud.context.restart.RestartEndpoint;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,8 +59,8 @@ public class RestConroller {
     @Autowired
     private static final CreateNetworkData createNetworkData = new CreateNetworkData(20000);
 
-    @Autowired
-    private RestartEndpoint restartEndpoint;
+    // @Autowired
+    // private RestartEndpoint restartEndpoint;
 
     @Autowired
     Fibonnaci fibonnaci = new Fibonnaci();
@@ -86,10 +86,10 @@ public class RestConroller {
     @Autowired
     private WaitResponse waitResponse;
 
-    @GetMapping("/restart")
-    public void restart(HttpServletRequest request) {
-        restartEndpoint.restart();
-    }
+    // @GetMapping("/restart")
+    // public void restart(HttpServletRequest request) {
+    //    restartEndpoint.restart();
+    // }
     
     @GetMapping("/gc")
     public void garbage(HttpServletRequest request) {
