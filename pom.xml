@@ -87,14 +87,17 @@
 		</dependency>
 
 		<!-- actuator for prometeus -->
+		<!--
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
+		-->
 
 
 
 		<!-- for logging request response -->
+		<!--
 		<dependency>
 			<groupId>net.rakugakibox.spring.boot</groupId>
 			<artifactId>logback-access-spring-boot-starter</artifactId>
@@ -110,6 +113,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
+		-->
 
 
 
