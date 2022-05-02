@@ -1,5 +1,6 @@
 package com.example.filedemo.conf;
 
+/*
 import ch.qos.logback.access.servlet.TeeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -24,3 +25,4 @@ public class FilterConfiguration {
         return filterRegBean;
     }
 }
+*/
