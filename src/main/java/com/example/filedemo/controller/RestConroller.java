@@ -10,12 +10,12 @@ import com.example.filedemo.computation.memory.StringSizeCalc;
 import com.example.filedemo.computation.network.CreateNetworkData;
 import com.example.filedemo.computation.network.GenerateNetworkTraffic;
 import com.example.filedemo.computation.network.GetNetworkTraffic;
+import com.example.filedemo.conf.HttpTraceLogConfiguration;
 import com.example.filedemo.responses.*;
 import com.example.filedemo.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.cloud.context.restart.RestartEndpoint;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,10 +86,14 @@ public class RestConroller {
     @Autowired
     private WaitResponse waitResponse;
 
+    @Autowired
+    private HttpTraceLogConfiguration httpTraceLogConfiguration;
+
     // @GetMapping("/restart")
     // public void restart(HttpServletRequest request) {
     //    restartEndpoint.restart();
     // }
+
     
     @GetMapping("/gc")
     public void garbage(HttpServletRequest request) {

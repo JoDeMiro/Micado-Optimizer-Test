@@ -1,4 +1,4 @@
-package com.example.filedemo.repository;
+package com.example.filedemo.conf;
 
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;

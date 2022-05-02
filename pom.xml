@@ -51,6 +51,7 @@
 		<git.developerConnection>scm:git:ssh://git@github.com/JoDeMiro/Micado-Optimizer-Test.git</git.developerConnection>
 		<spring-cloud.version>2020.0.4</spring-cloud.version>
 		<wavefront.version>2.1.1</wavefront.version>
+		<logback.version>1.2.3</logback.version>
 	</properties>
 
 	<dependencies>
@@ -84,6 +85,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+
+		<!-- actuator for prometeus -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+
+
+
+		<!-- for logging request response -->
+		<dependency>
+			<groupId>net.rakugakibox.spring.boot</groupId>
+			<artifactId>logback-access-spring-boot-starter</artifactId>
+			<version>2.7.1</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-access</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+
+
 
 		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
 		<dependency>
