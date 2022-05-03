@@ -30,12 +30,11 @@ import java.util.concurrent.ExecutionException;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
-import org.springframework.web.bind.annotation.GetMapping;
 
-@org.springframework.web.bind.annotation.RestController
-public class RestController {
+@RestController
+public class RestsController {
 
-    private static final Logger logger = LoggerFactory.getLogger(RestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RestsController.class);
 
     private static String ipAddress;
 
@@ -96,7 +95,7 @@ public class RestController {
     private HttpTraceLogConfiguration httpTraceLogConfiguration;
 
 
-    public RestController(MeterRegistry registry) {
+    public RestsController(MeterRegistry registry) {
         visitCounter = Counter.builder("visit_counter")
                 .description("Number of visits to the site")
                 .register(registry);
