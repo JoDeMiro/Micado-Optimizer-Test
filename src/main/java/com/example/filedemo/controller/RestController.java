@@ -28,12 +28,18 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
-@RestController
-public class RestConroller {
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.web.bind.annotation.GetMapping;
 
-    private static final Logger logger = LoggerFactory.getLogger(RestConroller.class);
+@org.springframework.web.bind.annotation.RestController
+public class RestController {
+
+    private static final Logger logger = LoggerFactory.getLogger(RestController.class);
 
     private static String ipAddress;
+
+    Counter visitCounter;
 
     static {
         try {
@@ -89,12 +95,24 @@ public class RestConroller {
     @Autowired
     private HttpTraceLogConfiguration httpTraceLogConfiguration;
 
+
+    public RestController(MeterRegistry registry) {
+        visitCounter = Counter.builder("visit_counter")
+                .description("Number of visits to the site")
+                .register(registry);
+    }
+
     // @GetMapping("/restart")
     // public void restart(HttpServletRequest request) {
     //    restartEndpoint.restart();
     // }
 
-    
+    @GetMapping("/counter")
+    public String counter(HttpServletRequest request) {
+        visitCounter.increment();
+        return "Hello Counter. Counter is available in /actuator/prometheus";
+    }
+
     @GetMapping("/gc")
     public void garbage(HttpServletRequest request) {
         System.gc();
