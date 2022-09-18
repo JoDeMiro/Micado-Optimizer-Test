@@ -6,7 +6,7 @@ packages:
 
 
 write_files:
-- path: /bin/worker-add-user.sh
+- path: /bin/load-balancer-add-user.sh
   content: |
     #!/bin/bash
     export USR='ubuntu'
@@ -15,7 +15,7 @@ write_files:
     echo "---------------> Creating user \"$USR\" finished."
   permissions: '755'
 
-- path: /bin/worker-add-base-tools.sh
+- path: /bin/load-balancer-add-base-tools.sh
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
@@ -23,7 +23,7 @@ write_files:
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
-- path: /bin/worker-install.sh
+- path: /bin/load-balancer-install.sh
   content: |
     #!/bin/bash
     echo "---------------> Install Java stuffs for me."
@@ -104,6 +104,7 @@ write_files:
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
-- /bin/worker-add-base-tools.sh
-- su - ubuntu -c /bin/worker-install.sh
+- /bin/load-balancer-add-user.sh
+- /bin/load-balancer-add-base-tools.sh
+- su - ubuntu -c /bin/load-balancer-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
