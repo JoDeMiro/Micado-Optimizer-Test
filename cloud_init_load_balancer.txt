@@ -1,36 +1,24 @@
 #cloud-config
 
-packages:
-  - git
-  - openssh-client
-  - ffmpeg
-
-
 write_files:
 - path: /bin/load-balancer-add-user.sh
   content: |
     #!/bin/bash
     export USR='ubuntu'
+    echo " -------------------------------------------------------------------------------------- "
+    echo " -------------------------------------------------------------------------------------- "
+    echo -e " ez \n itt \n egy \n proba"
+    echo "-----------------------------"
+    echo "ez \n itt \n egy \n proba"
+    printf "ez itt egy printf proba \n remelem mukodik \n vagy nem"
+    echo " -------------------------------------------------------------------------------------- "
+    echo " -------------------------------------------------------------------------------------- "
     echo " "
     echo "---------------> Creating user \"$USR\" starts."
     echo " "
     adduser --disabled-password --gecos "" $USR
     echo " "
     echo "---------------> Creating user \"$USR\" finished."
-    echo " "
-  permissions: '755'
-
-- path: /bin/load-balancer-add-base-tools.sh
-  content: |
-    #!/bin/bash
-    echo " "
-    echo "---------------> Installing base tools (zip,venv) starts."
-    echo " "
-    sudo apt-get -y install zip
-    sudo apt-get -y install unzip
-    sudo apt-get -y install fish
-    echo " "
-    echo "---------------> Installing base tools (zip,venv) finished."
     echo " "
   permissions: '755'
 
@@ -46,6 +34,23 @@ write_files:
     echo " "
   permissions: '755'
 
+- path: /bin/load-balancer-add-base-tools.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) starts."
+    echo " "
+    sudo apt-get -y install zip
+    sudo apt-get -y install unzip
+    sudo apt-get -y install fish
+    sudo apt-get -y install htop
+    sudo apt-get -y install git
+    sudo apt-get -y install openssh-client
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) finished."
+    echo " "
+  permissions: '755'
+
 - path: /bin/load-balancer-install-ext.sh
   content: |
     #!/bin/bash
@@ -56,7 +61,6 @@ write_files:
     sudo apt-get -y install libc6-dev
     sudo apt-get -y install libsm6
     sudo apt-get -y install libxext6
-    sudo apt-get -y install ffmpeg
     sudo apt-get -y install graphviz
     
     echo "---------------> Installing some stuff needed for Python finished."
@@ -228,8 +232,6 @@ write_files:
 
     sudo apt-get -y install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
 
-    # sudo apt install -y dvipng texlive-latex-extra texlive-fonts-recommended cm-super
-
     echo " "
     echo "---------------> Install Latex finishted."
     echo " "
@@ -304,14 +306,14 @@ write_files:
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
 - /bin/load-balancer-add-user.sh
-- /bin/load-balancer-add-base-tools.sh
 - su - ubuntu -c /bin/load-balancer-update.sh
-- su - ubuntu -c /bin/load-balancer-install-ext.sh
+- su - ubuntu -c /bin/load-balancer-add-base-tools.sh
+# - su - ubuntu -c /bin/load-balancer-install-ext.sh
 - su - ubuntu -c /bin/load-balancer-install-bashtop.sh
 - su - ubuntu -c /bin/load-balancer-install-python.sh
 - su - ubuntu -c /bin/load-balancer-install-jupyter.sh
 - su - ubuntu -c /bin/load-balancer-install-loadbalancer.sh
-- su - ubuntu -c /bin/load-balancer-install-latex.sh
+# - su - ubuntu -c /bin/load-balancer-install-latex.sh
 - su - ubuntu -c /bin/load-balancer-install-ssh.sh
 - su - ubuntu -c /bin/load-balancer-install-scaler.sh
 - su - ubuntu -c /bin/load-balancer-config-git.sh
