@@ -221,7 +221,7 @@ write_files:
     echo "              Le kell jelszavazni a Jupytert                       "
     echo "              jupyter notebook password                            "
     echo "              Fell kell tolni az SSH kulcsot                       "
-    echo "              El kell indítani a Jupytert                          "
+    echo "              El kell inditani a Jupytert                          "
     echo "              jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse"
     echo " "
     echo "-------------------------------------------------------------------"
