@@ -5,6 +5,7 @@ packages:
   - openssh-client
 
 
+
 write_files:
 - path: /bin/worker-add-user.sh
   content: |
@@ -54,11 +55,12 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/load-balancer-install.sh
+- path: /bin/worker-install-loadbalancer.sh
   content: |
     #!/bin/bash
-    echo "---------------> Install Java stuffs for me."
-    sudo apt-get update -y
+    echo " "
+    echo "---------------> Install Apache 2 Loadbalancer."
+    echo " "
     sudo apt install -y apache2
     sudo apt install -y libapache2-mod-jk
     sudo ufw app list
@@ -78,8 +80,60 @@ write_files:
     sudo apt install -y ntpdate tmux collectl moreutils
     sudo ntpdate -s time.nist.gov
     sudo systemctl restart apache2
-    ls -l /home/ubuntu/.local/bin
-    export PATH=$PATH:/home/ubuntu/.local/bin
+    
+    # Load Balancer for Java TomCat
+
+    # https://madurad.wordpress.com/2014/08/27/tomcat-server-loab-balancing-using-multiple-tomcat-server-instances-in-ubuntu
+    # https://www.xmodulo.com/configure-tomcat-cluster-ubuntu.html
+    # https://medium.com/@sanjayadesilva6/setting-up-apache-loadbalancer-46072177ec66
+    # https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-18-04-quickstart
+    # https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-20-04
+    # https://ubuntu.com/tutorials/install-and-configure-apache#5-activating-virtualhost-file
+    # https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html
+    # https://aws.amazon.com/premiumsupport/knowledge-center/elb-fix-high-latency-on-alb
+    # https://stackoverflow.com/questions/52433480/spring-boot-application-load-balanced-with-apache
+    # https://www.datadoghq.com/blog/collect-apache-performance-metrics
+
+    # http://193.2xx.xxx.xxx/balancer-manager/myapp
+    
+    sudo mkdir /var/www/loadbalancer
+    sudo chown -R $USER:$USER /var/www/loadbalancer
+    sudo chmod -R 755 /var/www/loadbalancer
+    sudo printf "<html><head><title>Hello Loadbalancer</title></head><body>Hello</body></html>" >> index.html
+    sudo cp index.html /var/www/loadbalancer/index.html
+    
+    wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/loadbalancer.conf
+    sudo cp loadbalancer.conf /etc/apache2/sites-available/loadbalancer.conf
+    sudo a2ensite loadbalancer.conf
+    sudo a2dissite 000-default.conf
+    
+    # Make log more readable to get Response Time
+    wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/apache2.conf
+    sudo cp apache2.conf /etc/apache2/apache2.conf
+    
+    # Run apache2 configtest
+    sudo apache2ctl configtest
+
+    echo " "
+    echo "---------------> Start Apache 2 Loadbalancer"
+    echo " "
+    
+    sudo systemctl restart apache2
+    sudo systemctl reload apache2
+
+    echo " "
+    echo "---------------> Install Apache 2 Loadbalancer finished."
+    echo " "
+  permissions: '755'
+
+
+
+
+
+
+- path: /bin/load-balancer-install.sh
+  content: |
+    #!/bin/bash
     
     # Load Balancer for Java TomCat
 
