@@ -33,7 +33,7 @@ write_files:
     echo " "
     echo "---------------> Update Ubuntu."
     echo " "
-    sudo apt-get update -y
+    sudo apt-get -y update
     echo " "
     echo "---------------> Update Ubuntu finished."
     echo " "
@@ -61,8 +61,8 @@ write_files:
     echo " "
     echo "---------------> Install Apache 2 Loadbalancer."
     echo " "
-    sudo apt-get install -y apache2
-    sudo apt-get install -y libapache2-mod-jk
+    sudo apt-get -y install apache2
+    sudo apt-get -y install libapache2-mod-jk
     sudo ufw app list
     sudo ufw allow 'Apache'
     sudo ufw status
@@ -77,7 +77,7 @@ write_files:
     # https://httpd.apache.org/docs/2.4/mod/mod_proxy_balancer.html
     # https://wiki.logicaldoc.com/wiki/Configure_Apache_load_balancer_with_mod_proxy
     sudo a2enmod slotmem_shm
-    sudo apt-get install -y ntpdate tmux collectl moreutils
+    sudo apt-get -y install ntpdate tmux collectl moreutils
     sudo ntpdate -s time.nist.gov
     sudo systemctl restart apache2
     
