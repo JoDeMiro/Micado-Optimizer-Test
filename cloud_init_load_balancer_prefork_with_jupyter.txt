@@ -148,7 +148,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/load-balancer-install-jupyter.sh
+- path: /bin/load-balancer-install-python.sh
   content: |
     #!/bin/bash
     echo " "
@@ -164,19 +164,32 @@ write_files:
     source notebook/bin/activate
     wget --no-cache https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/requirements_jupyter.txt
     pip3 install -r requirements_jupyter.txt
+    echo " "
+    echo "---------------> Install Python stuffs for me finished."
+    echo " "
+  permissions: '755'
+  
+- path: /bin/load-balancer-install-jupyter.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Jupyter Notebook Extentions."
+    echo " "
+    ls -l /home/ubuntu/.local/bin
+    export PATH=$PATH:/home/ubuntu/.local/bin
+    source notebook/bin/activate
     jupyter notebook --generate-config
     jupyter contrib nbextension install --user
     jupyter nbextension available
-
     echo " "
-    echo "---------------> Warning !."
+    echo "---------------> Warning !. Jupyter Notebeook should start manually."
     echo " "
 
     # jupyter notebook password
     # jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse
 
-    echo "---------------> Jupyter Notebook has to start manually."
-    echo "---------------> Install Jupyter, Scikit, etc finished."
+    echo " "
+    echo "---------------> Install Jupyter Notebook Extentions finished."
     echo " "
   permissions: '755'
 
@@ -187,6 +200,7 @@ write_files:
     echo "---------------> Nyomorek id_rsa-t fell kell rakni az .ssh konyvtrba onnan meg at a root-nak hogy elerje a workereket."
     echo " "
 
+    # scp /home/ubuntu/.ssh/id_rsa ubuntu@xxx.xxx.xxx.xxx:/home/ubuntu/.ssh/
     # cp /home/ubuntu/.ssh/id_rsa /root/.ssh/
 
     echo " "
@@ -232,12 +246,12 @@ write_files:
 
     echo "-------------------------------------------------------------------"
     echo " "
-    echo "           1. Le kell jelszavazni a Jupytert                       "
+    echo "            - Le kell jelszavazni a Jupytert                       "
     echo "              jupyter notebook password                            "
-    echo "           2. Fell kell tolni az SSH kulcsot                       "
-    echo "           3. El kell inditani a Jupytert                          "
+    echo "            - Fell kell tolni az SSH kulcsot                       "
+    echo "            - El kell inditani a Jupytert                          "
     echo "              jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse"
-    echo "           4. Fel kell venni a Worker IP cimeket a Balancerbe      "
+    echo "            - Fel kell venni a Worker IP cimeket a Balancerbe      "
     echo " "
     echo "-------------------------------------------------------------------"
 
@@ -251,6 +265,7 @@ runcmd:
 - /bin/load-balancer-add-base-tools.sh
 - su - ubuntu -c /bin/load-balancer-update.sh
 - su - ubuntu -c /bin/load-balancer-install-bashtop.sh
+- su - ubuntu -c /bin/load-balancer-install-python.sh
 - su - ubuntu -c /bin/load-balancer-install-jupyter.sh
 - su - ubuntu -c /bin/load-balancer-install-loadbalancer.sh
 - su - ubuntu -c /bin/load-balancer-install-latex.sh
