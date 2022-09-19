@@ -24,6 +24,9 @@ write_files:
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
+    sudo apt install zip -y
+    sudo apt install unzip -y
+    sudo apt install fish -y
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
@@ -37,6 +40,22 @@ write_files:
     echo " "
     echo "---------------> Update Ubuntu finished."
     echo " "
+  permissions: '755'
+
+- path: /bin/load-balancer-install-mandatories.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Installing some stuff needed for Python."
+    
+    # These are requred for some Python modules
+    
+    sudo apt install libc6-dev -y
+    sudo apt install libsm6 -y
+    sudo apt install libxext6 -y
+    sudo apt install ffmpeg -y
+    sudo apt install graphviz -y
+    
+    echo "---------------> Installing some stuff needed for Python finished."
   permissions: '755'
 
 - path: /bin/load-balancer-install-bashtop.sh
@@ -164,9 +183,11 @@ write_files:
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
     source notebook/bin/activate
-    jupyter notebook --generate-config
+    # jupyter notebook --generate-config
+    jupyter contrib
+    jupyter contrib --version
     jupyter contrib nbextension install --user
-    jupyter nbextension available
+    jupyter nbextensions_configurator enable --user
     echo " "
     echo "---------------> Warning !. Jupyter Notebeook should start manually."
     echo " "
