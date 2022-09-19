@@ -224,6 +224,37 @@ write_files:
     echo " "
   permissions: '755'
 
+- path: /bin/load-balancer-config-git.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Config Git started."
+    echo " "
+
+    git config --global user.name "JoDeMiro"
+    git config --global user.email "joedemiro@pintye.com"
+
+    echo " "
+    echo "---------------> Config Git finishted."
+    echo " "
+  permissions: '755'
+
+- path: /bin/load-balancer-clean.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Cleaner started."
+    echo " "
+
+    sudo apt-get -y autoclean
+    sudo apt-get -y autoremove
+    sudo apt-get -y purge
+
+    echo " "
+    echo "---------------> Install Cleaner finishted."
+    echo " "
+  permissions: '755'
+
 - path: /bin/load-balancer-todo.sh
   content: |
     #!/bin/bash
@@ -257,5 +288,7 @@ runcmd:
 - su - ubuntu -c /bin/load-balancer-install-latex.sh
 - su - ubuntu -c /bin/load-balancer-install-ssh.sh
 - su - ubuntu -c /bin/load-balancer-install-scaler.sh
+- su - ubuntu -c /bin/load-balancer-config-git.sh
+- su - ubuntu -c /bin/load-balancer-clean.sh
 - su - ubuntu -c /bin/load-balancer-todo.sh
 - echo "---------------> JoDeMiro Deployment finished."
