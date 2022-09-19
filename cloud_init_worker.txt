@@ -18,8 +18,9 @@ write_files:
 - path: /bin/worker-add-base-tools.sh
   content: |
     #!/bin/bash
-    echo "---------------> Installing base tools (pip,venv) starts."
-    echo "---------------> Installing base tools (pip,venv) finished."
+    export MESSAGE='ha olyanom lenne ide is irhatok'
+    echo "---------------> A velemenyem az, hogy \"$MESSAGE\" vagy nem."
+    echo "---------------> Vege."
   permissions: '755'
 
 - path: /bin/worker-install.sh
@@ -48,6 +49,7 @@ write_files:
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
+- /bin/worker-add-user.sh
 - /bin/worker-add-base-tools.sh
 - su - ubuntu -c /bin/worker-install.sh
 - echo "---------------> JoDeMiro Deployment finished."
