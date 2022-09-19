@@ -6,7 +6,7 @@ packages:
   - ffmpeg
 
 write_files:
-- path: /bin/balancer-add-user.sh
+- path: /bin/worker-add-user.sh
   content: |
     #!/bin/bash
     export USR='ubuntu'
@@ -19,14 +19,14 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/balancer-add-base-tools.sh
+- path: /bin/worker-add-base-tools.sh
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
-- path: /bin/balancer-update.sh
+- path: /bin/worker-update.sh
   content: |
     #!/bin/bash
     echo " "
@@ -38,7 +38,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/balancer-install-bashtop.sh
+- path: /bin/worker-install-bashtop.sh
   content: |
     #!/bin/bash
     echo " "
