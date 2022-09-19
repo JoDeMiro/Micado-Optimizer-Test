@@ -1,16 +1,18 @@
 #cloud-config
 
-packages:
-  - git
-  - openssh-client
-  - ffmpeg
-
-
 write_files:
 - path: /bin/load-balancer-add-user.sh
   content: |
     #!/bin/bash
     export USR='ubuntu'
+    echo " -------------------------------------------------------------------------------------- "
+    echo " -------------------------------------------------------------------------------------- "
+    echo -e " ez \n itt \n egy \n proba"
+    echo "-----------------------------"
+    echo "ez \n itt \n egy \n proba"
+    printf "ez itt egy printf proba \n remelem mukodik \n vagy nem\n"
+    echo " -------------------------------------------------------------------------------------- "
+    echo " -------------------------------------------------------------------------------------- "
     echo " "
     echo "---------------> Creating user \"$USR\" starts."
     echo " "
@@ -18,13 +20,6 @@ write_files:
     echo " "
     echo "---------------> Creating user \"$USR\" finished."
     echo " "
-  permissions: '755'
-
-- path: /bin/load-balancer-add-base-tools.sh
-  content: |
-    #!/bin/bash
-    echo "---------------> Installing base tools (pip,venv) starts."
-    echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
 - path: /bin/load-balancer-update.sh
@@ -36,6 +31,40 @@ write_files:
     sudo apt-get -y update
     echo " "
     echo "---------------> Update Ubuntu finished."
+    echo " "
+  permissions: '755'
+
+- path: /bin/load-balancer-add-base-tools.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) starts."
+    echo " "
+    sudo apt-get -y install zip
+    sudo apt-get -y install unzip
+    sudo apt-get -y install fish
+    sudo apt-get -y install htop
+    sudo apt-get -y install git
+    sudo apt-get -y install openssh-client
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) finished."
+    echo " "
+  permissions: '755'
+
+- path: /bin/load-balancer-add-base-tools.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) starts."
+    echo " "
+    sudo apt-get -y install zip
+    sudo apt-get -y install unzip
+    sudo apt-get -y install fish
+    sudo apt-get -y install htop
+    sudo apt-get -y install git
+    sudo apt-get -y install openssh-client
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) finished."
     echo " "
   permissions: '755'
 
@@ -178,9 +207,11 @@ write_files:
     ls -l /home/ubuntu/.local/bin
     export PATH=$PATH:/home/ubuntu/.local/bin
     source notebook/bin/activate
-    jupyter notebook --generate-config
+    # jupyter notebook --generate-config
+    jupyter contrib
+    jupyter contrib --version
     jupyter contrib nbextension install --user
-    jupyter nbextension available
+    jupyter nbextensions_configurator enable --user
     echo " "
     echo "---------------> Warning !. Jupyter Notebeook should start manually."
     echo " "
@@ -216,8 +247,6 @@ write_files:
     echo " "
 
     sudo apt-get -y install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
-
-    # sudo apt install -y dvipng texlive-latex-extra texlive-fonts-recommended cm-super
 
     echo " "
     echo "---------------> Install Latex finishted."
@@ -291,18 +320,19 @@ write_files:
   permissions: '755'
 
 runcmd:
-- echo "---------------> JoDeMiro Deployment starts."
+- echo -e "\n---------------> JoDeMiro Deployment starts.\n\n"
 - /bin/load-balancer-add-user.sh
-- /bin/load-balancer-add-base-tools.sh
 - su - ubuntu -c /bin/load-balancer-update.sh
+- su - ubuntu -c /bin/load-balancer-add-base-tools.sh
+- su - ubuntu -c /bin/load-balancer-install-ext.sh
 - su - ubuntu -c /bin/load-balancer-install-bashtop.sh
 - su - ubuntu -c /bin/load-balancer-install-python.sh
 - su - ubuntu -c /bin/load-balancer-install-jupyter.sh
 - su - ubuntu -c /bin/load-balancer-install-loadbalancer.sh
-- su - ubuntu -c /bin/load-balancer-install-latex.sh
+# - su - ubuntu -c /bin/load-balancer-install-latex.sh
 - su - ubuntu -c /bin/load-balancer-install-ssh.sh
 - su - ubuntu -c /bin/load-balancer-install-scaler.sh
 - su - ubuntu -c /bin/load-balancer-config-git.sh
 - su - ubuntu -c /bin/load-balancer-clean.sh
 - su - ubuntu -c /bin/load-balancer-todo.sh
-- echo "---------------> JoDeMiro Deployment finished."
+- echo -e "\n---------------> JoDeMiro Deployment finished.\n\n"
