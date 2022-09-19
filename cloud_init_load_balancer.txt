@@ -23,11 +23,15 @@ write_files:
 - path: /bin/load-balancer-add-base-tools.sh
   content: |
     #!/bin/bash
-    echo "---------------> Installing base tools (pip,venv) starts."
-    sudo apt install zip -y
-    sudo apt install unzip -y
-    sudo apt install fish -y
-    echo "---------------> Installing base tools (pip,venv) finished."
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) starts."
+    echo " "
+    sudo apt-get -y install zip
+    sudo apt-get -y install unzip
+    sudo apt-get -y install fish
+    echo " "
+    echo "---------------> Installing base tools (zip,venv) finished."
+    echo " "
   permissions: '755'
 
 - path: /bin/load-balancer-update.sh
@@ -42,18 +46,18 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/load-balancer-install-mandatories.sh
+- path: /bin/load-balancer-install-ext.sh
   content: |
     #!/bin/bash
     echo "---------------> Installing some stuff needed for Python."
     
-    # These are requred for some Python modules
+    # These are requred for some Python module
     
-    sudo apt install libc6-dev -y
-    sudo apt install libsm6 -y
-    sudo apt install libxext6 -y
-    sudo apt install ffmpeg -y
-    sudo apt install graphviz -y
+    sudo apt-get -y install libc6-dev
+    sudo apt-get -y install libsm6
+    sudo apt-get -y install libxext6
+    sudo apt-get -y install ffmpeg
+    sudo apt-get -y install graphviz
     
     echo "---------------> Installing some stuff needed for Python finished."
   permissions: '755'
@@ -302,6 +306,7 @@ runcmd:
 - /bin/load-balancer-add-user.sh
 - /bin/load-balancer-add-base-tools.sh
 - su - ubuntu -c /bin/load-balancer-update.sh
+- su - ubuntu -c /bin/load-balancer-install-ext.sh
 - su - ubuntu -c /bin/load-balancer-install-bashtop.sh
 - su - ubuntu -c /bin/load-balancer-install-python.sh
 - su - ubuntu -c /bin/load-balancer-install-jupyter.sh
