@@ -6,21 +6,52 @@ packages:
 
 
 write_files:
-- path: /bin/load-balancer-add-user.sh
+- path: /bin/worker-add-user.sh
   content: |
     #!/bin/bash
     export USR='ubuntu'
+    echo " "
     echo "---------------> Creating user \"$USR\" starts."
+    echo " "
     adduser --disabled-password --gecos "" $USR
+    echo " "
     echo "---------------> Creating user \"$USR\" finished."
+    echo " "
   permissions: '755'
 
-- path: /bin/load-balancer-add-base-tools.sh
+- path: /bin/worker-add-base-tools.sh
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
-    pip3 install numpy
     echo "---------------> Installing base tools (pip,venv) finished."
+  permissions: '755'
+
+- path: /bin/worker-update.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Update Ubuntu."
+    echo " "
+    sudo apt-get update -y
+    echo " "
+    echo "---------------> Update Ubuntu finished."
+    echo " "
+  permissions: '755'
+
+- path: /bin/worker-install-bashtop.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Bashtop."
+    echo " "
+    git clone https://github.com/aristocratos/bashtop
+
+    # cd bashtop
+    # bash bashtop
+
+    echo " "
+    echo "---------------> Install Bashtop finished."
+    echo " "
   permissions: '755'
 
 - path: /bin/load-balancer-install.sh
