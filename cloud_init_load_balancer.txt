@@ -126,7 +126,37 @@ write_files:
     echo " "
   permissions: '755'
 
+- path: /bin/worker-install-jupyter.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Python stuffs for me."
+    echo " "
+    ls -l /home/ubuntu/.local/bin
+    export PATH=$PATH:/home/ubuntu/.local/bin
+    pip3 install --upgrade pip
+    pip3 install virtualenv
+    ls -l /home/ubuntu/.local/bin
+    export PATH=$PATH:/home/ubuntu/.local/bin
+    virtualenv notebook
+    source notebook/bin/activate
+    wget --no-cache https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/requirements_jupyter.txt
+    pip3 install -r requirements_jupyter.txt
+    jupyter notebook --generate-config jupyter notebook --generate-config
+    jupyter contrib nbextension install --user
+    jupyter nbextension available
 
+    echo " "
+    echo "---------------> Warning !."
+    echo " "
+
+    # jupyter notebook password
+    # jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse
+
+    echo "---------------> Jupyter Notebook has to start manually."
+    echo "---------------> Install Jupyter, Scikit, etc finished."
+    echo " "
+  permissions: '755'
 
 
 
