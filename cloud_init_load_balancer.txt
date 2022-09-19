@@ -304,11 +304,11 @@ write_files:
   permissions: '755'
   
 runcmd:
-- echo "---------------> JoDeMiro Deployment starts."
+- echo -e "\n---------------> JoDeMiro Deployment starts.\n\n"
 - /bin/load-balancer-add-user.sh
 - su - ubuntu -c /bin/load-balancer-update.sh
 - su - ubuntu -c /bin/load-balancer-add-base-tools.sh
-# - su - ubuntu -c /bin/load-balancer-install-ext.sh
+- su - ubuntu -c /bin/load-balancer-install-ext.sh
 - su - ubuntu -c /bin/load-balancer-install-bashtop.sh
 - su - ubuntu -c /bin/load-balancer-install-python.sh
 - su - ubuntu -c /bin/load-balancer-install-jupyter.sh
@@ -319,4 +319,4 @@ runcmd:
 - su - ubuntu -c /bin/load-balancer-config-git.sh
 - su - ubuntu -c /bin/load-balancer-clean.sh
 - su - ubuntu -c /bin/load-balancer-todo.sh
-- echo "---------------> JoDeMiro Deployment finished."
+- echo -e "\n---------------> JoDeMiro Deployment finished.\n\n"
