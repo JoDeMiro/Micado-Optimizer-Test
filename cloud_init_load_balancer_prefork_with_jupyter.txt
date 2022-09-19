@@ -111,8 +111,16 @@ write_files:
     wget https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/apache2.conf
     sudo cp apache2.conf /etc/apache2/apache2.conf
     
+    echo " "
+    echo "---------------------------------------------------------------------------"
+    echo " "
+    
     # Run apache2 configtest
     sudo apache2ctl configtest
+
+    echo " "
+    echo "---------------------------------------------------------------------------"
+    echo " "
 
     # Enable Prefork
     echo " "
