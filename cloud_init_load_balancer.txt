@@ -10,7 +10,7 @@ write_files:
     echo -e " ez \n itt \n egy \n proba"
     echo "-----------------------------"
     echo "ez \n itt \n egy \n proba"
-    printf "ez itt egy printf proba \n remelem mukodik \n vagy nem"
+    printf "ez itt egy printf proba \n remelem mukodik \n vagy nem\n"
     echo " -------------------------------------------------------------------------------------- "
     echo " -------------------------------------------------------------------------------------- "
     echo " "
