@@ -218,11 +218,12 @@ write_files:
 
     echo "-------------------------------------------------------------------"
     echo " "
-    echo "              Le kell jelszavazni a Jupytert                       "
+    echo "           1. Le kell jelszavazni a Jupytert                       "
     echo "              jupyter notebook password                            "
-    echo "              Fell kell tolni az SSH kulcsot                       "
-    echo "              El kell inditani a Jupytert                          "
+    echo "           2. Fell kell tolni az SSH kulcsot                       "
+    echo "           3. El kell inditani a Jupytert                          "
     echo "              jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse"
+    echo "           4. Fel kell venni a Worker IP címeket a Balancerbe      "
     echo " "
     echo "-------------------------------------------------------------------"
 
