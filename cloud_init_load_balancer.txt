@@ -142,7 +142,7 @@ write_files:
     source notebook/bin/activate
     wget --no-cache https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/requirements_jupyter.txt
     pip3 install -r requirements_jupyter.txt
-    jupyter notebook --generate-config jupyter notebook --generate-config
+    jupyter notebook --generate-config
     jupyter contrib nbextension install --user
     jupyter nbextension available
 
@@ -202,6 +202,26 @@ write_files:
     echo " "
   permissions: '755'
 
+- path: /bin/load-balancer-todo.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo " "
+
+    echo "-------------------------------------------------------------------"
+    echo " "
+    echo "              Le kell jelszavazni a Jupytert                       "
+    echo "              jupyter notebook password                            "
+    echo "              Fell kell tolni az SSH kulcsot                       "
+    echo "              El kell indítani a Jupytert                          "
+    echo "              jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse"
+    echo " "
+    echo "-------------------------------------------------------------------"
+
+    echo " "
+    echo " "
+  permissions: '755'
+  
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
 - /bin/load-balancer-add-user.sh
@@ -213,4 +233,5 @@ runcmd:
 - su - ubuntu -c /bin/load-balancer-install-latex.sh
 - su - ubuntu -c /bin/load-balancer-install-ssh.sh
 - su - ubuntu -c /bin/load-balancer-install-scaler.sh
+- su - ubuntu -c /bin/load-balancer-todo.sh
 - echo "---------------> JoDeMiro Deployment finished."
