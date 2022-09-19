@@ -7,7 +7,7 @@ packages:
 
 
 write_files:
-- path: /bin/worker-add-user.sh
+- path: /bin/load-balancer-add-user.sh
   content: |
     #!/bin/bash
     export USR='ubuntu'
@@ -20,14 +20,14 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-add-base-tools.sh
+- path: /bin/load-balancer-add-base-tools.sh
   content: |
     #!/bin/bash
     echo "---------------> Installing base tools (pip,venv) starts."
     echo "---------------> Installing base tools (pip,venv) finished."
   permissions: '755'
 
-- path: /bin/worker-update.sh
+- path: /bin/load-balancer-update.sh
   content: |
     #!/bin/bash
     echo " "
@@ -39,7 +39,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-install-bashtop.sh
+- path: /bin/load-balancer-install-bashtop.sh
   content: |
     #!/bin/bash
     echo " "
@@ -55,7 +55,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-install-loadbalancer.sh
+- path: /bin/load-balancer-install-loadbalancer.sh
   content: |
     #!/bin/bash
     echo " "
@@ -126,7 +126,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-install-jupyter.sh
+- path: /bin/load-balancer-install-jupyter.sh
   content: |
     #!/bin/bash
     echo " "
@@ -142,7 +142,7 @@ write_files:
     source notebook/bin/activate
     wget --no-cache https://raw.githubusercontent.com/JoDeMiro/Micado-Optimizer-Test/main/requirements_jupyter.txt
     pip3 install -r requirements_jupyter.txt
-    jupyter notebook --generate-config jupyter notebook --generate-config
+    jupyter notebook --generate-config
     jupyter contrib nbextension install --user
     jupyter nbextension available
 
@@ -158,7 +158,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-install-ssh.sh
+- path: /bin/load-balancer-install-ssh.sh
   content: |
     #!/bin/bash
     echo " "
@@ -172,7 +172,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-install-latex.sh
+- path: /bin/load-balancer-install-latex.sh
   content: |
     #!/bin/bash
     echo " "
@@ -188,7 +188,7 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/worker-install-scaler.sh
+- path: /bin/load-balancer-install-scaler.sh
   content: |
     #!/bin/bash
     echo " "
@@ -202,15 +202,36 @@ write_files:
     echo " "
   permissions: '755'
 
+- path: /bin/load-balancer-todo.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo " "
+
+    echo "-------------------------------------------------------------------"
+    echo " "
+    echo "              Le kell jelszavazni a Jupytert                       "
+    echo "              jupyter notebook password                            "
+    echo "              Fell kell tolni az SSH kulcsot                       "
+    echo "              El kell indítani a Jupytert                          "
+    echo "              jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse"
+    echo " "
+    echo "-------------------------------------------------------------------"
+
+    echo " "
+    echo " "
+  permissions: '755'
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
-- /bin/worker-add-base-tools.sh
-- su - ubuntu -c /bin/worker-update.sh
-- su - ubuntu -c /bin/worker-install-bashtop.sh
-- su - ubuntu -c /bin/worker-install-jupyter.sh
-- su - ubuntu -c /bin/worker-install-loadbalancer.sh
-- su - ubuntu -c /bin/worker-install-latex.sh
-- su - ubuntu -c /bin/worker-install-ssh.sh
-- su - ubuntu -c /bin/worker-install-scaler.sh
+- /bin/load-balancer-add-user.sh
+- /bin/load-balancer-add-base-tools.sh
+- su - ubuntu -c /bin/load-balancer-update.sh
+- su - ubuntu -c /bin/load-balancer-install-bashtop.sh
+- su - ubuntu -c /bin/load-balancer-install-jupyter.sh
+- su - ubuntu -c /bin/load-balancer-install-loadbalancer.sh
+- su - ubuntu -c /bin/load-balancer-install-latex.sh
+- su - ubuntu -c /bin/load-balancer-install-ssh.sh
+- su - ubuntu -c /bin/load-balancer-install-scaler.sh
+- su - ubuntu -c /bin/load-balancer-todo.sh
 - echo "---------------> JoDeMiro Deployment finished."
