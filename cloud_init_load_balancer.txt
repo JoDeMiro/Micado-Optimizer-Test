@@ -187,7 +187,7 @@ write_files:
     echo "---------------> Install Latex started."
     echo " "
 
-    sudo apt-get install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
+    sudo apt-get -y install dvipng texlive-latex-extra texlive-fonts-recommended cm-super
 
     # sudo apt install -y dvipng texlive-latex-extra texlive-fonts-recommended cm-super
 
