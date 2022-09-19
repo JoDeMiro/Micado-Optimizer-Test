@@ -304,7 +304,7 @@ write_files:
   permissions: '755'
   
 runcmd:
-- printf "---------------> JoDeMiro Deployment starts.\n\n"
+- echo "---------------> JoDeMiro Deployment starts."
 - /bin/load-balancer-add-user.sh
 - su - ubuntu -c /bin/load-balancer-update.sh
 - su - ubuntu -c /bin/load-balancer-add-base-tools.sh
@@ -319,4 +319,4 @@ runcmd:
 - su - ubuntu -c /bin/load-balancer-config-git.sh
 - su - ubuntu -c /bin/load-balancer-clean.sh
 - su - ubuntu -c /bin/load-balancer-todo.sh
-- printf "---------------> JoDeMiro Deployment finished.\n\n"
+- echo "---------------> JoDeMiro Deployment finished."
