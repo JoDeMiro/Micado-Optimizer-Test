@@ -15,6 +15,14 @@ write_files:
     echo "---------------> Creating user \"$USR\" finished."
   permissions: '755'
 
+- path: /bin/worker-add-base-tools.sh
+  content: |
+    #!/bin/bash
+    export MESSAGE='ha olyanom lenne ide is irhatok'
+    echo "---------------> A velemenyem az, hogy \"$MESSAGE\" vagy nem."
+    echo "---------------> Vege."
+  permissions: '755'
+
 - path: /bin/worker-start-metric.sh
   content: |
     #!/bin/bash
@@ -95,6 +103,7 @@ write_files:
 
 runcmd:
 - echo "---------------> JoDeMiro Deployment starts."
+- /bin/worker-add-user.sh
 - /bin/worker-add-base-tools.sh
 - su - ubuntu -c /bin/worker-update.sh
 - su - ubuntu -c /bin/worker-start-metric.sh
