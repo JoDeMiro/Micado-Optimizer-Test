@@ -1,3 +1,59 @@
+## Telepítés utáni első teendők - Amelyek az üzemeltetéshez elengedhetetlenek
+
+**IP cím alapú védelem**:
+
+A programot úgy írtam meg, hogy a Load Balanceren a cloud init alapú telepítésnél úgy konfigurálja a Apache servert, hogy csak egy bizonyos IP címről, vagy IP cím tartományból lehet elérni. Erre azért van szükség, mert ha publikus IP címre teszem a Load Balancert akkor sok kártékony behatolási kísérlet keletkezik, amelyeket a log fájl is regisztrál és tévesen megzavarhatják a mérési eredményeket - ezért ezek szűrése és kizárása szükséges.
+
+Ugyanakkor ezáltal a telepítés után szükség van arra, hogy ebben a konfiugációs fájlban manuálisan felülírjuk azt az IP címet amelyen keresztül el akarjuk érni a szolgáltatást. Ha ez a saját gépünk és dinamikus IP cím kiosztással rendelkező internet szolgáltatón keresztül érjük el az internetet akkor ez időnként változhat. Ezért ellenőrizni kell a saját IP címunket és ezt megadni a megfelelő konfigurációs fájlban amely:
+
+```
+/etc/apache2/sites-available/loadbalancer.conf
+```
+
+elérési úton található és az alábbi részt kell benne átírni, hogy kívűlről is elérhető legyena  szolgáltatás
+
+```
+<Location />
+    Order Deny,Allow
+    Deny from all
+    Allow from 87.41.23.231
+</Location>
+```
+
+**Workerek hozzáadogatása**:
+
+Bár meg tudnám csinálni, hogy a Workerek maguk jelezzék a Load Balancer felé, hogy léteznek és működnek, és a Load Balancer regisztrálja be öket a Klaszterba, itt most nem ez volt az elsődleges cél, ezért a Workereket manuálisan kell a rendszerhez adni IP cím alapján a
+
+```
+/etc/apache2/sites-available/loadbalancer.conf
+```
+
+fájlban.
+
+```
+        <Proxy balancer://backend-cluster>
+                # Ide kell beírni a Workerek belső hálózati ip címét
+                BalancerMember http://192.168.0.200:8080
+                BalancerMember http://192.168.0.86:8080
+                ...
+        </Proxy>
+```
+
+**.htaccess védedelem**:
+
+A `http://ip-address/server-status` oldalt .htaccess, .htpasswd kombinációval védtem le.
+
+## A Load Balancer belépési pontjai
+
+`http://ip-address/server-status`
+
+`http://ip-address/balancer-manager`
+
+`http://ip-address/actuator/health`
+
+További információért bele kell nézni a <a href="https://github.com/JoDeMiro/Micado-Optimizer-Test/blob/main/loadbalancer.conf">loadbalancer.conf</a> filéba.
+
+
 ## Spring Boot File Upload - Download Rest API Example
 
 **Description**:
