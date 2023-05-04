@@ -8,6 +8,7 @@ import com.example.filedemo.computation.memory.MyBeanCalc;
 import com.example.filedemo.computation.io.FileSizeCalc;
 import com.example.filedemo.computation.memory.StringSizeCalc;
 import com.example.filedemo.computation.network.CreateNetworkData;
+import com.example.filedemo.computation.network.DownloadWebPage;
 import com.example.filedemo.computation.network.GenerateNetworkTraffic;
 import com.example.filedemo.computation.network.GetNetworkTraffic;
 import com.example.filedemo.conf.HttpTraceLogConfiguration;
@@ -63,6 +64,9 @@ public class RestsController {
 
     @Autowired
     private static final CreateNetworkData createNetworkData = new CreateNetworkData(20000);
+
+    @Autowired
+    DownloadWebPage downloadWebPage = new DownloadWebPage();
 
     // @Autowired
     // private RestartEndpoint restartEndpoint;
@@ -635,6 +639,30 @@ public class RestsController {
 
         return response;
     }
+
+    @GetMapping("/network/download/{number}/{withGC}")
+    public NetworkResponse downloadWebPage(@PathVariable int number, @PathVariable boolean withGC) {
+
+        DownloadWebPage downloadWebPage = new DownloadWebPage();
+
+        NetworkResponse response = null;
+
+        try {
+            response = downloadWebPage.run(number, withGC);
+            response.setWorkerIPAddress(ipAddress);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+
+
+
+
+
+
+
 
     @GetMapping("/io/copy/{times}")
     public IoResponse copyTest(@PathVariable int times) {
