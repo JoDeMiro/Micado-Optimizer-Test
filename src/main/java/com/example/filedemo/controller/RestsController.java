@@ -496,7 +496,8 @@ public class RestsController {
         IoResponse response = null;
 
         try {
-            response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
+            // response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
+            response = fileSizeCalc.run(Integer.parseInt(iteration), "/home/ubuntu/");
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
@@ -510,7 +511,8 @@ public class RestsController {
         IoResponse response = null;
 
         try {
-            response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
+            // response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
+            response = fileSizeCalc.run(Integer.parseInt(iteration), "/home/ubuntu/");
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
@@ -518,6 +520,22 @@ public class RestsController {
         return response;
     }
 
+    @GetMapping("/io/3/")
+    public IoResponse directorySizeAutowiredRequest(@RequestParam("path") String path, @RequestParam("iteration") String iteration) {
+
+        IoResponse response = null;
+
+        try {
+            // response = fileSizeCalc.run(Integer.parseInt(iteration), "c:\\winutils-master");
+            // response = fileSizeCalc.run(Integer.parseInt(iteration), "/home/ubuntu/");
+
+            response = fileSizeCalc.run(Integer.parseInt(iteration), path);
+            response.setWorkerIPAddress(ipAddress);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
     @GetMapping("/memory/string/1/{number}")
     public GenericResponse stringSizeCalc(@PathVariable String number) {
 
