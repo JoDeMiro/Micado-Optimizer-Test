@@ -66,6 +66,27 @@ public class ExpenseController {
         return ResponseEntity.ok(expenseService.getExpenseByQuery(name));
     }
 
+    @GetMapping("/regex2/{name}")
+    public ResponseEntity<List<Expense>> getExpenseByRegex2(@PathVariable String name) {
+        String q = "a?b";
+        // vagy a vagy b szerepeljen benne
+        return ResponseEntity.ok(expenseService.getExpenseByQuery(q));
+    }
+
+    // http://localhost:8080/mongodb/expense/regex3/ua$
+    // http://localhost:8080/mongodb/expense/regex/%5Eab
+    // http://localhost:8080/mongodb/expense/regex/^ab
+    // http://localhost:8080/mongodb/expense/regex/%5Eab.*ed$
+    //http://localhost:8080/mongodb/expense/regex/%5Eaa
+    // http://localhost:8080/mongodb/expense/regex/%5Eaa.b
+    // http://localhost:8080/mongodb/expense/regex/%5Eaa?b
+    @GetMapping("/regex3/{name}")
+    public Integer getExpenseByRegex3(@PathVariable String name) {
+        List<Expense> expenseByQuery = expenseService.getExpenseByQuery(name);
+        int size = expenseByQuery.size();
+        return size;
+    }
+
     @GetMapping("/startswith/{name}")
     public ResponseEntity<List<Expense>> findByNameStartingWith(@PathVariable String name) {
         return ResponseEntity.ok(expenseService.findByNameStartingWith(name));
