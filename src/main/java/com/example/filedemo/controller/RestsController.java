@@ -76,6 +76,12 @@ public class RestsController {
     Fibonnaci fibonnaci = new Fibonnaci();
 
     @Autowired
+    Parallel parallel = new Parallel();
+
+    @Autowired
+    Multitask multitask = new Multitask();
+
+    @Autowired
     Count count = new Count();
 
     @Autowired
@@ -293,6 +299,82 @@ public class RestsController {
         return response;
     }
 
+    @GetMapping("/cpu/parallel_no_gc/{number}/{thread}")
+    public CpuResponse cpu_no_gc_parallel(@PathVariable String number, @PathVariable String thread) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            result = parallel.run(Integer.parseInt(number), Integer.parseInt(thread));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/multitask_no_gc/summarizer/{thread}")
+    public CpuResponse cpu_no_gc_multitask_summarizer(@PathVariable String thread) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+        String number = "0";
+
+        try {
+            multitask.summarizer(Integer.parseInt(thread));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/multitask_no_gc/counter/{thread}")
+    public CpuResponse cpu_no_gc_multitask_counter(@PathVariable String thread) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+        String number = "0";
+
+        try {
+            multitask.counter(Integer.parseInt(thread));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
     @GetMapping("/cpu/fibonacci_no_gc/{number}/{ts}")
     public CpuResponse cpu_no_gc_ts(@PathVariable String number, @PathVariable String ts) {
 
@@ -319,7 +401,6 @@ public class RestsController {
 
         return response;
     }
-
 
     @GetMapping("/cpu/prime/{number}")
     public CpuResponse prime(@PathVariable String number) {

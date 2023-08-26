@@ -163,11 +163,42 @@
                             <a href="/cpu/fibonacci_no_gc/20">{20}</a>
                             <a href="/cpu/fibonacci_no_gc/30">{30}</a>
                         </div>
-                            <a href="/cpu/fibonacci_no_gc/10">localhost:8080/fibonacci_no_gc/cpu/{10}</a>
-                            <a href="/cpu/fibonacci_no_gc/20">{20}</a>
-                            <a href="/cpu/fibonacci_no_gc/30">{30}</a>
+
+                        <div>
+                            <a href="/cpu/parallel_no_gc/10/10" data-toggle="popover"
+                               title="Parallel"
+                               data-content="Create parallel thread {Number} old fibo param {Thread} parallel threads."
+                               data-placement="right"
+                               data-trigger="hover">
+                                localhost:8080/cpu/parallel_no_gc/{10}/{10}
+                            </a>
+                            <a href="/cpu/parallel_no_gc/20/20">{20}</a>
+                            <a href="/cpu/parallel_no_gc/30/30">{30}</a>
                         </div>
 
+                        <div>
+                            <a href="/cpu/multitask_no_gc/summarizer/10" data-toggle="popover"
+                               title="Multitask"
+                               data-content="Ennyi szálon futtatja a Summerizert."
+                               data-placement="right"
+                               data-trigger="hover">
+                                localhost:8080/cpu/multitask_no_gc/summarizer/{10}
+                            </a>
+                            <a href="/cpu/multitask_no_gc/summarizer/20">{20}</a>
+                            <a href="/cpu/multitask_no_gc/summarizer/30">{30}</a>
+                        </div>
+
+                        <div>
+                            <a href="/cpu/multitask_no_gc/counter/10" data-toggle="popover"
+                               title="Multitask"
+                               data-content="Ennyi szálon futtatja a Countert."
+                               data-placement="right"
+                               data-trigger="hover">
+                                localhost:8080/cpu/multitask_no_gc/counter/{10}
+                            </a>
+                            <a href="/cpu/multitask_no_gc/counter/20">{20}</a>
+                            <a href="/cpu/multitask_no_gc/counter/30">{30}</a>
+                        </div>
 
                         <div>
                             <a href="/cpu/prime/10">localhost:8080/cpu/prime/{10}</a>
