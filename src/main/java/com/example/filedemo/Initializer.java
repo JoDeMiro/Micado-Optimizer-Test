@@ -200,8 +200,215 @@ public class Initializer {
             logger.info("File Not Found");
         }
 
+        // version 6
+        try {
+            System.out.println("---------version 6---------------");
 
+            ClassPathResource cpr = new ClassPathResource("install/2048_2048.png");
 
+            InputStream inputStream = cpr.getInputStream();
+
+            ClassPathResource cprLinux = new ClassPathResource("install/2048_2048.png");
+
+            InputStream inputStreamLinux = cprLinux.getInputStream();
+
+            // Path targetLocation = Paths.get("C:\\uploads\\6_2048_2048.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\2048_2048.png");
+
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/2048_2048.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 7
+        try {
+            System.out.println("---------version 7---------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/1024_1024.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/1024_1024.png");
+
+            // Path targetLocation = Paths.get("C:\\uploads\\7_1024_1024.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\1024_1024.png");
+
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/1024_1024.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 8
+        try {
+            System.out.println("---------version 8---------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/1024_768.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/1024_768.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\1024_768.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/1024_768.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 9
+        try {
+            System.out.println("---------version 9---------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/512_512.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/512_512.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\512_512.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/512_512.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 10
+        try {
+            System.out.println("---------version 10--------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/256_256.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/256_256.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\256_256.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/256_256.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 11
+        try {
+            System.out.println("---------version 11--------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/128_128.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/128_128.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\128_128.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/128_128.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 12
+        try {
+            System.out.println("---------version 12--------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/64_64.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/64_64.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\64_64.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/64_64.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 13
+        try {
+            System.out.println("---------version 13--------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/32_32.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/32_32.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\32_32.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/32_32.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 13
+        try {
+            System.out.println("---------version 14--------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/16_16.png");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/16_16.png");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\16_16.png");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/16_16.png");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
 
         // -------------------------------------------------------------------
 

@@ -3,6 +3,7 @@ package com.example.filedemo.controller;
 import com.example.filedemo.beans.InfoStats;
 import com.example.filedemo.computation.cpu.*;
 import com.example.filedemo.computation.download.StaticDownloader;
+import com.example.filedemo.computation.imoges.ImageManipulator;
 import com.example.filedemo.computation.io.FileCopier;
 import com.example.filedemo.computation.memory.MyBeanCalc;
 import com.example.filedemo.computation.io.FileSizeCalc;
@@ -713,6 +714,20 @@ public class RestsController {
 
         return response;
     }
+
+    @GetMapping("/image/manipulator/{size}/{times}")
+    public IoResponse imageTest(@PathVariable int times, @PathVariable String size) {
+
+        System.out.println("------------ 1 ---------------");
+        ImageManipulator imageManipulator = new ImageManipulator(fileStorageService);
+
+        System.out.println("------------ 2 ---------------");
+        IoResponse response = imageManipulator.run(times, size);
+        response.setWorkerIPAddress(ipAddress);
+
+        return response;
+    }
+
 
     @GetMapping("/downloader/static/{length}")
     public String downloader1(@PathVariable int length) {
