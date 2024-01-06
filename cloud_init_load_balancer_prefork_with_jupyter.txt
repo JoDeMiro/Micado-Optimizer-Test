@@ -51,23 +51,6 @@ write_files:
     echo " "
   permissions: '755'
 
-- path: /bin/load-balancer-add-base-tools.sh
-  content: |
-    #!/bin/bash
-    echo " "
-    echo "---------------> Installing base tools (zip,venv) starts."
-    echo " "
-    sudo apt-get -y install zip
-    sudo apt-get -y install unzip
-    sudo apt-get -y install fish
-    sudo apt-get -y install htop
-    sudo apt-get -y install git
-    sudo apt-get -y install openssh-client
-    echo " "
-    echo "---------------> Installing base tools (zip,venv) finished."
-    echo " "
-  permissions: '755'
-
 - path: /bin/load-balancer-install-bashtop.sh
   content: |
     #!/bin/bash
