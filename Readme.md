@@ -64,6 +64,10 @@ The App can be used as a stand-alone app or can be run behind a loadbalancer.
 
 ## Setup with Apache2 loadbalancer
 
+**Note**:
+Prefork vs Worker multi process modul distictions, differences:
+https://stackoverflow.com/questions/13883646/apache-prefork-vs-worker-mpm
+
 **1. Create Worker VMs with cloud_init**
 
 cloud_init_for_workers.txt is a good starting point. The cloud_init install, setup every dependecies and run the Java SpringBoot App. The App is avaliable at the given URI address (for example.: http://localhost:8080 or http://your-ip-address:8080)
