@@ -299,6 +299,34 @@ public class RestsController {
         return response;
     }
 
+    @GetMapping("/cpu/fibonacci_no_gc_new_instance/{number}")
+    public CpuResponse cpu_no_gc_new_instance(@PathVariable String number) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            // result = fibonnaci.run(Integer.parseInt(number));
+            Fibonnaci fibonnaci = new Fibonnaci();
+            result = fibonnaci.run(Integer.parseInt(number));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
     @GetMapping("/cpu/parallel_no_gc/{number}/{thread}")
     public CpuResponse cpu_no_gc_parallel(@PathVariable String number, @PathVariable String thread) {
 

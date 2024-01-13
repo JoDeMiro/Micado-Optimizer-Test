@@ -1,428 +1,433 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <title>Spring Boot File Upload / Download Rest API Example</title>
-        <link rel="stylesheet" href="/css/main.css" />
-        <link rel="shortcut icon" href="#" />
-        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Spring Boot File Upload / Download Rest API Example</title>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="shortcut icon" href="#"/>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
-        <!-- Link Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- Link Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-    </head>
-    <body>
-        <noscript>
-            <h2>Sorry! Your browser doesn't support Javascript</h2>
-        </noscript>
-        <div class="upload-container">
-            <div class="upload-header">
-                <h2>Spring Boot File Upload / Download Rest API Example</h2>
-            </div>
-            <div class="upload-content">
-                <div class="single-upload">
-                    <h3>Upload Single File</h3>
-                    <form id="singleUploadForm" name="singleUploadForm">
-                        <input id="singleFileUploadInput" type="file" name="file" class="file-input" required />
-                        <button type="submit" class="primary submit-btn">Submit</button>
-                    </form>
-                    <div class="upload-response">
-                        <div id="singleFileUploadError"></div>
-                        <div id="singleFileUploadSuccess"></div>
-                    </div>
-                </div>
-                <div class="multiple-upload">
-                    <h3>Upload Multiple Files</h3>
-                    <form id="multipleUploadForm" name="multipleUploadForm">
-                        <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple required />
-                        <button type="submit" class="primary submit-btn">Submit</button>
-                    </form>
-                    <div class="upload-response">
-                        <div id="multipleFileUploadError"></div>
-                        <div id="multipleFileUploadSuccess"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="upload-header">
-                <h2>Spring Boot Rest Controller API Example</h2>
-            </div>
-            <div class="upload-content">
-                <div class="single-upload">
-                    <h3>REST API</h3>
-                    <div class="upload-response">
-
-                        <div>
-                            <a href="/restart" data-toggle="popover"
-                               title="Restart"
-                               data-content="Restart Tomcat."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/restart
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/actuator" data-toggle="popover"
-                               title="Actuator"
-                               data-content="Actuator is the endpoint of the Application Monitoring Interface. To more information click on the link."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/actuator
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/actuator/health" data-toggle="popover"
-                               title="Health check"
-                               data-content="This is part of the actuator. It shows the state of application."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/actuator/health
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/actuator/metrics" data-toggle="popover"
-                               title="Health check"
-                               data-content="This is part of the actuator. It shows the available metrics of application."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/actuator/metrics
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/actuator/httptrace" data-toggle="popover"
-                               title="Trace"
-                               data-content="Http Trace."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/actuator/httptrace
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/actuator/prometheus" data-toggle="popover"
-                               title="Health check"
-                               data-content="This is part of the actuator. It shows the possible endpoint for prometheus."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/actuator/prometheus
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/counter" data-toggle="popover"
-                               title="Counter"
-                               data-content="Counter is available in prometheus."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/counter
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/gc" data-toggle="popover"
-                               title="GC"
-                               data-content="Garbage Collector."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/gc
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/cleardisk" data-toggle="popover"
-                               title="Clear Disk"
-                               data-content="Clear Upload Directory."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/cleardisk
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/stats" data-toggle="popover"
-                               title="JVM Stats"
-                               data-content="Get JVM Statistics right Now. Only for Oracle Java"
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/stats
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/wait" data-toggle="popover"
-                               title="Wait"
-                               data-content="Create a thread and hold it for a second before return with the response."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/wait
-                            </a>
-                        </div>
-                        <div>
-                            <a href="/wait/1000">localhost:8080/wait/1000</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/fibonacci/10">localhost:8080/fibonacci/cpu/{10}</a>
-                            <a href="/cpu/fibonacci/20">{20}</a>
-                            <a href="/cpu/fibonacci/30">{30}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/fibonacci_no_gc/10">localhost:8080/fibonacci_no_gc/cpu/{10}</a>
-                            <a href="/cpu/fibonacci_no_gc/20">{20}</a>
-                            <a href="/cpu/fibonacci_no_gc/30">{30}</a>
-                        </div>
-
-                        <div>
-                            <a href="/cpu/parallel_no_gc/10/10" data-toggle="popover"
-                               title="Parallel"
-                               data-content="Create parallel thread {Number} old fibo param {Thread} parallel threads."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/cpu/parallel_no_gc/{10}/{10}
-                            </a>
-                            <a href="/cpu/parallel_no_gc/20/20">{20}</a>
-                            <a href="/cpu/parallel_no_gc/30/30">{30}</a>
-                        </div>
-
-                        <div>
-                            <a href="/cpu/multitask_no_gc/summarizer/10" data-toggle="popover"
-                               title="Multitask"
-                               data-content="Ennyi szálon futtatja a Summerizert."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/cpu/multitask_no_gc/summarizer/{10}
-                            </a>
-                            <a href="/cpu/multitask_no_gc/summarizer/20">{20}</a>
-                            <a href="/cpu/multitask_no_gc/summarizer/30">{30}</a>
-                        </div>
-
-                        <div>
-                            <a href="/cpu/multitask_no_gc/counter/10" data-toggle="popover"
-                               title="Multitask"
-                               data-content="Ennyi szálon futtatja a Countert."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/cpu/multitask_no_gc/counter/{10}
-                            </a>
-                            <a href="/cpu/multitask_no_gc/counter/20">{20}</a>
-                            <a href="/cpu/multitask_no_gc/counter/30">{30}</a>
-                        </div>
-
-                        <div>
-                            <a href="/cpu/prime/10">localhost:8080/cpu/prime/{10}</a>
-                            <a href="/cpu/prime/200">{200}</a>
-                            <a href="/cpu/prime/1000">{1000}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/prime_no_gc/10">localhost:8080/cpu/prime_no_gc/{10}</a>
-                            <a href="/cpu/prime_no_gc/200">{200}</a>
-                            <a href="/cpu/prime_no_gc/1000">{1000}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/count/10">localhost:8080/cpu/count/{10}</a>
-                            <a href="/cpu/count/20">{20}</a>
-                            <a href="/cpu/count/30">{30}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/count_no_gc/10">localhost:8080/cpu/count_no_gc/{10}</a>
-                            <a href="/cpu/count_no_gc/20">{20}</a>
-                            <a href="/cpu/count_no_gc/30">{30}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/instance/10">localhost:8080/cpu/instance/{10}</a>
-                            <a href="/cpu/instance/20">{20}</a>
-                            <a href="/cpu/instance/30">{30}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/instance_no_gc/10">localhost:8080/cpu/instance_no_gc/{10}</a>
-                            <a href="/cpu/instance_no_gc/20">{20}</a>
-                            <a href="/cpu/instance_no_gc/30">{30}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/individum/10">localhost:8080/cpu/individum/{10}</a>
-                            <a href="/cpu/individum/20">{20}</a>
-                            <a href="/cpu/individum/30">{30}</a>
-                        </div>
-                        <div>
-                            <a href="/cpu/individum_no_gc/10">localhost:8080/cpu/individum_no_gc/{10}</a>
-                            <a href="/cpu/individum_no_gc/20">{20}</a>
-                            <a href="/cpu/individum_no_gc/30">{30}</a>
-                        </div>
-                        <div>
-                            <a href="/io/1/dir_path/1">localhost:8080/io/1/{dir_path}/{1}</a>
-                            <a href="/io/1/dir_path/10">{10}</a>
-                            <a href="/io/1/dir_path/50">{50}</a>
-                        </div>
-                        <div>
-                            <a href="/io/2/dir_path/1">localhost:8080/io/2/{dir_path}/{1}</a>
-                            <a href="/io/2/dir_path/10">{10}</a>
-                            <a href="/io/2/dir_path/50">{50}</a>
-                        </div>
-                        <div>
-                            <a href="/io/3/?path=/home/ubuntu&iteration=1">localhost:8080/io/3/?path=/home/ubuntu/&iteration=1</a>
-                            <a href="/io/3/?path=/home/ubuntu&iteration=10">{10}</a>
-                            <a href="/io/3/?path=/home/ubuntu&iteration=20">{20}</a>
-                        </div>
-                        <div>
-                            <a href="/io/copy/1">localhost:8080/io/copy/{1}</a>
-                            <a href="/io/copy/10">{10}</a>
-                            <a href="/io/copy/50">{50}</a>
-                        </div>
-                        <div>
-                            <a href="/memory/string/1/1">localhost:8080/memory/string/1/{1}</a>
-                        </div>
-                        <div>
-                            <a href="/memory/beans/1/1/true">localhost:8080/memory/beans/1/1/true</a>
-                            <a href="/memory/beans/1/1/false">{1}/{false}</a>
-                            <a href="/memory/beans/1/10/true">{10}/{true}</a>
-                            <a href="/memory/beans/1/10/false">{10}/{false}</a>
-                            <a href="/memory/beans/1/100/true">{100}/{true}</a>
-                            <a href="/memory/beans/1/100/false">{100}/{false}</a>
-                        </div>
-                        <div>
-                            <a href="/memory/beans/2/1/true">localhost:8080/memory/beans/2/1/true</a>
-                            <a href="/memory/beans/2/1/false">{1}/{false}</a>
-                            <a href="/memory/beans/2/10/true">{10}/{true}</a>
-                            <a href="/memory/beans/2/10/false">{10}/{false}</a>
-                            <a href="/memory/beans/2/100/true">{100}/{true}</a>
-                            <a href="/memory/beans/2/100/false">{100}/{false}</a>
-                        </div>
-                        <div>
-                            <a href="/network/1/1/true">localhost:8080/network/1/1/true</a>
-                            <a href="/network/1/1/false">{1}/{false}</a>
-                            <a href="/network/1/10/true">{10}/{true}</a>
-                            <a href="/network/1/10/false">{10}/{false}</a>
-                            <a href="/network/1/100/true">{100}/{true}</a>
-                            <a href="/network/1/100/false">{100}/{false}</a>
-                        </div>
-                        <div>
-                            <a href="/network/download/1/true">localhost:8080/network/download/1/true</a>
-                            <a href="/network/download/2/true">{2}/{true}</a>
-                        </div>
-                        <div>
-                            <a href="/downloader/static/1000">localhost:8080/downloader/static/1000</a>
-                            <a href="/downloader/static/20000">{20000}</a>
-                            <a href="/downloader/static/500000">{500000}</a>
-                        </div>
-                        <div>
-                            <a href="/memory-status">localhost:8080/memory-status</a>
-                        </div>
-                        <div>
-                            <a href="/info">localhost:8080/info</a>
-                        </div>
-                        <div>
-                            <a href="/queue">localhost:8080/queue</a>
-                        </div>
-
-                        <div>
-                            <a href="/queue/bake4/biscuit/2000" data-toggle="popover"
-                               title="Queue"
-                               data-content="This is just a simple request which are held for the given time. It can be processed parallel"
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/queue/bake4/biscuit/2000
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="/queue/bake5/biscuit/5000" data-toggle="popover"
-                               title="Queue"
-                               data-content="This is just a simple request which are held for the given time. But it can not be processed parallel"
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/queue/bake5/biscuit/5000
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="/image/manipulator/1024_1024/1" data-toggle="popover"
-                               title="ImageManipulator"
-                               data-content="This is just a simple request read an image, overwrite its pixel and write back to the disk."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/image/manipulator/1024_1024/1
-                            </a>
-                            <a href="/image/manipulator/512_512/1">{512}</a>
-                            <a href="/image/manipulator/256_256/1">{256}</a>
-                            <a href="/image/manipulator/128_128/1">{128}</a>
-                            <a href="/image/manipulator/64_64/1">{64}</a>
-                            <a href="/image/manipulator/32_32/1">{32}</a>
-                            <a href="/image/manipulator/16_16/1">{16}</a>
-                        </div>
-
-                        <div>
-                            <a href="/mongodb/expense/create" data-toggle="popover"
-                               title="Mongo db"
-                               data-content="Mongo db create sample."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/mongodb/expense/create
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="/mongodb/expense/clear" data-toggle="popover"
-                               title="Mongo db"
-                               data-content="Mongo db clear collection."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/mongodb/expense/clear
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="/mongodb/expense" data-toggle="popover"
-                               title="Mongo db"
-                               data-content="Mongo db Get All"
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/mongodb/expense
-                            </a>
-                        </div>
-
-                        <div>
-                            <a href="/mongodb/expense/init/10" data-toggle="popover"
-                               title="Mongo db"
-                               data-content="Mongo db Init 10 random sample."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/mongodb/expense/init/10
-                            </a>
-                            <a href="/mongodb/expense/init/1000">{1000}</a>
-                            <a href="/mongodb/expense/init/10000">{10000}</a>
-                            <a href="/mongodb/expense/init/50000">{50000}</a>
-                        </div>
-
-                        <div>
-                            <a href="/mongodb/expense/regex/ABC" data-toggle="popover"
-                               title="Mongo db"
-                               data-content="Mongo db Get By Regex."
-                               data-placement="right"
-                               data-trigger="hover">
-                                localhost:8080/mongodb/expense/regex/ABC
-                            </a>
-                        </div>
-
-                        <div>
-                            <div class="container">
-                                <h3>Popover Example</h3>
-                                <ul class="list-inline">
-                                    <li><a href="#" title="Header"
-                                           data-toggle="popover"
-                                           data-placement="top"
-                                           data-content="Content"
-                                           data-trigger="hover">
-                                        JoDeMiro
-                                    </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <script>
-                            $(document).ready(function(){
-                            $('[data-toggle="popover"]').popover();
-                            });
-                        </script>
-
-                    </div>
-                </div>
+</head>
+<body>
+<noscript>
+    <h2>Sorry! Your browser doesn't support Javascript</h2>
+</noscript>
+<div class="upload-container">
+    <div class="upload-header">
+        <h2>Spring Boot File Upload / Download Rest API Example</h2>
+    </div>
+    <div class="upload-content">
+        <div class="single-upload">
+            <h3>Upload Single File</h3>
+            <form id="singleUploadForm" name="singleUploadForm">
+                <input id="singleFileUploadInput" type="file" name="file" class="file-input" required/>
+                <button type="submit" class="primary submit-btn">Submit</button>
+            </form>
+            <div class="upload-response">
+                <div id="singleFileUploadError"></div>
+                <div id="singleFileUploadSuccess"></div>
             </div>
         </div>
-        <script src="/js/main.js" ></script>
-    </body>
+        <div class="multiple-upload">
+            <h3>Upload Multiple Files</h3>
+            <form id="multipleUploadForm" name="multipleUploadForm">
+                <input id="multipleFileUploadInput" type="file" name="files" class="file-input" multiple required/>
+                <button type="submit" class="primary submit-btn">Submit</button>
+            </form>
+            <div class="upload-response">
+                <div id="multipleFileUploadError"></div>
+                <div id="multipleFileUploadSuccess"></div>
+            </div>
+        </div>
+    </div>
+    <div class="upload-header">
+        <h2>Spring Boot Rest Controller API Example</h2>
+    </div>
+    <div class="upload-content">
+        <div class="single-upload">
+            <h3>REST API</h3>
+            <div class="upload-response">
+
+                <div>
+                    <a href="/restart" data-toggle="popover"
+                       title="Restart"
+                       data-content="Restart Tomcat."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/restart
+                    </a>
+                </div>
+                <div>
+                    <a href="/actuator" data-toggle="popover"
+                       title="Actuator"
+                       data-content="Actuator is the endpoint of the Application Monitoring Interface. To more information click on the link."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/actuator
+                    </a>
+                </div>
+                <div>
+                    <a href="/actuator/health" data-toggle="popover"
+                       title="Health check"
+                       data-content="This is part of the actuator. It shows the state of application."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/actuator/health
+                    </a>
+                </div>
+                <div>
+                    <a href="/actuator/metrics" data-toggle="popover"
+                       title="Health check"
+                       data-content="This is part of the actuator. It shows the available metrics of application."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/actuator/metrics
+                    </a>
+                </div>
+                <div>
+                    <a href="/actuator/httptrace" data-toggle="popover"
+                       title="Trace"
+                       data-content="Http Trace."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/actuator/httptrace
+                    </a>
+                </div>
+                <div>
+                    <a href="/actuator/prometheus" data-toggle="popover"
+                       title="Health check"
+                       data-content="This is part of the actuator. It shows the possible endpoint for prometheus."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/actuator/prometheus
+                    </a>
+                </div>
+                <div>
+                    <a href="/counter" data-toggle="popover"
+                       title="Counter"
+                       data-content="Counter is available in prometheus."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/counter
+                    </a>
+                </div>
+                <div>
+                    <a href="/gc" data-toggle="popover"
+                       title="GC"
+                       data-content="Garbage Collector."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/gc
+                    </a>
+                </div>
+                <div>
+                    <a href="/cleardisk" data-toggle="popover"
+                       title="Clear Disk"
+                       data-content="Clear Upload Directory."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/cleardisk
+                    </a>
+                </div>
+                <div>
+                    <a href="/stats" data-toggle="popover"
+                       title="JVM Stats"
+                       data-content="Get JVM Statistics right Now. Only for Oracle Java"
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/stats
+                    </a>
+                </div>
+                <div>
+                    <a href="/wait" data-toggle="popover"
+                       title="Wait"
+                       data-content="Create a thread and hold it for a second before return with the response."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/wait
+                    </a>
+                </div>
+                <div>
+                    <a href="/wait/1000">localhost:8080/wait/1000</a>
+                </div>
+                <div>
+                    <a href="/cpu/fibonacci/10">localhost:8080/cpu/fibonacci/{10}</a>
+                    <a href="/cpu/fibonacci/20">{20}</a>
+                    <a href="/cpu/fibonacci/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/cpu/fibonacci_no_gc/10">localhost:8080/cpu/fibonacci_no_gc/{10}</a>
+                    <a href="/cpu/fibonacci_no_gc/20">{20}</a>
+                    <a href="/cpu/fibonacci_no_gc/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/cpu/fibonacci_no_gc_new_instance/10">localhost:8080/cpu/fibonacci_no_gc_new_instance/{10}</a>
+                    <a href="/cpu/fibonacci_no_gc_new_instance/20">{20}</a>
+                    <a href="/cpu/fibonacci_no_gc_new_instance/30">{30}</a>
+                </div>
+
+                <div>
+                    <a href="/cpu/parallel_no_gc/10/10" data-toggle="popover"
+                       title="Parallel"
+                       data-content="Create parallel thread {Number} old fibo param {Thread} parallel threads."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/cpu/parallel_no_gc/{10}/{10}
+                    </a>
+                    <a href="/cpu/parallel_no_gc/20/20">{20}</a>
+                    <a href="/cpu/parallel_no_gc/30/30">{30}</a>
+                </div>
+
+                <div>
+                    <a href="/cpu/multitask_no_gc/summarizer/10" data-toggle="popover"
+                       title="Multitask"
+                       data-content="Ennyi szálon futtatja a Summerizert."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/cpu/multitask_no_gc/summarizer/{10}
+                    </a>
+                    <a href="/cpu/multitask_no_gc/summarizer/20">{20}</a>
+                    <a href="/cpu/multitask_no_gc/summarizer/30">{30}</a>
+                </div>
+
+                <div>
+                    <a href="/cpu/multitask_no_gc/counter/10" data-toggle="popover"
+                       title="Multitask"
+                       data-content="Ennyi szálon futtatja a Countert."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/cpu/multitask_no_gc/counter/{10}
+                    </a>
+                    <a href="/cpu/multitask_no_gc/counter/20">{20}</a>
+                    <a href="/cpu/multitask_no_gc/counter/30">{30}</a>
+                </div>
+
+                <div>
+                    <a href="/cpu/prime/10">localhost:8080/cpu/prime/{10}</a>
+                    <a href="/cpu/prime/200">{200}</a>
+                    <a href="/cpu/prime/1000">{1000}</a>
+                </div>
+                <div>
+                    <a href="/cpu/prime_no_gc/10">localhost:8080/cpu/prime_no_gc/{10}</a>
+                    <a href="/cpu/prime_no_gc/200">{200}</a>
+                    <a href="/cpu/prime_no_gc/1000">{1000}</a>
+                </div>
+                <div>
+                    <a href="/cpu/count/10">localhost:8080/cpu/count/{10}</a>
+                    <a href="/cpu/count/20">{20}</a>
+                    <a href="/cpu/count/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/cpu/count_no_gc/10">localhost:8080/cpu/count_no_gc/{10}</a>
+                    <a href="/cpu/count_no_gc/20">{20}</a>
+                    <a href="/cpu/count_no_gc/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/cpu/instance/10">localhost:8080/cpu/instance/{10}</a>
+                    <a href="/cpu/instance/20">{20}</a>
+                    <a href="/cpu/instance/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/cpu/instance_no_gc/10">localhost:8080/cpu/instance_no_gc/{10}</a>
+                    <a href="/cpu/instance_no_gc/20">{20}</a>
+                    <a href="/cpu/instance_no_gc/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/cpu/individum/10">localhost:8080/cpu/individum/{10}</a>
+                    <a href="/cpu/individum/20">{20}</a>
+                    <a href="/cpu/individum/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/cpu/individum_no_gc/10">localhost:8080/cpu/individum_no_gc/{10}</a>
+                    <a href="/cpu/individum_no_gc/20">{20}</a>
+                    <a href="/cpu/individum_no_gc/30">{30}</a>
+                </div>
+                <div>
+                    <a href="/io/1/dir_path/1">localhost:8080/io/1/{dir_path}/{1}</a>
+                    <a href="/io/1/dir_path/10">{10}</a>
+                    <a href="/io/1/dir_path/50">{50}</a>
+                </div>
+                <div>
+                    <a href="/io/2/dir_path/1">localhost:8080/io/2/{dir_path}/{1}</a>
+                    <a href="/io/2/dir_path/10">{10}</a>
+                    <a href="/io/2/dir_path/50">{50}</a>
+                </div>
+                <div>
+                    <a href="/io/3/?path=/home/ubuntu&iteration=1">localhost:8080/io/3/?path=/home/ubuntu/&iteration=1</a>
+                    <a href="/io/3/?path=/home/ubuntu&iteration=10">{10}</a>
+                    <a href="/io/3/?path=/home/ubuntu&iteration=20">{20}</a>
+                </div>
+                <div>
+                    <a href="/io/copy/1">localhost:8080/io/copy/{1}</a>
+                    <a href="/io/copy/10">{10}</a>
+                    <a href="/io/copy/50">{50}</a>
+                </div>
+                <div>
+                    <a href="/memory/string/1/1">localhost:8080/memory/string/1/{1}</a>
+                </div>
+                <div>
+                    <a href="/memory/beans/1/1/true">localhost:8080/memory/beans/1/1/true</a>
+                    <a href="/memory/beans/1/1/false">{1}/{false}</a>
+                    <a href="/memory/beans/1/10/true">{10}/{true}</a>
+                    <a href="/memory/beans/1/10/false">{10}/{false}</a>
+                    <a href="/memory/beans/1/100/true">{100}/{true}</a>
+                    <a href="/memory/beans/1/100/false">{100}/{false}</a>
+                </div>
+                <div>
+                    <a href="/memory/beans/2/1/true">localhost:8080/memory/beans/2/1/true</a>
+                    <a href="/memory/beans/2/1/false">{1}/{false}</a>
+                    <a href="/memory/beans/2/10/true">{10}/{true}</a>
+                    <a href="/memory/beans/2/10/false">{10}/{false}</a>
+                    <a href="/memory/beans/2/100/true">{100}/{true}</a>
+                    <a href="/memory/beans/2/100/false">{100}/{false}</a>
+                </div>
+                <div>
+                    <a href="/network/1/1/true">localhost:8080/network/1/1/true</a>
+                    <a href="/network/1/1/false">{1}/{false}</a>
+                    <a href="/network/1/10/true">{10}/{true}</a>
+                    <a href="/network/1/10/false">{10}/{false}</a>
+                    <a href="/network/1/100/true">{100}/{true}</a>
+                    <a href="/network/1/100/false">{100}/{false}</a>
+                </div>
+                <div>
+                    <a href="/network/download/1/true">localhost:8080/network/download/1/true</a>
+                    <a href="/network/download/2/true">{2}/{true}</a>
+                </div>
+                <div>
+                    <a href="/downloader/static/1000">localhost:8080/downloader/static/1000</a>
+                    <a href="/downloader/static/20000">{20000}</a>
+                    <a href="/downloader/static/500000">{500000}</a>
+                </div>
+                <div>
+                    <a href="/memory-status">localhost:8080/memory-status</a>
+                </div>
+                <div>
+                    <a href="/info">localhost:8080/info</a>
+                </div>
+                <div>
+                    <a href="/queue">localhost:8080/queue</a>
+                </div>
+
+                <div>
+                    <a href="/queue/bake4/biscuit/2000" data-toggle="popover"
+                       title="Queue"
+                       data-content="This is just a simple request which are held for the given time. It can be processed parallel"
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/queue/bake4/biscuit/2000
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/queue/bake5/biscuit/5000" data-toggle="popover"
+                       title="Queue"
+                       data-content="This is just a simple request which are held for the given time. But it can not be processed parallel"
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/queue/bake5/biscuit/5000
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/image/manipulator/1024_1024/1" data-toggle="popover"
+                       title="ImageManipulator"
+                       data-content="This is just a simple request read an image, overwrite its pixel and write back to the disk."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/image/manipulator/1024_1024/1
+                    </a>
+                    <a href="/image/manipulator/512_512/1">{512}</a>
+                    <a href="/image/manipulator/256_256/1">{256}</a>
+                    <a href="/image/manipulator/128_128/1">{128}</a>
+                    <a href="/image/manipulator/64_64/1">{64}</a>
+                    <a href="/image/manipulator/32_32/1">{32}</a>
+                    <a href="/image/manipulator/16_16/1">{16}</a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/create" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db create sample."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/create
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/clear" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db clear collection."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/clear
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db Get All"
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/init/10" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db Init 10 random sample."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/init/10
+                    </a>
+                    <a href="/mongodb/expense/init/1000">{1000}</a>
+                    <a href="/mongodb/expense/init/10000">{10000}</a>
+                    <a href="/mongodb/expense/init/50000">{50000}</a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/regex/ABC" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db Get By Regex."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/regex/ABC
+                    </a>
+                </div>
+
+                <div>
+                    <div class="container">
+                        <h3>Popover Example</h3>
+                        <ul class="list-inline">
+                            <li><a href="#" title="Header"
+                                   data-toggle="popover"
+                                   data-placement="top"
+                                   data-content="Content"
+                                   data-trigger="hover">
+                                JoDeMiro
+                            </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <script>
+                    $(document).ready(function(){
+                    $('[data-toggle="popover"]').popover();
+                    });
+                </script>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/main.js"></script>
+</body>
 </html>
