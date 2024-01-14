@@ -4,6 +4,8 @@ import com.example.filedemo.responses.CpuResponse;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
 @Component
@@ -29,6 +31,8 @@ public class Prime {
 
         long start = System.currentTimeMillis();
 
+        List<Future<Long>> futures = new ArrayList<>();
+
         for (int j = 0; j < 10; j++) {
             final int ID = j;
 
@@ -45,19 +49,25 @@ public class Prime {
                             result += number.longValue() - 1;
                         }
                     }
+                    System.out.println(ID+" worker: " + number + ": " + result);
                     return result;
                 }
             });
 
-            Long result = submit.get();
+            futures.add(submit);
+        }
+
+        for (Future<Long> future : futures) {
+            Long result = future.get();
             sum += result;
         }
+
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
-        // System.out.println("Sum = " + sum);
+
         String parameter = String.valueOf(max_number);
         CpuResponse response = new CpuResponse("CpuResponse", parameter, sum, elapsedTime);
-        System.out.println(response);
+
         executorService.shutdown();
         executorService.shutdownNow();
         return response;

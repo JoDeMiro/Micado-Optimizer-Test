@@ -91,6 +91,9 @@ public class RestsController {
     Prime prime = new Prime();
 
     @Autowired
+    Primer primer = new Primer();
+
+    @Autowired
     InfoStats infoStats = new InfoStats();
 
     @Autowired
@@ -403,33 +406,6 @@ public class RestsController {
         return response;
     }
 
-    @GetMapping("/cpu/fibonacci_no_gc/{number}/{ts}")
-    public CpuResponse cpu_no_gc_ts(@PathVariable String number, @PathVariable String ts) {
-
-        long start = System.currentTimeMillis();
-
-        Long result = 0L;
-
-        try {
-            result = fibonnaci.run(Integer.parseInt(number));
-            String ts_a = ts;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        long stop = System.currentTimeMillis();
-        long elapsedTime = stop - start;
-
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ts, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
-
-        return response;
-    }
-
     @GetMapping("/cpu/prime/{number}")
     public CpuResponse prime(@PathVariable String number) {
 
@@ -455,6 +431,24 @@ public class RestsController {
 
         try {
             response = prime.run(Integer.parseInt(number));
+            response.setWorkerIPAddress(ipAddress);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // System.gc();
+        // Runtime.getRuntime().gc();
+
+        return response;
+    }
+
+    @GetMapping("/cpu/primer_no_gc/{number}")
+    public CpuResponse primer_no_gc(@PathVariable String number) {
+
+        CpuResponse response = null;
+
+        try {
+            response = primer.run(Integer.parseInt(number));
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
             e.printStackTrace();
