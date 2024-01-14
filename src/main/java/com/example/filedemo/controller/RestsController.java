@@ -460,15 +460,15 @@ public class RestsController {
         return response;
     }
 
-    @GetMapping("/cpu/count/{number}")
-    public CpuResponse count(@PathVariable String number) {
+    @GetMapping("/cpu/count/{number}/{thread}")
+    public CpuResponse count(@PathVariable String number, @PathVariable String thread) {
 
         long start = System.currentTimeMillis();
 
         Long result = 0L;
 
         try {
-            result = count.run(Integer.parseInt(number));
+            result = count.run(Integer.parseInt(number), Integer.parseInt(thread));
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -486,15 +486,15 @@ public class RestsController {
         return response;
     }
 
-    @GetMapping("/cpu/count_no_gc/{number}")
-    public CpuResponse count_no_gc(@PathVariable String number) {
+    @GetMapping("/cpu/count_no_gc/{number}/{thread}")
+    public CpuResponse count_no_gc(@PathVariable String number, @PathVariable String thread) {
 
         long start = System.currentTimeMillis();
 
         Long result = 0L;
 
         try {
-            result = count.run(Integer.parseInt(number));
+            result = count.run(Integer.parseInt(number), Integer.parseInt(thread));
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

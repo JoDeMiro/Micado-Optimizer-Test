@@ -1,8 +1,11 @@
 package com.example.filedemo.computation.cpu;
 
+import com.example.filedemo.responses.CpuResponse;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 
 @Component
@@ -14,12 +17,16 @@ public class Count {
             return fib(n.subtract(BigInteger.ONE)).add(fib(n.subtract(BigInteger.ONE).subtract(BigInteger.ONE)));
     }
 
-    public static Long run(int number) throws ExecutionException, InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+    public static Long run(int number, int thread) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(thread);
 
         Long sum = 0L;
 
-        for (int j = 0; j < 1; j++) {
+        long start = System.currentTimeMillis();
+
+        List<Future<Long>> futures = new ArrayList<>();
+
+        for (int j = 0; j < thread; j++) {
             final int ID = j;
 
             Future<Long> submit = executorService.submit(new Callable<Long>() {
@@ -29,15 +36,27 @@ public class Count {
                     for (int i = 0; i < number; i++) {
                         BigInteger fib = fib(new BigInteger(String.valueOf(i)));
                         // System.out.println(ID + " worker: " + i + ": " + fib);
-                        result = fib.longValue();
+                        result = result + fib.longValue();
                     }
+                    // System.out.println(ID+" worker: " + number + ": " + result);
                     return result;
                 }
             });
 
-            Long result = submit.get();
+            futures.add(submit);
+        }
+
+        for (Future<Long> future : futures) {
+            Long result = future.get();
             sum += result;
         }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        String parameter = String.valueOf(number);
+        CpuResponse response = new CpuResponse("CpuResponse", parameter, sum, elapsedTime);
+
         // System.out.println("Sum = " + sum);
         executorService.shutdown();
         executorService.shutdownNow();
