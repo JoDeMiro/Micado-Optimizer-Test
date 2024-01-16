@@ -4,6 +4,7 @@
 *.iml
 *.ipr
 *.log
+*.mp3
 /.idea/
 /output/
 /*.iml

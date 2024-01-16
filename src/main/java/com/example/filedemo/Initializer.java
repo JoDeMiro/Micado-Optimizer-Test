@@ -387,7 +387,7 @@ public class Initializer {
             logger.info("File Not Found");
         }
 
-        // version 13
+        // version 14
         try {
             System.out.println("---------version 14--------------");
 
@@ -409,6 +409,30 @@ public class Initializer {
         } catch (IOException e) {
             logger.info("File Not Found");
         }
+
+        // version 15
+        try {
+            System.out.println("---------version 15--------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/sound.wav");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/sound.wav");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\sound.wav");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/sound.wav");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
 
         // -------------------------------------------------------------------
 

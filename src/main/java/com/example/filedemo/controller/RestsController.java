@@ -3,6 +3,7 @@ package com.example.filedemo.controller;
 import com.example.filedemo.beans.InfoStats;
 import com.example.filedemo.computation.cpu.*;
 import com.example.filedemo.computation.download.StaticDownloader;
+import com.example.filedemo.computation.ffmpeg.FFMpeg;
 import com.example.filedemo.computation.imoges.ImageManipulator;
 import com.example.filedemo.computation.io.FileCopier;
 import com.example.filedemo.computation.memory.MyBeanCalc;
@@ -12,6 +13,7 @@ import com.example.filedemo.computation.network.CreateNetworkData;
 import com.example.filedemo.computation.network.DownloadWebPage;
 import com.example.filedemo.computation.network.GenerateNetworkTraffic;
 import com.example.filedemo.computation.network.GetNetworkTraffic;
+import com.example.filedemo.computation.stress.StressNG;
 import com.example.filedemo.conf.HttpTraceLogConfiguration;
 import com.example.filedemo.responses.*;
 import com.example.filedemo.service.FileStorageService;
@@ -95,6 +97,12 @@ public class RestsController {
 
     @Autowired
     InfoStats infoStats = new InfoStats();
+
+    @Autowired
+    StressNG stress = new StressNG();
+
+    @Autowired
+    FFMpeg ffmpeg = new FFMpeg();
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -831,7 +839,6 @@ public class RestsController {
         return response;
     }
 
-
     @GetMapping("/downloader/static/{length}")
     public String downloader1(@PathVariable int length) {
 
@@ -840,4 +847,51 @@ public class RestsController {
         return result;
     }
 
+    @GetMapping("/stress/test/1/{param}")
+    public CpuResponse stress1(@PathVariable String param) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            stress.test1(param);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        String number = param;
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/ffmpeg/test/1")
+    public CpuResponse stress1() {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            ffmpeg.test1();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        String number = "0";
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
 }

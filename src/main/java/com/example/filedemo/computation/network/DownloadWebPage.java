@@ -26,8 +26,8 @@ public class DownloadWebPage {
         URL website = new URL("https://images8.alphacoders.com/468/468739.jpg");
 
         try (InputStream in = website.openStream()) {
-            Path target = Paths.get("/tmp/delete.jpg");
-            Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
+            // Path target = Paths.get("/tmp/delete.jpg");
+            // Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
         }
 
         // Create a list
