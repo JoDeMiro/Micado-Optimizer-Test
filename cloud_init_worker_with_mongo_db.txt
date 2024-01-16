@@ -32,6 +32,8 @@ write_files:
     sudo apt install -y maven
     sudo apt install -y ntpdate tmux collectl moreutils
     sudo apt install -y apache2-utils
+    sudo apt install -y stress-ng
+    sudo apt install -y ffmpeg
     sudo ntpdate -s time.nist.gov
     echo "---------------> Worker update finished."
   permissions: '755'
