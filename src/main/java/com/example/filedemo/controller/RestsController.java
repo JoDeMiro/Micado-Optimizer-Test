@@ -876,10 +876,10 @@ public class RestsController {
 
         long start = System.currentTimeMillis();
 
-        Long result = 0L;
+        Long result = -400L;
 
         try {
-            ffmpeg.test1();
+            result = (long) ffmpeg.test1();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -888,6 +888,11 @@ public class RestsController {
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
 
         String number = "0";
         CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);

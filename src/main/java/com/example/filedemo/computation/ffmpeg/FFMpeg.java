@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 @Component
 public class FFMpeg {
 
-    public void test1() throws ExecutionException, InterruptedException {
+    public int test1() throws ExecutionException, InterruptedException {
         // Itt add meg a kívánt "stress-ng" parancsot
         // String command = "stress-ng --matrix 1 -t 1s";
         // String command = "ffmpeg -y -i sound.wav -b:a 192K -vn kimeneti.mp3";
@@ -29,8 +29,12 @@ public class FFMpeg {
             int exitCode = process.waitFor();
             System.out.println("A parancs befejezve kód: " + exitCode);
 
+            return exitCode;
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        return -900;
     }
 }
