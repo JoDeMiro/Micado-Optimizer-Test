@@ -1,4 +1,4 @@
-package com.example.filedemo.computation.ffmpeg;
+package com.example.filedemo.computation.zip;
 
 import org.springframework.stereotype.Component;
 
@@ -6,12 +6,27 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @Component
-public class FFMpeg {
+public class Zip {
 
-    public int test1() throws ExecutionException, InterruptedException {
-        // Itt add meg a kívánt "stress-ng" parancsot
-        // String command = "ffmpeg -y -i sound.wav -b:a 192K -vn kimeneti.mp3";
-        String command = "ffmpeg -y -i uploads/sound.wav -b:a 192K -vn kimeneti.mp3";
+    public void test1(String type) throws ExecutionException, InterruptedException {
+        // Itt add meg a kívánt "zip" parancsot
+        // String command = "zip -q -9 tmp.zip uploads/sound.wav";
+        //
+        String command = "";
+
+        switch(type) {
+            case "zip1":
+                command = "zip -q -9 uploads/tmp.zip uploads/sound.wav";
+                break;
+            case "zip2":
+                command = "zip -q -9 uploads/tmp.zip uploads/4096_4096.png";
+                break;
+            case "zip3":
+                command = "zip -q -9 uploads/tmp.zip uploads/4096_4096.png > /dev/null 2>&1";
+                break;
+            default:
+                // code block
+        }
 
         try {
             Process process = Runtime.getRuntime().exec(command);
@@ -28,11 +43,8 @@ public class FFMpeg {
             int exitCode = process.waitFor();
             // System.out.println("A parancs befejezve kód: " + exitCode);
 
-            return exitCode;
-
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return -900;
     }
 }

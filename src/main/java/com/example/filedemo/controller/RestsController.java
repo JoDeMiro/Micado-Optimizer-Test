@@ -14,6 +14,7 @@ import com.example.filedemo.computation.network.DownloadWebPage;
 import com.example.filedemo.computation.network.GenerateNetworkTraffic;
 import com.example.filedemo.computation.network.GetNetworkTraffic;
 import com.example.filedemo.computation.stress.StressNG;
+import com.example.filedemo.computation.zip.Zip;
 import com.example.filedemo.conf.HttpTraceLogConfiguration;
 import com.example.filedemo.responses.*;
 import com.example.filedemo.service.FileStorageService;
@@ -100,6 +101,9 @@ public class RestsController {
 
     @Autowired
     StressNG stress = new StressNG();
+
+    @Autowired
+    Zip zip = new Zip();
 
     @Autowired
     FFMpeg ffmpeg = new FFMpeg();
@@ -847,15 +851,15 @@ public class RestsController {
         return result;
     }
 
-    @GetMapping("/stress/test/1/{param}")
-    public CpuResponse stress1(@PathVariable String param) {
+    @GetMapping("/stress/test/{type}/{param}")
+    public CpuResponse stress1(@PathVariable String type, @PathVariable String param) {
 
         long start = System.currentTimeMillis();
 
         Long result = 0L;
 
         try {
-            stress.test1(param);
+            stress.test1(type, param);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -866,6 +870,30 @@ public class RestsController {
         long elapsedTime = stop - start;
 
         String number = param;
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/zip/test/{type}")
+    public CpuResponse zip(@PathVariable String type) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            zip.test1(type);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        String number = type;
         CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;

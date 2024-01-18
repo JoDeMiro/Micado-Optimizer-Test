@@ -34,6 +34,7 @@ write_files:
     sudo apt install -y apache2-utils
     sudo apt install -y stress-ng
     sudo apt install -y ffmpeg
+    sudo apt install -y zip
     sudo ntpdate -s time.nist.gov
     echo "---------------> Worker update finished."
   permissions: '755'
