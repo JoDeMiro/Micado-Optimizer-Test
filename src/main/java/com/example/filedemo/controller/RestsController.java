@@ -927,4 +927,33 @@ public class RestsController {
 
         return response;
     }
+
+    @GetMapping("/ffmpeg/test/2/{n}")
+    public CpuResponse stress1(@PathVariable String n) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = -400L;
+
+        try {
+            result = (long) ffmpeg.test2(n);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
 }
