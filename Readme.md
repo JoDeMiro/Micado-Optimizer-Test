@@ -480,3 +480,6 @@ Read this [link](https://docs.spring.io/spring-boot/docs/current/reference/htmls
 
 Test on AWS single jar [test it](https://exampledriven.wordpress.com/2017/01/09/spring-boot-aws-elastic-beanstalk-example)
 
+
+## Cloud
+
