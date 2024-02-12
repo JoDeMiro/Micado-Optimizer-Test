@@ -1,5 +1,7 @@
 package com.example.filedemo.controller;
 
+import brave.Span;
+import brave.Tracer;
 import com.example.filedemo.beans.InfoStats;
 import com.example.filedemo.computation.cpu.*;
 import com.example.filedemo.computation.download.StaticDownloader;
@@ -53,6 +55,9 @@ public class RestsController {
             e.printStackTrace();
         }
     }
+
+    @Autowired
+    private Tracer tracer;
 
     @Autowired
     FileSizeCalc fileSizeCalc = new FileSizeCalc();
@@ -956,4 +961,18 @@ public class RestsController {
 
         return response;
     }
+
+    @GetMapping("/traceid")
+    public String getSleuthTraceId() {
+        logger.info("Hello with Sleuth");
+        Span span = tracer.currentSpan();
+        if (span != null) {
+            logger.info("Span ID hex {}", span.context().spanIdString());
+            logger.info("Span ID decimal {}", span.context().spanId());
+            logger.info("Trace ID hex {}", span.context().traceIdString());
+            logger.info("Trace ID decimal {}", span.context().traceId());
+        }
+        return "Hello from Sleuth";
+    }
+
 }
