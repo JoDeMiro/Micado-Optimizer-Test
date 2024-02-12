@@ -14,3 +14,9 @@
 src/main/resources/tessdata/*
 !src/main/resources/tessdata/eng.*
 !src/main/resources/tessdata/hun.*
+
+
+# Exlude Zipkin
+zipkin.jar
+zipkin.jar.asc
+zipkin.jar.md5
