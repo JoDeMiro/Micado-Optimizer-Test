@@ -237,6 +237,20 @@ write_files:
     echo " "
   permissions: '755'
 
+- path: /bin/load-balancer-install-zipkin.sh
+  content: |
+    #!/bin/bash
+    echo " "
+    echo "---------------> Install Zipkin started."
+    echo " "
+
+    curl -sSL https://zipkin.io/quickstart.sh | bash -s io.zipkin:zipkin-server:LATEST:slim zipkin.jar
+
+    echo " "
+    echo "---------------> Install Zipkin finishted."
+    echo " "
+  permissions: '755'
+
 - path: /bin/load-balancer-install-scaler.sh
   content: |
     #!/bin/bash
@@ -296,6 +310,8 @@ write_files:
     echo "            - El kell inditani a Jupytert                          "
     echo "              jupyter notebook --ip=0.0.0.0 --port=8888 --no-browse"
     echo "            - Fel kell venni a Worker IP cimeket a Balancerbe      "
+    echo "            - El kell inditani a Zipkint                           "
+    echo "              java -jar zipkin.jar                                 "
     echo " "
     echo "-------------------------------------------------------------------"
 
@@ -314,6 +330,7 @@ runcmd:
 - su - ubuntu -c /bin/load-balancer-install-jupyter.sh
 - su - ubuntu -c /bin/load-balancer-install-loadbalancer.sh
 # - su - ubuntu -c /bin/load-balancer-install-latex.sh
+- su - ubuntu -c /bin/load-balancer-install-zipkin.sh
 - su - ubuntu -c /bin/load-balancer-install-ssh.sh
 - su - ubuntu -c /bin/load-balancer-install-scaler.sh
 - su - ubuntu -c /bin/load-balancer-config-git.sh
