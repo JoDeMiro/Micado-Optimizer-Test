@@ -44,7 +44,7 @@ public class RestsControllerWithTrace {
         logger.info("you called B");
         Thread.sleep(500);
         RestTemplate restTemplate = getRestTemplate();
-        return restTemplate.getForObject("http://localhost:8080/A", String.class);
+        return restTemplate.getForObject("http://localhost/A", String.class);
     }
 
     @RequestMapping("/C")
@@ -52,7 +52,7 @@ public class RestsControllerWithTrace {
         logger.info("you called C");
         Thread.sleep(1000);
         RestTemplate restTemplate = getRestTemplate();
-        return restTemplate.getForObject("http://localhost:8080/B", String.class);
+        return restTemplate.getForObject("http://localhost/B", String.class);
     }
 
 
@@ -61,7 +61,7 @@ public class RestsControllerWithTrace {
         logger.info("you called B");
         Thread.sleep(500);
         RestTemplate restTemplate = getRestTemplate();
-        return restTemplate.getForObject("http://localhost:8080/A", String.class);
+        return restTemplate.getForObject("http://localhost/A", String.class);
     }
 
     @RequestMapping("/RC")
@@ -69,7 +69,7 @@ public class RestsControllerWithTrace {
         logger.info("you called RC");
         Thread.sleep(1000);
         RestTemplate restTemplate = getRestTemplate();
-        return restTemplate.getForObject("http://" + remoteServiceAccessPoint + ":8080/RB", String.class);
+        return restTemplate.getForObject("http://" + remoteServiceAccessPoint + "/RB", String.class);
     }
 
     @RequestMapping("/RPrime")
