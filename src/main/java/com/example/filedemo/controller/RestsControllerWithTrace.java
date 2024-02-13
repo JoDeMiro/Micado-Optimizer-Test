@@ -6,6 +6,7 @@ import com.example.filedemo.service.SleuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ import org.springframework.web.client.RestTemplate;
 public class RestsControllerWithTrace {
 
     private static final Logger logger = LoggerFactory.getLogger(RestsControllerWithTrace.class);
+
+    @Value("${remote.service.access.point}")
+    private String remoteServiceAccessPoint;
 
     @Autowired
     RestTemplate restTemplate;
@@ -49,6 +53,33 @@ public class RestsControllerWithTrace {
         Thread.sleep(1000);
         RestTemplate restTemplate = getRestTemplate();
         return restTemplate.getForObject("http://localhost:8080/B", String.class);
+    }
+
+
+    @RequestMapping("/RB")
+    public String RB() throws InterruptedException {
+        logger.info("you called B");
+        Thread.sleep(500);
+        RestTemplate restTemplate = getRestTemplate();
+        return restTemplate.getForObject("http://localhost:8080/A", String.class);
+    }
+
+    @RequestMapping("/RC")
+    public String RC() throws InterruptedException {
+        logger.info("you called RC");
+        Thread.sleep(1000);
+        RestTemplate restTemplate = getRestTemplate();
+        return restTemplate.getForObject("http://" + remoteServiceAccessPoint + ":8080/RB", String.class);
+    }
+
+    @RequestMapping("/RPrime")
+    public String RPrime() throws InterruptedException {
+        logger.info("you called RPrime");
+        Thread.sleep(1000);
+        RestTemplate restTemplate = getRestTemplate();
+        String url = "http://" + remoteServiceAccessPoint + "/cpu/prime/10";
+        System.out.println(url);
+        return restTemplate.getForObject(url, String.class);
     }
 
     @GetMapping("/T1")
