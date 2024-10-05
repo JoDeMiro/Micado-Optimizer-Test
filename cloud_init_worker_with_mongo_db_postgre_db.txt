@@ -1,0 +1,177 @@
+#cloud-config
+
+packages:
+  - git
+  - openssh-client
+
+
+write_files:
+- path: /bin/worker-add-user.sh
+  content: |
+    #!/bin/bash
+    export USR='ubuntu'
+    echo "---------------> Creating user \"$USR\" starts."
+    adduser --disabled-password --gecos "" $USR
+    echo "---------------> Creating user \"$USR\" finished."
+  permissions: '755'
+
+- path: /bin/worker-add-base-tools.sh
+  content: |
+    #!/bin/bash
+    export MESSAGE='ha olyanom lenne ide is irhatok'
+    echo "---------------> A velemenyem az, hogy \"$MESSAGE\" vagy nem."
+    echo "---------------> Vege."
+  permissions: '755'
+
+- path: /bin/worker-update.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Worker update starts."
+    sudo apt-get update -y
+    sudo apt install -y openjdk-11-jre-headless
+    sudo apt install -y maven
+    sudo apt install -y ntpdate tmux collectl moreutils
+    sudo apt install -y apache2-utils
+    sudo apt install -y stress-ng
+    sudo apt install -y ffmpeg
+    sudo apt install -y zip
+    sudo ntpdate -s time.nist.gov
+    echo "---------------> Worker update finished."
+  permissions: '755'
+
+- path: /bin/worker-start-mongodb.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start Mongo db starts."
+    cd
+    pwd
+    whoami
+    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+    sudo apt-get install gnupg
+    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org=5.0.7 mongodb-org-database=5.0.7 mongodb-org-server=5.0.7 mongodb-org-shell=5.0.7 mongodb-org-mongos=5.0.7 mongodb-org-tools=5.0.7
+    ps --no-headers -o comm 1
+
+    # start mondgo db
+    sudo systemctl start mongod
+
+    # reload if needed
+    # sudo systemctl daemon-reload
+
+    # verify
+    sudo systemctl status mongod
+
+    # reload when restart
+    sudo systemctl enable mongod
+
+    # create empty collection named expense_tracker
+    echo "---------------> Critical part starts."
+    echo 'use local' | mongosh local
+    echo 'db.createCollection("expense_tracker")' | mongosh local
+    echo "use local" | mongosh local
+    echo 'db.createCollection("expense_tracker")' | mongosh local
+    echo "---------------> Critical part finished."
+
+    # uninstall
+    # sudo service mongod stop
+    # sudo apt-get purge mongodb-org*
+    # sudo rm -r /var/log/mongodb
+    # sudo rm -r /var/lib/mongodb
+    echo "---------------> Start Mongo db finished."
+  permissions: '755'
+
+
+
+
+- path: /bin/worker-start-postgresql.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start PostgreSQL starts."
+    cd
+
+    # start mondgo db
+    sudo apt-get install -y postgresql postgresql-contrib
+
+    # reload if needed
+    # sudo systemctl restart postgresql
+
+    # verify
+    sudo systemctl enable postgresql
+
+    # reload when restart
+    sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'csereld_ki_password';"
+    sudo -u postgres psql -c "CREATE DATABASE testdb;"
+
+    echo "---------------> Start PostgreSQL finished."
+  permissions: '755'
+
+- path: /bin/worker-install.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Get Micado-Optimizer-Tes Project"
+
+    git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git --depth 1
+    
+    cd Micado-Optimizer-Test/
+    
+    # Set Wawefront VM Name
+    echo "wavefront.application.name=$HOSTNAME" >> ./src/main/resources/application.properties
+
+    # killall -9 java
+
+    # Build Java
+    mvn -Dmaven.test.skip package
+
+    # Without Wavefront
+    # java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=1
+    
+    # With Wavefront
+    java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=20 --wavefront.application.service="JVMSpring" --management.metrics.export.wavefront.api-token=****
+
+    echo "---------------> Get Micado-Optimizer-Test Project finished."
+  permissions: '755'
+
+- path: /bin/worker-start-metric.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start Nohup metrics starts."
+    cd
+    pwd
+    whoami
+    nohup collectl -sTCMD -oT -P | rotatelogs -n 1 mylog.log 100M &
+    # nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    # collectl | rotatelogs -n 1 -c mylog.log 1M
+    echo "---------------> Start Nohup metrics finished."
+  permissions: '755'
+
+
+- path: /bin/worker-start-stats.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start Nohup metrics starts."
+    cd
+    pwd
+    whoami
+    nohup collectl -sTNcmdib -oT -P --rawnetfilt lo --tcpfilt It | rotatelogs -n 1 stat.log 100M &
+    # nohup collectl -sTCMD -oT -P | rotatelogs -n 1 mylog.log 100M &
+    # nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    # collectl | rotatelogs -n 1 -c mylog.log 1M
+    echo "---------------> Start Nohup metrics finished."
+  permissions: '755'
+
+
+# https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+
+runcmd:
+- echo "---------------> JoDeMiro Deployment starts."
+- /bin/worker-add-user.sh
+- /bin/worker-add-base-tools.sh
+- su - ubuntu -c /bin/worker-update.sh
+- su - ubuntu -c /bin/worker-start-mongodb.sh
+- su - ubuntu -c /bin/worker-start-postgresql.sh
+- su - ubuntu -c /bin/worker-start-metric.sh
+- su - ubuntu -c /bin/worker-start-stats.sh
+- su - ubuntu -c /bin/worker-install.sh
+- echo "---------------> JoDeMiro Deployment finished."
