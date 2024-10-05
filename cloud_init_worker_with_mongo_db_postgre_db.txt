@@ -95,7 +95,7 @@ write_files:
     sudo apt-get install -y postgresql postgresql-contrib
 
     # reload if needed
-    # sudo systemctl restart postgresql
+    sudo systemctl restart postgresql
 
     # verify
     sudo systemctl enable postgresql
