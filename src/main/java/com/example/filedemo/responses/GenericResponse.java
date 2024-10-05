@@ -18,6 +18,14 @@ public class GenericResponse<String, P, R, Long> {
         this.executionTime = executionTime;
     }
 
+    public GenericResponse(String name, P parameter, R returnValue, Long executionTime, String workerIPAddress) {
+        this.name = name;
+        this.parameter = parameter;
+        this.returnValue = returnValue;
+        this.executionTime = executionTime;
+        this.workerIPAddress = workerIPAddress;
+    }
+
     public String getName() {
         return name;
     }

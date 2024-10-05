@@ -26,17 +26,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+
+import java.util.zip.GZIPOutputStream;
 
 @RestController
 public class RestsController {
@@ -973,6 +981,246 @@ public class RestsController {
             logger.info("Trace ID decimal {}", span.context().traceId());
         }
         return "Hello from Sleuth";
+    }
+
+    // In this case the response time should be changed exponentially related to the parameter
+    @GetMapping("/processImageSize/{size}")
+    public GenericResponse processImageSize(@PathVariable int size) {
+
+        long start = System.currentTimeMillis();
+
+        BufferedImage image = generateImage(size, size);
+
+        // BufferedImage edgeImage = applyEdgeDetection(image);
+        image = applyEdgeDetection(image);
+
+        // BufferedImage blurredImage = applyGaussianBlur(edgeImage);
+        image = applyGaussianBlur(image);
+
+        // Save to  file (if needed)
+        // ImageIO.write(image, "jpg", new File("edge_detected_image.jpg"));
+
+        double averageIntensity = calculateAverageIntensity(image);
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        return new GenericResponse("ImageProcess", size, averageIntensity, elapsedTime, ipAddress);
+    }
+
+    // In this case the response time should be changed linearly related to the parameter
+    @GetMapping("/processImageFor/{times}")
+    public GenericResponse processImageFor(@PathVariable int times) {
+
+        long start = System.currentTimeMillis();
+
+        int size = 20;
+
+        double averageIntensity = 0.0;
+
+        for (int i = 0; i < times; i++) {
+            BufferedImage image = generateImage(size, size);
+
+            // BufferedImage edgeImage = applyEdgeDetection(image);
+            image = applyEdgeDetection(image);
+
+            // BufferedImage blurredImage = applyGaussianBlur(edgeImage);
+            image = applyGaussianBlur(image);
+
+            averageIntensity = calculateAverageIntensity(image);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        return new GenericResponse("ImageProcess", size, averageIntensity, elapsedTime, ipAddress);
+    }
+
+    // Create an image with the given size, with random colors
+    public static BufferedImage generateImage(int width, int height) {
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D graphics = image.createGraphics();
+
+        // Random color pixels
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int rgb = new Color((int)(Math.random() * 0xFFFFFF)).getRGB();
+                image.setRGB(x, y, rgb);
+            }
+        }
+        graphics.dispose();
+        return image;
+    }
+
+    // Simple edge detection (Sobel filter implementation)
+    public static BufferedImage applyEdgeDetection(BufferedImage image) {
+        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        int[][] filter = {
+                {-1, -1, -1},
+                {-1, 8, -1},
+                {-1, -1, -1}
+        };
+
+        for (int x = 1; x < image.getWidth() - 1; x++) {
+            for (int y = 1; y < image.getHeight() - 1; y++) {
+                int sum = 0;
+                for (int fx = 0; fx < 3; fx++) {
+                    for (int fy = 0; fy < 3; fy++) {
+                        int rgb = new Color(image.getRGB(x + fx - 1, y + fy - 1)).getRed();
+                        sum += rgb * filter[fx][fy];
+                    }
+                }
+
+                // Clamping the result to fit in the range [0, 255]
+                int edgeColor = Math.min(Math.max(sum, 0), 255);
+                result.setRGB(x, y, new Color(edgeColor, edgeColor, edgeColor).getRGB());
+            }
+        }
+
+        return result;
+    }
+
+    // Gaussian Blur apply (simple 3x3-as kernel implementation)
+    public static BufferedImage applyGaussianBlur(BufferedImage image) {
+        BufferedImage result = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
+
+        // 3x3-as Gaussian filter
+        float[][] kernel = {
+                {1 / 16f, 2 / 16f, 1 / 16f},
+                {2 / 16f, 4 / 16f, 2 / 16f},
+                {1 / 16f, 2 / 16f, 1 / 16f}
+        };
+
+        for (int x = 1; x < image.getWidth() - 1; x++) {
+            for (int y = 1; y < image.getHeight() - 1; y++) {
+                float redSum = 0, greenSum = 0, blueSum = 0;
+
+                // A 3x3-as kernel alkalmazása
+                for (int fx = 0; fx < 3; fx++) {
+                    for (int fy = 0; fy < 3; fy++) {
+                        int rgb = image.getRGB(x + fx - 1, y + fy - 1);
+                        Color color = new Color(rgb);
+
+                        redSum += color.getRed() * kernel[fx][fy];
+                        greenSum += color.getGreen() * kernel[fx][fy];
+                        blueSum += color.getBlue() * kernel[fx][fy];
+                    }
+                }
+
+                // Színek összekapcsolása és a képre alkalmazás
+                int red = Math.min(Math.max((int) redSum, 0), 255);
+                int green = Math.min(Math.max((int) greenSum, 0), 255);
+                int blue = Math.min(Math.max((int) blueSum, 0), 255);
+                result.setRGB(x, y, new Color(red, green, blue).getRGB());
+            }
+        }
+
+        return result;
+    }
+
+    // Calculate mean pixel intensity
+    public static double calculateAverageIntensity(BufferedImage image) {
+        long sum = 0;
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                Color color = new Color(image.getRGB(x, y));
+                int intensity = (color.getRed() + color.getGreen() + color.getBlue()) / 3;
+                sum += intensity;
+            }
+        }
+
+        return sum / (double) (image.getWidth() * image.getHeight());
+    }
+
+    @GetMapping("/compress/{size}")
+    public GenericResponse compressText(@PathVariable int size) throws IOException {
+
+        long start = System.currentTimeMillis();
+
+        // Generate random String
+        String randomText = generateRandomText(size);
+
+        // Compress
+        byte[] compressedData = compress(randomText);
+
+        long fileSize = compressedData.length;
+        double fileSizeInKB = fileSize / 1024.0;
+        double originalSizeInKB = randomText.length() / 1024.0;
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+        double elapsedTimeInSeconds = elapsedTime / 1000.0;
+        String formattedTime = String.format("%.5f", elapsedTimeInSeconds);
+
+        GenericResponse<String, Integer, Double, String> response = new GenericResponse<>("GZipResponse", size, fileSizeInKB, ipAddress);
+        return  response;
+    }
+
+    // Generate Random text with given length
+    private String generateRandomText(int size) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 ";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(size);
+
+        for (int i = 0; i < size; i++) {
+            sb.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        return sb.toString();
+    }
+
+    // String GZIP compression
+    private byte[] compress(String data) throws IOException {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        try (GZIPOutputStream gzipStream = new GZIPOutputStream(byteStream)) {
+            gzipStream.write(data.getBytes());
+        }
+        return byteStream.toByteArray();
+    }
+
+    @GetMapping("/compressAndSave/{size}")
+    public GenericResponse compressTextAndSave(@PathVariable int size) throws IOException {
+
+        long start = System.currentTimeMillis();
+
+        // Generate random String
+        String randomText = generateRandomText(size);
+
+        // Compress and Save file
+        File tempFile = compressAndSaveToTempFile(randomText);
+
+        // Get compressed file size
+        long fileSize = tempFile.length();
+        double fileSizeInKB = fileSize / 1024.0;
+        double originalSizeInKB = randomText.length() / 1024.0;
+
+        // Delete the compressed file
+        if (tempFile.delete()) {
+            long stop = System.currentTimeMillis();
+            long elapsedTime = stop - start;
+            double elapsedTimeInSeconds = elapsedTime / 1000.0;
+            String formattedTime = String.format("%.5f", elapsedTimeInSeconds);
+
+            GenericResponse<String, Integer, Double, Long> response = new GenericResponse<>("GZipResponse", size, fileSizeInKB, elapsedTime, ipAddress);
+            return  response;
+        } else {
+            return new GenericResponse<>("GZipResponse Failed", "0", "0", ipAddress);
+        }
+    }
+
+    // Compress Text and save to file
+    private File compressAndSaveToTempFile(String data) throws IOException {
+        // Create temp file with unique name
+        File tempFile = File.createTempFile("compressed_data_", ".gz");
+
+        // Write to file GZIP format
+        try (FileOutputStream fos = new FileOutputStream(tempFile);
+             GZIPOutputStream gzipStream = new GZIPOutputStream(fos)) {
+            gzipStream.write(data.getBytes());
+        }
+
+        return tempFile;
     }
 
 }
