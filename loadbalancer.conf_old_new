@@ -2,6 +2,16 @@
 # LoadModule status_module modules/mod_status.so
 LoadModule status_module libexec/apache2/mod_status.so
 ExtendedStatus On
+LoadModule info_module libexec/apache2/nod_info.so
+
+<Location "/server-info">
+    SetHandler server-info
+    Require ip 127.0.0.1 92.249.194.108
+#    Require host 193.225.250.30
+#    <RequireAll>
+#        Require all granted
+#    </RequireAll>
+</Location>
 
 <Location "/server-status">
       SetHandler server-status
@@ -17,8 +27,20 @@ ExtendedStatus On
         ProxyRequests Off
 	Timeout 3600
 	ProxyTimeout 3600
-	SetEnv proxy-nokeepalive 1
-	SetEnv proxy-initial-not-pooled 1
+	
+	# Régi és valószínüleg rossz (ettől lassul több VM esetén)
+	# SetEnv proxy-nokeepalive 1
+	SetEnv proxy-nokeepalive 0
+
+	# Régi és valószínüleg rossz (ettől lassul több VM esetén)
+	# SetEnv proxy-initial-not-pooled 1
+	SetEnv proxy-initial-not-pooled 0
+
+	# New cucc
+	KeepAlive On
+	MaxKeepAliveRequests 100000
+	KeepAliveTimeout 500
+
 
         # Your balanced backends
 
@@ -39,6 +61,7 @@ ExtendedStatus On
                 BalancerMember http://192.168.0.164:8080
 
                 ProxySet lbmethod=bybusyness
+		ProxySet stickysession=Off
                 ProxySet maxattempts=1
 		ProxySet TimeOut=3600
         </Proxy>
@@ -69,7 +92,7 @@ ExtendedStatus On
 <Location />
     Order Deny,Allow
     Deny from all
-    Allow from 94.21.55.118 192.168.0 195.111.2.2 193.225.250.30
+    Allow from 92.249.193.37 192.168.0 195.111.2.2 193.225.250.30
 </Location>
 
 
@@ -90,11 +113,6 @@ SetEnvIf Request_URI "^/ffmpeg" log_url_ffmpeg
 SetEnvIf Request_URI "^/ffmpeg" log_url_spec
 SetEnvIf Request_URI "^/wait" log_url_spec
 SetEnvIF Request_URI "^/mongodb" log_url_spec
-
-# SetEnvIf User-Agent "internal dummy connection" dontlog_internal
-# SetEnvIf Remote_Addr "::1" dontlog_remote
-# SetEnvIf Request_URI "^/balancer-manager" dontlog_balancemanager
-# SetEnvIf Request_URI "^/server-status" dontlog_serverstatus
 
 # A szűrési szabályok alapján történő logolás beállítása
 CustomLog /var/log/apache2/zulu.log zorba env=log_url_cpu
