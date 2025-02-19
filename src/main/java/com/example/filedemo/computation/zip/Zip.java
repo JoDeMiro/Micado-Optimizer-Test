@@ -1,12 +1,19 @@
 package com.example.filedemo.computation.zip;
 
+import com.example.filedemo.controller.RestsController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 @Component
+// @Scope("prototype")
 public class Zip {
+
+    private static final Logger logger = LoggerFactory.getLogger(Zip.class);
 
     public void test1(String type) throws ExecutionException, InterruptedException {
         // Itt add meg a kívánt "zip" parancsot
@@ -44,7 +51,7 @@ public class Zip {
             // System.out.println("A parancs befejezve kód: " + exitCode);
 
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Zip class", e);
         }
     }
 }

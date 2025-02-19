@@ -9,7 +9,7 @@ import java.util.Random;
 @Component("StringSizeCalc")
 public class StringSizeCalc {
 
-    public GenericResponse run(int iteration) {
+    public GenericResponse<String, Integer, Integer, Long> run(int iteration) {
 
         long elapsedTime = 0;
         final long start = System.currentTimeMillis();
@@ -30,9 +30,9 @@ public class StringSizeCalc {
         final long end = System.currentTimeMillis();
         elapsedTime += (end - start);
 
-        GenericResponse response = new GenericResponse("GenericResponse", iteration, length, elapsedTime);
-        System.out.println(response);
-        return response;
+        GenericResponse<String, Integer, Integer, Long> response;
+        response = new GenericResponse<String, Integer, Integer, Long> ("GenericResponse", iteration, length, elapsedTime);
 
+        return response;
     }
 }

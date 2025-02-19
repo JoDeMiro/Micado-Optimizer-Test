@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /** Main class
  * @author JoDeMiro
@@ -18,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableConfigurationProperties({
 		FileStorageProperties.class
 })
+@EnableAsync
 public class FileDemoApplication {
 
 	public static void main(String[] args) {

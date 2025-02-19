@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Component("GenerateNetworkTraffic")
 public class GenerateNetworkTraffic {
 
-    public NetworkResponse run(int number, boolean withGC) {
+    public NetworkResponse<String, Integer, Long, Long> run(int number, boolean withGC) {
 
         long elapsedTime = 0;
         final long start = System.currentTimeMillis();
@@ -17,7 +17,7 @@ public class GenerateNetworkTraffic {
         ArrayList<String> list = new ArrayList<>();
         // Add new elements to the list
         for (int i = 0; i <= number; i++) {
-            list.add(new String("My String Name " + i));
+            list.add("My String Name " + i);
         }
         // Get the Java runtime
         Runtime runtime = Runtime.getRuntime();
@@ -32,9 +32,9 @@ public class GenerateNetworkTraffic {
         final long end = System.currentTimeMillis();
         elapsedTime += (end - start);
 
-        NetworkResponse response = new NetworkResponse("NetworkResponse", number, memory, elapsedTime, list);
-        System.out.println(response);
-        return response;
+        NetworkResponse<String, Integer, Long, Long> response;
+        response = new NetworkResponse<>("NetworkResponse", number, memory, elapsedTime, list);
 
+        return response;
     }
 }

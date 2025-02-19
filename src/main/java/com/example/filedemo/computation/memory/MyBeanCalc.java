@@ -15,7 +15,7 @@ public class MyBeanCalc {
         return bytes / MEGABYTE;
     }
 
-    public GenericResponse memoryTest(int number, boolean withGC) {
+    public GenericResponse<String, Integer, Long, Long> memoryTest(int number, boolean withGC) {
 
         long elapsedTime = 0;
         final long start = System.currentTimeMillis();
@@ -40,9 +40,9 @@ public class MyBeanCalc {
         final long end = System.currentTimeMillis();
         elapsedTime += (end - start);
 
-        GenericResponse response = new GenericResponse("GenericResponse", number, memory, elapsedTime);
-        System.out.println(response);
-        return response;
+        GenericResponse<String, Integer, Long, Long> response;
+        response = new GenericResponse<String, Integer, Long, Long>("GenericResponse", number, memory, elapsedTime);
 
+        return response;
     }
 }

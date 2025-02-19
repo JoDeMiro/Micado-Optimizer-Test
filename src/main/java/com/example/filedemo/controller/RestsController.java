@@ -60,7 +60,7 @@ public class RestsController {
             InetAddress ip = InetAddress.getLocalHost();
             ipAddress = ip.getHostAddress();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            logger.error("RestsController getLocalHost()", e);
         }
     }
 
@@ -70,8 +70,8 @@ public class RestsController {
     @Autowired
     FileSizeCalc fileSizeCalc = new FileSizeCalc();
 
-    @Autowired
-    StringSizeCalc stringSizeCalc = new StringSizeCalc();
+    // @Autowired
+    // StringSizeCalc stringSizeCalc = new StringSizeCalc();
 
     @Autowired
     MyBeanCalc myBeanCalc = new MyBeanCalc();
@@ -82,8 +82,8 @@ public class RestsController {
     @Autowired
     private static final CreateNetworkData createNetworkData = new CreateNetworkData(20000);
 
-    @Autowired
-    DownloadWebPage downloadWebPage = new DownloadWebPage();
+    // @Autowired
+    // DownloadWebPage downloadWebPage = new DownloadWebPage();
 
     // @Autowired
     // private RestartEndpoint restartEndpoint;
@@ -127,8 +127,8 @@ public class RestsController {
     @Autowired
     private StaticDownloader staticDownloader;
 
-    @Autowired
-    private WaitResponse waitResponse;
+    // @Autowired
+    // private WaitResponse waitResponse;
 
     @Autowired
     private HttpTraceLogConfiguration httpTraceLogConfiguration;
@@ -158,20 +158,15 @@ public class RestsController {
     }
 
     @GetMapping("/os")
-    public List<String> os(HttpServletRequest request) {
-        ArrayList<String> list = new ArrayList<>();
-
-        System.getProperties().list(System.out);
+    public String os(HttpServletRequest request) {
 
         Properties properties = System.getProperties();
+        String results;
+        results = properties.getProperty("os.name");
 
-        String os = properties.getProperty("os.name");
-        System.out.println("-----------------------");
-        System.out.println(os);
-        System.out.println("-----------------------");
-
-        return list;
+        return results;
     }
+
     @GetMapping("/stats")
     public List<String> stats(HttpServletRequest request) {
         ArrayList<String> list = infoStats.getUsage();
@@ -189,7 +184,7 @@ public class RestsController {
         File[] list = file.listFiles();
         if (list != null) {
             for (File temp : list) {
-                if( temp.getName().contains("_") == false ){
+                if(!temp.getName().contains("_")){
                     //recursive delete
                     System.out.println("Visit " + temp);
                     deleteDirectoryLegacyIO(temp);
@@ -216,7 +211,7 @@ public class RestsController {
             File file = new File(String.valueOf(uploadDirLocation));
             deleteDirectoryLegacyIO(file);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/clear-disk/", e);
         }
     }
 
@@ -225,7 +220,7 @@ public class RestsController {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("/wait/", e);
         }
 
         List<String> list = new ArrayList<>();
@@ -245,13 +240,14 @@ public class RestsController {
         try {
             Thread.sleep(Long.parseLong(waitTime));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("/wait/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        WaitResponse response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime, ipAddress);
+        WaitResponse response;
+        response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime, ipAddress);
 
         return response;
     }
@@ -264,15 +260,16 @@ public class RestsController {
         try {
             Thread.sleep(Long.parseLong(waitTime));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("/waiting/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        waitResponse = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime, ipAddress);
+        WaitResponse response;
+        response = new WaitResponse("WaitResponse", Long.parseLong(waitTime), elapsedTime, ipAddress);
 
-        return waitResponse;
+        return response;
     }
 
     @GetMapping("/cpu/fibonacci/{number}")
@@ -283,11 +280,9 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            result = fibonnaci.run(Integer.parseInt(number));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Fibonnaci.run(Integer.parseInt(number));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/fibonacci/", e);
         }
 
         long stop = System.currentTimeMillis();
@@ -309,20 +304,16 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            result = fibonnaci.run(Integer.parseInt(number));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Fibonnaci.run(Integer.parseInt(number));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/fibonacci/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -335,22 +326,16 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            // result = fibonnaci.run(Integer.parseInt(number));
-            Fibonnaci fibonnaci = new Fibonnaci();
-            result = fibonnaci.run(Integer.parseInt(number));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Fibonnaci.run(Integer.parseInt(number));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/fibonacci_no_gc_new_instance/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -363,20 +348,16 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            result = parallel.run(Integer.parseInt(number), Integer.parseInt(thread));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Parallel.run(Integer.parseInt(number), Integer.parseInt(thread));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/parallel_no_gc/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -387,21 +368,18 @@ public class RestsController {
         long start = System.currentTimeMillis();
 
         Long result = 0L;
-        String number = "0";
 
         try {
-            multitask.summarizer(Integer.parseInt(thread));
+            Multitask.summarizer(Integer.parseInt(thread));
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/cpu/multitask_no_gc/summarizer/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", thread, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -412,21 +390,18 @@ public class RestsController {
         long start = System.currentTimeMillis();
 
         Long result = 0L;
-        String number = "0";
 
         try {
-            multitask.counter(Integer.parseInt(thread));
+            Multitask.counter(Integer.parseInt(thread));
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/cpu/multitask_no_gc/counter/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", thread, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -434,13 +409,13 @@ public class RestsController {
     @GetMapping("/cpu/prime/{number}")
     public CpuResponse prime(@PathVariable String number) {
 
-        CpuResponse response = null;
+        CpuResponse response = new CpuResponse();
 
         try {
-            response = prime.run(Integer.parseInt(number));
+            response = Prime.run(Integer.parseInt(number));
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/cpu/prime/", e);
         }
 
         System.gc();
@@ -452,17 +427,14 @@ public class RestsController {
     @GetMapping("/cpu/prime_no_gc/{number}")
     public CpuResponse prime_no_gc(@PathVariable String number) {
 
-        CpuResponse response = null;
+        CpuResponse response = new CpuResponse();
 
         try {
-            response = prime.run(Integer.parseInt(number));
+            response = Prime.run(Integer.parseInt(number));
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/cpu/prime_no_gc/", e);
         }
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
 
         return response;
     }
@@ -470,17 +442,14 @@ public class RestsController {
     @GetMapping("/cpu/primer_no_gc/{number}")
     public CpuResponse primer_no_gc(@PathVariable String number) {
 
-        CpuResponse response = null;
+        CpuResponse response = new CpuResponse();
 
         try {
-            response = primer.run(Integer.parseInt(number));
+            response = Primer.run(Integer.parseInt(number));
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/cpu/primer_no_gc/", e);
         }
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
 
         return response;
     }
@@ -493,11 +462,9 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            result = count.run(Integer.parseInt(number), Integer.parseInt(thread));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Count.run(Integer.parseInt(number), Integer.parseInt(thread));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/count/", e);
         }
 
         long stop = System.currentTimeMillis();
@@ -519,20 +486,16 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            result = count.run(Integer.parseInt(number), Integer.parseInt(thread));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Count.run(Integer.parseInt(number), Integer.parseInt(thread));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/count_no_gc/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -545,11 +508,9 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            result = instance.run(Integer.parseInt(number));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Instance.run(Integer.parseInt(number));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/instance/", e);
         }
 
         long stop = System.currentTimeMillis();
@@ -571,39 +532,31 @@ public class RestsController {
         Long result = 0L;
 
         try {
-            result = instance.run(Integer.parseInt(number));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Instance.run(Integer.parseInt(number));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/instance_no_gc/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
 
-    @GetMapping("/cpu/individum/{number}")
-    public CpuResponse individum(@PathVariable String number) {
+    @GetMapping("/cpu/individual/{number}")
+    public CpuResponse individual(@PathVariable String number) {
 
         long start = System.currentTimeMillis();
 
         Long result = 0L;
 
-        Individum individum = new Individum();
-
         try {
-            result = individum.run(Integer.parseInt(number));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Individum.run(Integer.parseInt(number));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/individual/", e);
         }
 
         long stop = System.currentTimeMillis();
@@ -617,30 +570,24 @@ public class RestsController {
         return response;
     }
 
-    @GetMapping("/cpu/individum_no_gc/{number}")
-    public CpuResponse individum_no_gc(@PathVariable String number) {
+    @GetMapping("/cpu/individual_no_gc/{number}")
+    public CpuResponse individual_no_gc(@PathVariable String number) {
 
         long start = System.currentTimeMillis();
 
         Long result = 0L;
 
-        Individum individum = new Individum();
-
         try {
-            result = individum.run(Integer.parseInt(number));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = Individum.run(Integer.parseInt(number));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/cpu/individual/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
-
-        // System.gc();
-        // Runtime.getRuntime().gc();
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -657,7 +604,7 @@ public class RestsController {
             response = fileSizeCalc.run(Integer.parseInt(iteration), "/home/ubuntu/");
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/io/1/", e);
         }
         return response;
     }
@@ -672,7 +619,7 @@ public class RestsController {
             response = fileSizeCalc.run(Integer.parseInt(iteration), "/home/ubuntu/");
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/io/2/", e);
         }
         return response;
     }
@@ -689,89 +636,91 @@ public class RestsController {
             response = fileSizeCalc.run(Integer.parseInt(iteration), path);
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/io/3/", e);
         }
         return response;
     }
+
     @GetMapping("/memory/string/1/{number}")
-    public GenericResponse stringSizeCalc(@PathVariable String number) {
+    public GenericResponse<String, Integer, Integer, Long> stringSizeCalc(@PathVariable String number) {
 
         StringSizeCalc stringSizeCalc = new StringSizeCalc();
 
-        GenericResponse response = null;
+        GenericResponse<String, Integer, Integer, Long>  response = null;
 
         try {
             response = stringSizeCalc.run(Integer.parseInt(number));
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/memory/string/1/", e);
         }
+
         return response;
     }
 
     @GetMapping("/memory/beans/1/{number}/{withGC}")
-    public GenericResponse myBeanCalc(@PathVariable int number, @PathVariable boolean withGC) {
+    public GenericResponse<String, Integer, Long, Long> myBeanCalc(@PathVariable int number, @PathVariable boolean withGC) {
 
         MyBeanCalc myBeanCalc = new MyBeanCalc();
 
-        GenericResponse response = null;
+        GenericResponse<String, Integer, Long, Long> response = null;
 
         try {
             response = myBeanCalc.memoryTest(number, withGC);
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/memory/beans/1/", e);
         }
         return response;
     }
 
     @GetMapping("/memory/beans/2/{number}/{withGC}")
-    public GenericResponse myBeanCalcAutowired(@PathVariable int number, @PathVariable boolean withGC) {
+    public GenericResponse<String, Integer, Long, Long> myBeanCalcAutowired(@PathVariable int number, @PathVariable boolean withGC) {
 
-        GenericResponse response = null;
+        GenericResponse<String, Integer, Long, Long> response = null;
 
         try {
             response = myBeanCalc.memoryTest(number, withGC);
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/memory/beans/2/", e);
         }
         return response;
     }
 
     @GetMapping("/network/1/{number}/{withGC}")
-    public NetworkResponse generateNetworkTraffic(@PathVariable int number, @PathVariable boolean withGC) {
+    public NetworkResponse<String, Integer, Long, Long> generateNetworkTraffic(@PathVariable int number, @PathVariable boolean withGC) {
 
         GenerateNetworkTraffic generateNetworkTraffic = new GenerateNetworkTraffic();
 
-        NetworkResponse response = null;
+        NetworkResponse<String, Integer, Long, Long> response = new NetworkResponse<>();
 
         try {
             response = generateNetworkTraffic.run(number, withGC);
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/network/1/", e);
         }
         return response;
     }
 
     @GetMapping("/network/2/{number}/{withGC}")
-    public NetworkResponse generateNetworkTrafficAutowired(@PathVariable int number, @PathVariable boolean withGC) {
+    public NetworkResponse<String, Integer, Long, Long> generateNetworkTrafficAutowired(@PathVariable int number, @PathVariable boolean withGC) {
 
-        NetworkResponse response = null;
+        NetworkResponse<String, Integer, Long, Long> response = new NetworkResponse<>();
 
         try {
             response = generateNetworkTraffic.run(number, withGC);
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/network/1/", e);
         }
         return response;
     }
 
-    // Itt is az a lényeg, hogy egy példányból kéri el az adatokat és nem hozza őket létre újra és újra
+    // Singleton
     @GetMapping("/network/1/2/{number}")
-    public NetworkResponse getNetworkTrafficAutowired(@PathVariable int number) {
+    public NetworkResponse<String, Integer, Long, Long> getNetworkTrafficAutowired(@PathVariable int number) {
 
         /*
         NetworkResponse results = null;
@@ -786,19 +735,19 @@ public class RestsController {
         long elapsedTime = 0;
         final long start = System.currentTimeMillis();
 
-        ArrayList<String> dataList = this.createNetworkData.getList();
+        ArrayList<String> dataList = createNetworkData.getList();
 
         final long end = System.currentTimeMillis();
         elapsedTime += (end - start);
 
-        NetworkResponse response = new NetworkResponse("NetworkResponse", 1, 1, elapsedTime, dataList);
+        NetworkResponse<String, Integer, Long, Long> response = new NetworkResponse("NetworkResponse", 1, 1, elapsedTime, dataList);
         response.setWorkerIPAddress(ipAddress);
 
         return response;
     }
 
     // Itt a run method megkapja createNetworkData példányt és nem hoz létre újra és újra
-    @GetMapping("/network/2")
+    @GetMapping("/network/2/")
     public NetworkResponse one() {
 
         GetNetworkTraffic getNetworkTraffic = new GetNetworkTraffic();
@@ -809,7 +758,7 @@ public class RestsController {
             response = getNetworkTraffic.run(createNetworkData, 0, false);
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/network/2/", e);
         }
 
         return response;
@@ -826,11 +775,10 @@ public class RestsController {
             response = downloadWebPage.run(number, withGC);
             response.setWorkerIPAddress(ipAddress);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("/network/download/", e);
         }
         return response;
     }
-
 
     @GetMapping("/io/copy/{times}")
     public IoResponse copyTest(@PathVariable int times) {
@@ -859,7 +807,8 @@ public class RestsController {
     @GetMapping("/downloader/static/{length}")
     public String downloader1(@PathVariable int length) {
 
-        String result = staticDownloader.getStaticData(length);
+        String result;
+        result = staticDownloader.getStaticData(length);
 
         return result;
     }
@@ -873,23 +822,21 @@ public class RestsController {
 
         try {
             stress.test1(type, param);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/stress/test/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        String number = param;
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", param, result, elapsedTime, ipAddress);
 
         return response;
     }
 
     @GetMapping("/zip/test/{type}")
-    public CpuResponse zip(@PathVariable String type) {
+    public CpuResponse zip_singleton(@PathVariable String type) {
 
         long start = System.currentTimeMillis();
 
@@ -897,34 +844,55 @@ public class RestsController {
 
         try {
             zip.test1(type);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/zip/test/", e);
         }
 
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
-        String number = type;
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", type, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/zip/M/test/{type}")
+    public CpuResponse zip_instance(@PathVariable String type) {
+
+        long start = System.currentTimeMillis();
+
+        Long result = 0L;
+
+        try {
+            // Not singleton
+            // zip.test1(type);
+            Zip zip = new Zip();
+            zip.test1(type);
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/zip/M/test/", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", type, result, elapsedTime, ipAddress);
 
         return response;
     }
 
     @GetMapping("/ffmpeg/test/1")
-    public CpuResponse stress1() {
+    public CpuResponse ffmpeg_singleton() {
 
         long start = System.currentTimeMillis();
 
-        Long result = -400L;
+        long result = -400L;
 
         try {
-            result = (long) ffmpeg.test1();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = ffmpeg.test1();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/test/1", e);
         }
 
         long stop = System.currentTimeMillis();
@@ -936,7 +904,188 @@ public class RestsController {
         // result = 0 ha minden ok
 
         String number = "0";
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/ffmpeg/M/test/1")
+    public CpuResponse ffmpeg_instance() {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            // Not singleton
+            // result = ffmpeg.test1();
+            FFMpeg ffmpeg = new FFMpeg();
+            result = ffmpeg.test1();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/M/test/1", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/ffmpeg/test/3")
+    public CpuResponse ffmpeg_instance3() {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            result = ffmpeg.test3();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/test/3", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/ffmpeg/M/test/3")
+    public CpuResponse ffmpeg_instance3M() {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            // Not singleton
+            // result = ffmpeg.test1();
+            FFMpeg ffmpeg = new FFMpeg();
+            result = ffmpeg.test3();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/M/test/3", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/ffmpeg/MP/test/3/{cpuLimit}")
+    public CpuResponse ffmpeg_instance3MP(@PathVariable String cpuLimit) {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            // Not singleton
+            // result = ffmpeg.test1();
+            FFMpeg ffmpeg = new FFMpeg();
+            result = ffmpeg.test3(Integer.parseInt(cpuLimit));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/M/test/3", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/ffmpeg/test/4")
+    public CpuResponse ffmpeg_instance4() {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            result = ffmpeg.test4();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/test/4", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/ffmpeg/M/test/4")
+    public CpuResponse ffmpeg_instance4M() {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            // Not singleton
+            // result = ffmpeg.test1();
+            FFMpeg ffmpeg = new FFMpeg();
+            result = ffmpeg.test4();
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/M/test/4", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
@@ -946,14 +1095,12 @@ public class RestsController {
 
         long start = System.currentTimeMillis();
 
-        Long result = -400L;
+        long result = -400L;
 
         try {
-            result = (long) ffmpeg.test2(n);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            result = ffmpeg.test2(n);
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/test/2", e);
         }
 
         long stop = System.currentTimeMillis();
@@ -965,7 +1112,8 @@ public class RestsController {
         // result = 0 ha minden ok
 
         String number = "0";
-        CpuResponse response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
 
         return response;
     }
