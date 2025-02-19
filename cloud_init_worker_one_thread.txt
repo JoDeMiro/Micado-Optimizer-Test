@@ -3,6 +3,7 @@
 packages:
   - git
   - openssh-client
+  - cpulimit
 
 
 write_files:

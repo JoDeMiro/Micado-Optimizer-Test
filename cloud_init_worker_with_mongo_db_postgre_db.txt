@@ -3,6 +3,7 @@
 packages:
   - git
   - openssh-client
+  - cpulimit
 
 
 write_files:
@@ -35,6 +36,7 @@ write_files:
     sudo apt install -y stress-ng
     sudo apt install -y ffmpeg
     sudo apt install -y zip
+    sudo apt install -y cpulimit
     sudo ntpdate -s time.nist.gov
     echo "---------------> Worker update finished."
   permissions: '755'
