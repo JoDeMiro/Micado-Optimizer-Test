@@ -459,7 +459,7 @@ public class Initializer {
         }
 
         // version 17
-        try {
+        /* try {
             System.out.println("---------version 17--------------");
 
             // Install könyvtár beolvasása
@@ -492,7 +492,51 @@ public class Initializer {
 
         } catch (IOException | URISyntaxException e) {
             logger.error("Hiba történt a fájlok másolása közben", e);
+        } */
+
+        try {
+            System.out.println("---------version 17--------------");
+
+            // Install könyvtár beolvasása
+            URL installDirURL = getClass().getResource("/install/");
+
+            if (installDirURL != null) {
+                System.out.println("Az install könyvtár megtalálva.");
+
+                // Az install könyvtár fájljainak listázása
+                try (InputStream in = getClass().getResourceAsStream("/install/")) {
+                    if (in == null) {
+                        System.out.println("Az install könyvtár nem található vagy üres.");
+                        return;
+                    }
+
+                    // Fájlok beolvasása JAR-ból (ha fix fájlokat ismersz, akkor azokat dolgozd fel)
+                    String[] fileNames = new String[]{"file1.wav", "file2.wav"}; // Itt dinamikusan kellene lekérni
+
+                    for (String fileName : fileNames) {
+                        try (InputStream fileStream = getClass().getResourceAsStream("/install/" + fileName)) {
+                            if (fileStream == null) {
+                                System.out.println("Nem található: " + fileName);
+                                continue;
+                            }
+
+                            // Cél elérési út
+                            Path targetLocation = Paths.get(uploadDirLocation.toString(), fileName);
+
+                            // Másolás
+                            Files.copy(fileStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+                            System.out.println("Másolva -> " + targetLocation);
+                        }
+                    }
+                }
+            } else {
+                System.out.println("Az install könyvtár nem található.");
+            }
+
+        } catch (IOException e) {
+            logger.error("Hiba történt a fájlok másolása közben", e);
         }
+
 
 
         // -------------------------------------------------------------------
