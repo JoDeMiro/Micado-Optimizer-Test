@@ -414,11 +414,11 @@ public class Initializer {
         try {
             System.out.println("---------version 15--------------");
 
-            InputStream inputStream = getClass().getResourceAsStream("/install/sound.wav");
-            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/sound.wav");
+            InputStream inputStream = getClass().getResourceAsStream("/install/sound_20mp.wav");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/sound_20mp.wav");
 
             // Ez a Windows path
-            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\sound.wav");
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\sound_20mp.wav");
 
             System.out.println("-------------------------------------------------------------------------");
             System.out.println(targetLocation);
@@ -426,7 +426,30 @@ public class Initializer {
             Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
             // Ez a Linux path
-            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/sound.wav");
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/sound_20mp.wav");
+
+            Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            logger.info("File Not Found");
+        }
+
+        // version 16
+        try {
+            System.out.println("---------version 16--------------");
+
+            InputStream inputStream = getClass().getResourceAsStream("/install/sound_4mp.wav");
+            InputStream inputStreamLinux = getClass().getResourceAsStream("/install/sound_4mp.wav");
+
+            // Ez a Windows path
+            Path targetLocation = Paths.get(uploadDirLocation.toString() + "\\sound_4mp.wav");
+
+            System.out.println("-------------------------------------------------------------------------");
+            System.out.println(targetLocation);
+            System.out.println("-------------------------------------------------------------------------");
+            Files.copy(inputStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            // Ez a Linux path
+            Path targetLocLinux = Paths.get(uploadDirLocation.toString() + "/sound_4mp.wav");
 
             Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {

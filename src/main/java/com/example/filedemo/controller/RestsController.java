@@ -1000,6 +1000,38 @@ public class RestsController {
         return response;
     }
 
+
+
+
+    @GetMapping("/ffmpeg/test/3/{cpuLimit}")
+    public CpuResponse ffmpeg_instance3CPU(@PathVariable String cpuLimit) {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            // Not singleton
+            result = ffmpeg.test3(Integer.parseInt(cpuLimit));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/test/3", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
     @GetMapping("/ffmpeg/MP/test/3/{cpuLimit}")
     public CpuResponse ffmpeg_instance3MP(@PathVariable String cpuLimit) {
 
@@ -1013,7 +1045,7 @@ public class RestsController {
             FFMpeg ffmpeg = new FFMpeg();
             result = ffmpeg.test3(Integer.parseInt(cpuLimit));
         } catch (ExecutionException | InterruptedException e) {
-            logger.error("/ffmpeg/M/test/3", e);
+            logger.error("/ffmpeg/MP/test/3", e);
         }
 
         long stop = System.currentTimeMillis();
