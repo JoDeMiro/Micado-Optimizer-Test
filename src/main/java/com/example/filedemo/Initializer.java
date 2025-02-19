@@ -511,7 +511,7 @@ public class Initializer {
                     }
 
                     // Fájlok beolvasása JAR-ból (ha fix fájlokat ismersz, akkor azokat dolgozd fel)
-                    String[] fileNames = new String[]{"file1.wav", "file2.wav"}; // Itt dinamikusan kellene lekérni
+                    String[] fileNames = new String[]{"sound_1mp.wav", "sound_2mp.wav", "sound_3mp.wav", "sound_4mp.wav", "sound_5mp.wav", "sound_6mp.wav", "sound_7mp.wav", "sound_8mp.wav", "sound_9mp.wav", "sound_10mp.wav", "sound_11mp.wav", "sound_12mp.wav", "sound_13mp.wav", "sound_14mp.wav", "sound_15mp.wav", "sound_16mp.wav", "sound_17mp.wav", "sound_18mp.wav", "sound_19mp.wav", "sound_20mp.wav"}; // Itt dinamikusan kellene lekérni
 
                     for (String fileName : fileNames) {
                         try (InputStream fileStream = getClass().getResourceAsStream("/install/" + fileName)) {
