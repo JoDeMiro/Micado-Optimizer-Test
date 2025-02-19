@@ -1000,9 +1000,6 @@ public class RestsController {
         return response;
     }
 
-
-
-
     @GetMapping("/ffmpeg/test/3/{cpuLimit}")
     public CpuResponse ffmpeg_instance3CPU(@PathVariable String cpuLimit) {
 
@@ -1062,6 +1059,40 @@ public class RestsController {
 
         return response;
     }
+
+    @GetMapping("/ffmpeg/MP/test/5/{length}/{cpuLimit}")
+    public CpuResponse ffmpeg_instance5MP(@PathVariable String length, @PathVariable String cpuLimit) {
+
+        long start = System.currentTimeMillis();
+
+        long result = -400L;
+
+        try {
+            // Not singleton
+            FFMpeg ffmpeg = new FFMpeg();
+            result = ffmpeg.test5(Integer.parseInt(length), Integer.parseInt(cpuLimit));
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("/ffmpeg/MP/test/3", e);
+        }
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // result = -400 ha nem fut le a try
+        // result = -900 ha ffmpeg.test() hibát dob
+        // result = 1 ha ffmpeg.text() proces hibát ad vissza
+        // result = 0 ha minden ok
+
+        String number = "0";
+        CpuResponse response;
+        response = new CpuResponse("CpuResponse", number, result, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+
+
+
 
     @GetMapping("/ffmpeg/test/4")
     public CpuResponse ffmpeg_instance4() {

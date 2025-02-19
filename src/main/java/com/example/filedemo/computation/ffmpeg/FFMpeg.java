@@ -134,6 +134,58 @@ public class FFMpeg {
     }
 
     // töröl
+    // ez jó megoldás
+    public int test5(int length, int cpuLimit) throws ExecutionException, InterruptedException {
+        // Egyedi fájlnév generálása UUID segítségével
+        String outputFileName = "output_" + UUID.randomUUID() + ".mp3";
+
+        // Dinamikusan generált bemeneti fájlnév
+        String inputFileName = String.format("uploads/sound_%dmp.wav", length);
+
+        // Parancs összeállítása
+        String command = String.format("cpulimit -l %d -- ffmpeg -y -i %s -b:a 192K -vn %s",
+                cpuLimit, inputFileName, outputFileName);
+
+        try {
+            ProcessBuilder builder = new ProcessBuilder("bash", "-c", command);
+            Process process = builder.start();
+
+            // Folyamat kimenetének olvasása
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println("OUTPUT: " + line);
+            }
+            while ((line = errorReader.readLine()) != null) {
+                System.err.println("ERROR: " + line);
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("A parancs test3 befejezve kód: " + exitCode);
+
+            // Ha a folyamat sikeresen lefutott, töröljük a fájlt
+            if (exitCode == 0) {
+                File outputFile = new File(outputFileName);
+                if (outputFile.exists()) {
+                    boolean deleted = outputFile.delete();
+                    if (!deleted) {
+                        logger.error("test3 - Nem sikerült törölni a fájlt: " + outputFileName);
+                    }
+                }
+            }
+
+            return exitCode;
+
+        } catch (IOException | InterruptedException e) {
+            logger.error("/ffmpeg/test/3", e);
+            return -900;
+        }
+    }
+
+
+    // töröl
     // rossz
     // ha nem kapjuk el a kimenetet akkor korábban megszakad a program és az ffmpeg nem fut le
     // ezt kijavítottam a test3() metodusban ami ugyan ezt csinálja de le is fut rendesen

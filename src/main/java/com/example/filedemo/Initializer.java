@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -454,6 +456,42 @@ public class Initializer {
             Files.copy(inputStreamLinux, targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             logger.info("File Not Found");
+        }
+
+        // version 17
+        try {
+            System.out.println("---------version 17--------------");
+
+            // Install könyvtár beolvasása
+            URL installDirURL = getClass().getResource("/install/");
+
+            if (installDirURL != null) {
+                File installDir = new File(installDirURL.toURI());
+                File[] wavFiles = installDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".wav"));
+
+                if (wavFiles != null) {
+                    for (File wavFile : wavFiles) {
+                        String fileName = wavFile.getName();
+
+                        // Windows cél elérési út
+                        Path targetLocation = Paths.get(uploadDirLocation.toString(), fileName);
+                        Files.copy(wavFile.toPath(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+                        System.out.println("Windows: " + fileName + " másolva -> " + targetLocation);
+
+                        // Linux cél elérési út
+                        Path targetLocLinux = Paths.get(uploadDirLocation.toString(), fileName);
+                        Files.copy(wavFile.toPath(), targetLocLinux, StandardCopyOption.REPLACE_EXISTING);
+                        System.out.println("Linux: " + fileName + " másolva -> " + targetLocLinux);
+                    }
+                } else {
+                    System.out.println("Nincsenek .wav fájlok az install könyvtárban.");
+                }
+            } else {
+                System.out.println("Az install könyvtár nem található.");
+            }
+
+        } catch (IOException | URISyntaxException e) {
+            logger.error("Hiba történt a fájlok másolása közben", e);
         }
 
 
