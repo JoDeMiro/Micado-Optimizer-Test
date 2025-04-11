@@ -54,6 +54,100 @@ A `http://ip-address/server-status` oldalt .htaccess, .htpasswd kombinációval 
 További információért bele kell nézni a <a href="https://github.com/JoDeMiro/Micado-Optimizer-Test/blob/main/loadbalancer.conf">loadbalancer.conf</a> filéba.
 
 
+## 📌 Miket és hogyan kell elindítani a Loadbalanceren
+
+### 1. Zipkin
+
+**Install:**
+
+```
+    # Simán csak le kell tölteni egy java jar filét.
+    wget -O zipkin.jar https://zipkin.io/quickstart.sh && bash zipkin.jar
+```
+
+**Run:**
+
+```
+    # Zipkin (opcionális)
+    ss -ltnp | grep 9411
+    ps aux | grep zipkin
+    pkill -f zipkin.jar
+    # Zipkin indítása
+    SERVER_PORT=9411 JAVA_OPTS="-Dserver.address=0.0.0.0" java -jar zipkin.jar
+```
+
+**Elérés böngészőből:**
+
+```
+    http://localhost:9411
+```
+
+### 2. Jaeger (Zipkin ilyenkor kikapcsolva kell hogy legyen)
+
+**Install:**
+
+```
+    # Jaeger telepítés és indítás
+    wget https://github.com/jaegertracing/jaeger/releases/download/v1.68.0/jaeger-1.68.0-linux-amd64.tar.gz
+    tar -xzf jaeger-1.68.0-linux-amd64.tar.gz
+    cd jaeger-1.68.0-linux-amd64
+    chmod +x jaeger-all-in-one
+```
+
+**Run:**
+
+```
+    # Zipkin kill
+    ps aux | grep zipkin
+    pkill -f zipkin.jar
+
+    # Jaeger
+    ./jaeger-all-in-one --collector.zipkin.host-port=:9411 --collector.otlp.enabled=true
+```
+
+**Elérés böngészőből:**
+
+```
+    http://193.225.250.30:16686
+```
+
+## 📌 Miket és hogyan kell elindítani a Virtuális Gépeken
+
+Ha használni akarom a tracelés lehetőséget amit a **Zipkin** ad akkor nem kellenek java agentek mert a **Seluth** Maven Dependency a Spring-ben kezeli őket.
+
+```
+	# Normal + Zipkin (With Hardcoded Zipkin Server Floating Ip Address)
+	restart_cmd = '''ssh -A ubuntu@%s -oStrictHostKeyChecking=no nohup java -Xms1024m -Xmx2048m -jar Micado-Optimizer-Test/target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=%s --server.tomcat.connection-timeout=%s --server.tomcat.accept-count=%s --server.tomcat.keep-alive-timeout=%s --server.tomcat.max-connections=%s --server.tomcat.max-keep-alive-requests=%s --server.tomcat.threads.min-spare=%s --spring.zipkin.baseUrl=http://193.225.250.30:9411 --spring.sleuth.sampler.probability=1.0 --logging.file.name=xapplication.log > /dev/null &'''
+```
+
+Ha viszont hasznáni akarom az **OpenTelemetry** + **Jaeger** adta lehetőségeket akkor a Virutális Gépeken a java program indítását a következő paranccsal kell kiadnom:
+
+```
+	# Normal + Zipkin + OpenTelemetry (With Hardcoded Zipkin Server Floating Ip Address)
+	restart_cmd = '''ssh -A ubuntu@%s -oStrictHostKeyChecking=no nohup java \
+-javaagent:/home/ubuntu/opentelemetry-javaagent.jar \
+-Dotel.traces.exporter=otlp \
+-Dotel.exporter.otlp.protocol=grpc \
+-Dotel.exporter.otlp.endpoint=http://193.225.250.30:4317 \
+-Dotel.logs.exporter=none \
+-Dotel.service.name=vm-%s-service \
+-Xms1024m -Xmx2048m \
+-jar Micado-Optimizer-Test/target/file-demo-0.0.1-SNAPSHOT.jar \
+--server.port=8080 \
+--name="MyBean is multiplied" \
+--server.tomcat.max-threads=%s \
+--server.tomcat.connection-timeout=%s \
+--server.tomcat.accept-count=%s \
+--server.tomcat.keep-alive-timeout=%s \
+--server.tomcat.max-connections=%s \
+--server.tomcat.max-keep-alive-requests=%s \
+--server.tomcat.threads.min-spare=%s \
+--spring.zipkin.baseUrl=http://193.225.250.30:9411 \
+--spring.sleuth.sampler.probability=1.0 \
+--logging.file.name=xapplication.log > /dev/null &'''
+
+```
+
 ## Spring Boot File Upload - Download Rest API Example
 
 **Description**:
