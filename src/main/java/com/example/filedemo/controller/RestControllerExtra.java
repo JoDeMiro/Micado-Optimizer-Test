@@ -72,7 +72,9 @@ public class RestControllerExtra {
         // JSON response
         Map<String, Object> response = new HashMap<>();
         response.put("ip", ipAddress);
-        response.put("level", level);
+        response.put("clevel", clevel);
+        response.put("wlevel", wlevel);
+        response.put("rlevel", rlevel);
         response.put("computationMillis", duration);
         response.put("status", "ok");
 
