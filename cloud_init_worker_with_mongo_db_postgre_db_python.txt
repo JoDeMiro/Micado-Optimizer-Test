@@ -1,0 +1,228 @@
+#cloud-config
+
+packages:
+  - git
+  - openssh-client
+  - cpulimit
+  - ca-certificates
+  - gnupg
+  - curl
+
+write_files:
+- path: /usr/local/bin/worker-add-user.sh
+  content: |
+    #!/bin/bash
+    export USR='ubuntu'
+    echo "---------------> Creating user \"$USR\" starts."
+    adduser --disabled-password --gecos "" $USR
+    echo "---------------> Creating user \"$USR\" finished."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-add-base-tools.sh
+  content: |
+    #!/bin/bash
+    export MESSAGE='ha olyanom lenne ide is irhatok'
+    export DEBIAN_FRONTEND=noninteractive
+    echo "---------------> A velemenyem az, hogy \"$MESSAGE\" vagy nem."
+    echo "---------------> Vege."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-update.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Worker update starts."
+    sudo apt-get update -y
+    sudo apt install -y openjdk-11-jre-headless
+    sudo apt install -y maven
+    sudo apt install -y ntpdate tmux collectl moreutils
+    sudo apt install -y apache2-utils
+    sudo apt install -y stress-ng
+    sudo apt install -y ffmpeg
+    sudo apt install -y zip
+    sudo apt install -y cpulimit
+    sudo ntpdate -s time.nist.gov
+    echo "---------------> Worker update finished."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-python.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Worker python 3.11 install starts."
+    echo "Install Python 3.11 via pyenv..."
+    export DEBIAN_FRONTEND=noninteractive
+    sudo apt-get update -y
+    sudo apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+    # Install pyenv for the target user (scriptet ubuntu userként futtatjuk a runcmd-ban)
+    if [ ! -d "$HOME/.pyenv" ]; then
+      curl -fsSL https://pyenv.run | bash
+    fi
+
+    # pyenv init a .bashrc-ben (idempotens)
+    if ! grep -q 'PYENV_ROOT' "$HOME/.bashrc"; then
+      printf '%s\n' \
+        'export PYENV_ROOT="$HOME/.pyenv"' \
+        'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' \
+        'eval "$(pyenv init -)"' \
+        'alias pip="python -m pip"' >> "$HOME/.bashrc"
+    fi
+
+
+    # ideiglenesen erre a shellre is érvényesítsük
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+
+    # kevesebb RAM-igényű build (ha forrásból fordít pyenv, de 3.11-nél egyszer kell csak)
+    export MAKEFLAGS="-j1"
+    pyenv install -s 3.11.9
+    pyenv global 3.11.9
+
+    python -V
+    which python
+
+    python -m pip install --upgrade pip setuptools wheel
+    python -m pip install --no-cache-dir qiskit-aer qiskit
+    python -c 'import qiskit_aer; print("qiskit-aer:", qiskit_aer.__version__)'
+
+    sudo apt-get -y autoremove
+    sudo apt-get -y autoclean
+    sudo apt-get -y clean
+    echo "Python 3.11 ready."
+
+    echo "---------------> Worker python install finished."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-start-mongodb.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start Mongo db starts."
+    cd
+    pwd
+    whoami
+    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+    sudo apt-get install gnupg
+    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org=5.0.7 mongodb-org-database=5.0.7 mongodb-org-server=5.0.7 mongodb-org-shell=5.0.7 mongodb-org-mongos=5.0.7 mongodb-org-tools=5.0.7
+    ps --no-headers -o comm 1
+
+    # start mondgo db
+    sudo systemctl start mongod
+
+    # reload if needed
+    # sudo systemctl daemon-reload
+
+    # verify
+    sudo systemctl status mongod
+
+    # reload when restart
+    sudo systemctl enable mongod
+
+    # create empty collection named expense_tracker
+    echo "---------------> Critical part starts."
+    echo 'use local' | mongosh local
+    echo 'db.createCollection("expense_tracker")' | mongosh local
+    echo "use local" | mongosh local
+    echo 'db.createCollection("expense_tracker")' | mongosh local
+    echo "---------------> Critical part finished."
+
+    # uninstall
+    # sudo service mongod stop
+    # sudo apt-get purge mongodb-org*
+    # sudo rm -r /var/log/mongodb
+    # sudo rm -r /var/lib/mongodb
+    echo "---------------> Start Mongo db finished."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-start-postgresql.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start PostgreSQL starts."
+    cd
+
+    # start mondgo db
+    sudo apt-get install -y postgresql postgresql-contrib
+
+    # reload if needed
+    sudo systemctl restart postgresql
+
+    # verify
+    sudo systemctl enable postgresql
+
+    # reload when restart
+    sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'csereld_ki_password';"
+    sudo -u postgres psql -c "CREATE DATABASE testdb;"
+
+    echo "---------------> Start PostgreSQL finished."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-install.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Get Micado-Optimizer-Tes Project"
+
+    git clone https://github.com/JoDeMiro/Micado-Optimizer-Test.git --depth 1
+    
+    cd Micado-Optimizer-Test/
+    
+    # Set Wawefront VM Name
+    echo "wavefront.application.name=$HOSTNAME" >> ./src/main/resources/application.properties
+
+    # killall -9 java
+
+    # Build Java
+    mvn -Dmaven.test.skip package
+
+    # Without Wavefront
+    # java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=1
+    
+    # With Wavefront
+    java -Xms1024m -Xmx2048m -jar target/file-demo-0.0.1-SNAPSHOT.jar --server.port=8080 --name="MyBean is multiplied" --server.tomcat.max-threads=20 --wavefront.application.service="JVMSpring" --management.metrics.export.wavefront.api-token=****
+
+    echo "---------------> Get Micado-Optimizer-Test Project finished."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-start-metric.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start Nohup metrics starts."
+    cd
+    pwd
+    whoami
+    nohup collectl -sTCMD -oT -P | rotatelogs -n 1 mylog.log 100M &
+    # nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    # collectl | rotatelogs -n 1 -c mylog.log 1M
+    echo "---------------> Start Nohup metrics finished."
+  permissions: '755'
+
+- path: /usr/local/bin/worker-start-stats.sh
+  content: |
+    #!/bin/bash
+    echo "---------------> Start Nohup metrics starts."
+    cd
+    pwd
+    whoami
+    nohup collectl -sTNcmdib -oT -P --rawnetfilt lo --tcpfilt It | rotatelogs -n 1 stat.log 100M &
+    # nohup collectl -sTCMD -oT -P | rotatelogs -n 1 mylog.log 100M &
+    # nohup collectl | rotatelogs -n 1 mylog.log 1M &
+    # collectl | rotatelogs -n 1 -c mylog.log 1M
+    echo "---------------> Start Nohup metrics finished."
+  permissions: '755'
+
+
+# https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+
+runcmd:
+- echo "---------------> JoDeMiro Deployment starts."
+- /usr/local/bin/worker-add-user.sh
+- /usr/local/bin/worker-add-base-tools.sh
+- su - ubuntu -c /usr/local/bin/worker-update.sh
+- su - ubuntu -c /usr/local/bin/worker-python.sh
+- su - ubuntu -c /usr/local/bin/worker-start-mongodb.sh
+- su - ubuntu -c /usr/local/bin/worker-start-postgresql.sh
+- su - ubuntu -c /usr/local/bin/worker-start-metric.sh
+- su - ubuntu -c /usr/local/bin/worker-start-stats.sh
+- su - ubuntu -c /usr/local/bin/worker-install.sh
+- echo "---------------> JoDeMiro Deployment finished."
