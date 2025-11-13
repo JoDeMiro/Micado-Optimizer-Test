@@ -1435,6 +1435,9 @@ public ResponseEntity<String> quiskit_heavy() throws Exception {
     // /home/ubuntu/notebook/bin/python
 
     String temp = "python3";
+    // a távoli VM gépeken ezen a cimen kell keresnie a python3-t
+    temp = "/home/ubuntu/.pyenv/versions/3.11.9/bin/python";
+    // a local IDE fejlesztői környeztben ezen a cimen kell keresnie a python3-t
     // temp = "/home/ubuntu/notebook/bin/python";
 
     ProcessBuilder pb = new ProcessBuilder(temp, "/home/ubuntu/quiskit.py",
@@ -1480,6 +1483,9 @@ public ResponseEntity<String> quiskit_heavy() throws Exception {
         // /home/ubuntu/notebook/bin/python
 
         String temp = "python3";
+        // a távoli VM gépeken ezen a cimen kell keresnie a python3-t
+        temp = "/home/ubuntu/.pyenv/versions/3.11.9/bin/python";
+        // a local IDE fejlesztői környeztben ezen a cimen kell keresnie a python3-t
         // temp = "/home/ubuntu/notebook/bin/python";
 
         ProcessBuilder pb = new ProcessBuilder(
