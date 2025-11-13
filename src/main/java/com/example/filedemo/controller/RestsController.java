@@ -23,15 +23,14 @@ import com.example.filedemo.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.file.Path;
@@ -1090,10 +1089,6 @@ public class RestsController {
         return response;
     }
 
-
-
-
-
     @GetMapping("/ffmpeg/test/4")
     public CpuResponse ffmpeg_instance4() {
 
@@ -1434,4 +1429,91 @@ public class RestsController {
         return tempFile;
     }
 
+
+@GetMapping("/qcproc/heavy")
+public ResponseEntity<String> quiskit_heavy() throws Exception {
+    // /home/ubuntu/notebook/bin/python
+
+    String temp = "python3";
+    // temp = "/home/ubuntu/notebook/bin/python";
+
+    ProcessBuilder pb = new ProcessBuilder(temp, "/home/ubuntu/quiskit.py",
+            "--qubits","26", "--depth","5", "--shots","1",
+            "--method","statevector");
+    pb.redirectErrorStream(true);
+
+    long t0 = System.nanoTime();
+
+    Process p = pb.start();
+
+    // --- Java 8 kompatibilis InputStream olvasás ---
+    StringBuilder sb = new StringBuilder();
+    try (BufferedReader br = new BufferedReader(
+            new InputStreamReader(p.getInputStream()))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+    }
+
+    String out = sb.toString();
+    // ------------------------------------------------
+
+    int code = p.waitFor();
+    long t1 = System.nanoTime();
+
+    // return ResponseEntity.ok(out);
+    return ResponseEntity
+            .ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(out);
+}
+
+    @GetMapping("/qcproc/{method}/{qubits}/{depth}/{shots}")
+    public ResponseEntity<String> heavy(
+            @PathVariable("method") String method,
+            @PathVariable("qubits") String qubits,
+            @PathVariable("depth") String depth,
+            @PathVariable("shots") String shots
+    ) throws Exception {
+
+        // /home/ubuntu/notebook/bin/python
+
+        String temp = "python3";
+        // temp = "/home/ubuntu/notebook/bin/python";
+
+        ProcessBuilder pb = new ProcessBuilder(
+                temp, "/home/ubuntu/quiskit.py",
+                "--qubits", qubits,
+                "--depth", depth,
+                "--shots", shots,
+                "--method", method
+        );
+
+        pb.redirectErrorStream(true);
+
+        long t0 = System.nanoTime();
+        Process p = pb.start();
+
+        // --- Java 8 kompatibilis InputStream olvasás ---
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(p.getInputStream()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+        }
+        String out = sb.toString();
+        // ------------------------------------------------
+
+        int code = p.waitFor();
+        long t1 = System.nanoTime();
+
+        // return ResponseEntity.ok(out);
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(out);
+    }
 }
