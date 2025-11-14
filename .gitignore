@@ -9,6 +9,7 @@
 /output/
 /*.iml
 /target/
+/__pycache__/
 !.mvn/wrapper/maven-wrapper.jar
 
 src/main/resources/tessdata/*
