@@ -84,6 +84,13 @@ write_files:
     python -m pip install --upgrade pip setuptools wheel
     python -m pip install --no-cache-dir qiskit-aer qiskit
     python -c 'import qiskit_aer; print("qiskit-aer:", qiskit_aer.__version__)'
+    
+    # Ez a sor itt kérdéses számomra hogy kell-e neki az idézőjel
+    python -m pip install "fastapi" "uvicorn[standard]"
+    
+    # Csak az ellenőrzéshez, indítás úgy is a loadbalanceren scriptből történik
+    # uvicorn qc_server:app --host 127.0.0.1 --port 5001
+    # curl "http://127.0.0.1:5001/qcproc/statevector/5/5/1"
 
     sudo apt-get -y autoremove
     sudo apt-get -y autoclean
