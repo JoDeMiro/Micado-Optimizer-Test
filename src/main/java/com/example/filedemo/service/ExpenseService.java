@@ -3,7 +3,12 @@ package com.example.filedemo.service;
 import com.example.filedemo.model.Expense;
 import com.example.filedemo.model.ExpenseCategory;
 import com.example.filedemo.repository.ExpenseRepository;
+import com.example.filedemo.responses.ExpensesStats;
+import com.example.filedemo.responses.ExtendedExpenseStats;
 import org.springframework.stereotype.Service;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -117,6 +122,45 @@ public class ExpenseService {
 
     public List<Expense> findByNameStartingWith(String name) {
         return expenseRepository.findByNameStartingWith(name);
+    }
+
+    public Long countByNameRegex(String name) {
+        // ugyanaz a logika, mint a listázásnál: bárhol tartalmazza
+        String regex = ".*" + name + ".*";
+        return expenseRepository.countByNameRegex(regex);
+    }
+
+    public Long countAllExpenses() {
+        return expenseRepository.count();
+    }
+
+    public Long countAllExpensesBy() {
+        return expenseRepository.countBy();
+    }
+
+    public List<Expense> getFirst10() {
+        Pageable firstTen = PageRequest.of(0, 10);  // oldal index = 0, méret = 10
+        return expenseRepository.findAll(firstTen).getContent();
+    }
+
+    public ExpensesStats getStatsByNamePattern(String pattern) {
+        String regex = pattern; // pl. "^a" vagy ".*a.*"
+        List<ExpensesStats> stats = expenseRepository.getStatsByNameRegex(regex);
+        if (stats.isEmpty()) {
+            return new ExpensesStats(0L, 0.0);
+        }
+        return stats.get(0);
+    }
+
+    public ExtendedExpenseStats getExtendedStatsByPattern(String pattern) {
+        // itt eldöntheted: a pattern már regex-e, vagy köré teszel ".*" dolgokat
+        String regex = pattern; // pl. "^ab", ".*bc.*", stb.
+
+        List<ExtendedExpenseStats> statsList = expenseRepository.getExtendedStatsByNameRegex(regex);
+        if (statsList.isEmpty()) {
+            return new ExtendedExpenseStats(0L, null, null, null, null);
+        }
+        return statsList.get(0);
     }
 
     public void deleteExpense(String id) {

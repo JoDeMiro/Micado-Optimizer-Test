@@ -1,18 +1,41 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.model.Expense;
+import com.example.filedemo.responses.ExpensesStats;
+import com.example.filedemo.responses.ExtendedExpenseStats;
+import com.example.filedemo.responses.GenericResponse;
 import com.example.filedemo.service.ExpenseService;
+import io.micrometer.core.instrument.Counter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/mongodb/expense")
 public class ExpenseController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExpenseController.class);
+
     private final ExpenseService expenseService;
+
+    private static String ipAddress;
+
+    Counter visitCounter;
+
+    static {
+        try {
+            InetAddress ip = InetAddress.getLocalHost();
+            ipAddress = ip.getHostAddress();
+        } catch (UnknownHostException e) {
+            logger.error("RestsController getLocalHost()", e);
+        }
+    }
 
     public ExpenseController(ExpenseService expenseService) {
         this.expenseService = expenseService;
@@ -64,6 +87,125 @@ public class ExpenseController {
     @GetMapping("/regex/{name}")
     public ResponseEntity<List<Expense>> getExpenseByRegex(@PathVariable String name) {
         return ResponseEntity.ok(expenseService.getExpenseByQuery(name));
+    }
+
+    @GetMapping("/regex-count/{name}")
+    public GenericResponse countByRegex(@PathVariable String name) {
+
+        long start = System.currentTimeMillis();
+
+        ResponseEntity<Long> count = ResponseEntity.ok(expenseService.countByNameRegex(name));
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        int parameter = 0;
+
+        GenericResponse<String, Integer, ResponseEntity<Long>, Long> response;
+        response = new GenericResponse<>("MongoDBCount", parameter, count, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/count")
+    public GenericResponse countAllExpensesA() {
+
+        long start = System.currentTimeMillis();
+
+        ResponseEntity<Long> count = ResponseEntity.ok(expenseService.countAllExpenses());
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        int parameter = 0;
+
+        GenericResponse<String, Integer, ResponseEntity<Long>, Long> response;
+        response = new GenericResponse<>("MongoDBCount", parameter, count, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/countBy")
+    public GenericResponse countAllExpensesB() {
+
+        long start = System.currentTimeMillis();
+
+        ResponseEntity<Long> count = ResponseEntity.ok(expenseService.countAllExpensesBy());
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        int parameter = 0;
+
+        GenericResponse<String, Integer, ResponseEntity<Long>, Long> response;
+        response = new GenericResponse<>("MongoDBCount", parameter, count, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/first10")
+    public ResponseEntity<List<Expense>> getFirst10() {
+        return ResponseEntity.ok(expenseService.getFirst10());
+    }
+
+    @GetMapping("/stats/{pattern}")
+    public GenericResponse getStats(@PathVariable String pattern) {
+
+        long start = System.currentTimeMillis();
+
+        ExpensesStats stats = expenseService.getStatsByNamePattern(pattern);
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        // logger.info("pattern={}, count={}, avgAmount={}, elapsedMs={}",
+        //         pattern, stats.getCount(), stats.getAvgAmount(), elapsedTime);
+
+        GenericResponse<String, String, ExpensesStats, Long> response;
+        response = new GenericResponse<>("MongoDBStats", pattern, stats, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/stats-extended-old/{pattern}")
+    public ResponseEntity<ExtendedExpenseStats> getExtendedStatsOld(@PathVariable String pattern) {
+
+        long start = System.currentTimeMillis();
+
+        ExtendedExpenseStats stats = expenseService.getExtendedStatsByPattern(pattern);
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        /*
+        logger.info("pattern={}, count={}, avgAmount={}, minAmount={}, maxAmount={}, sumAmount={}, elapsedMs={}",
+                pattern,
+                stats.getCount(),
+                stats.getAvgAmount(),
+                stats.getMinAmount(),
+                stats.getMaxAmount(),
+                stats.getSumAmount(),
+                elapsedTime
+        );
+        */
+
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/stats-extended/{pattern}")
+    public GenericResponse getExtendedStats(@PathVariable String pattern) {
+
+        long start = System.currentTimeMillis();
+
+        ExtendedExpenseStats stats = expenseService.getExtendedStatsByPattern(pattern);
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        GenericResponse<String, String, ExtendedExpenseStats, Long> response;
+        response = new GenericResponse<>("MongoDBStatsExtended", pattern, stats, elapsedTime, ipAddress);
+
+        return response;
     }
 
     @GetMapping("/regex2/{name}")

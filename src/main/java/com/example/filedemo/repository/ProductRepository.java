@@ -30,5 +30,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @QueryHints({ @QueryHint(name = "org.hibernate.cacheable", value = "false") })
     @Query("SELECT AVG(p.price) FROM Product p WHERE p.price < :priceThreshold")
     BigDecimal findAveragePriceByPriceLessThan(@Param("priceThreshold") BigDecimal priceThreshold);
+
+    @Query("SELECT COUNT(p) FROM Product p WHERE p.name LIKE %:part%")
+    long countNameContaining(@Param("part") String part);
 }
 

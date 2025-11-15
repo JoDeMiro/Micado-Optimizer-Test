@@ -60,6 +60,11 @@ public class ProductService {
         return productRepository.findAveragePriceByPriceLessThan(priceThreshold);
     }
 
+    // Darabszám ami tartalmazza a kifejezést
+    public long countNameContaining(String part) {
+        return productRepository.countNameContaining(part);
+    }
+
     // Adatbázisba új termékek hozzáadása (INSERT)
     // public void addProducts(List<Product> products) {
     //     productRepository.saveAll(products);

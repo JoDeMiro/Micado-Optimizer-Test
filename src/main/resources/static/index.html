@@ -351,32 +351,20 @@
                     <a href="/extra/simulate1/5/5/5">{5}{5}{5}</a>
                 </div>
 
-                <br>
-                <br>
-
                 <div>
                     <a href="/ffmpeg/test/1">localhost:8080/ffmpeg/test/1</a>
                     <a href="/ffmpeg/M/test/1">localhost:8080/ffmpeg/M/test/1</a>
                 </div>
-
-                <br>
-                <br>
 
                 <div>
                     <a href="/ffmpeg/test/2/1">localhost:8080/ffmpeg/test/2/{n}</a>
                     <a href="/ffmpeg/test/2/10">localhost:8080/ffmpeg/test/2/10</a>
                 </div>
 
-                <br>
-                <br>
-
                 <div>
                     <a href="/ffmpeg/test/3">localhost:8080/ffmpeg/test/3</a>
                     <a href="/ffmpeg/M/test/3">localhost:8080/ffmpeg/M/test/3</a>
                 </div>
-
-                <br>
-                <br>
 
                 <div>
                     <a href="/ffmpeg/test/3/10">localhost:8080/ffmpeg/test/3/{cpuLimits}</a>
@@ -384,26 +372,17 @@
                     <a href="/ffmpeg/test/3/50">{50}</a>
                 </div>
 
-                <br>
-                <br>
-
                 <div>
                     <a href="/ffmpeg/MP/test/3/10">localhost:8080/ffmpeg/MP/test/3/{cpuLimits}</a>
                     <a href="/ffmpeg/MP/test/3/20">{20}</a>
                     <a href="/ffmpeg/MP/test/3/50">{50}</a>
                 </div>
 
-                <br>
-                <br>
-
                 <div>
                     <a href="/ffmpeg/MP/test/5/1/10">localhost:8080/ffmpeg/MP/test/5/{length}{cpuLimits}</a>
                     <a href="/ffmpeg/MP/test/5/1/20">{1}{20}</a>
                     <a href="/ffmpeg/MP/test/5/1/50">{1}{50}</a>
                 </div>
-
-                <br>
-                <br>
 
                 <div>
                     <a href="/ffmpeg/test/4">localhost:8080/ffmpeg/test/4</a>
@@ -455,6 +434,9 @@
                     <a href="/image/manipulator/32_32/1">{32}</a>
                     <a href="/image/manipulator/16_16/1">{16}</a>
                 </div>
+
+                <br>
+                <br>
 
                 <div>
                     <a href="/mongodb/expense/create" data-toggle="popover"
@@ -510,8 +492,71 @@
                 </div>
 
                 <div>
-                    <a href="/postgre/reset-and-load/100" data-toggle="popover"
+                    <a href="/mongodb/expense/regex-count/ABC" data-toggle="popover"
                        title="Mongo db"
+                       data-content="Mongo db Get By Regex."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/regex-count/ABC
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/first10" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db Get First 10."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/first10
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/countBy" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db CountBy."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/countBy
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/count" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db Count."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/count
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/stats/abc" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db stats."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/stats/{pattern}
+                    </a>
+                </div>
+
+                <div>
+                    <a href="/mongodb/expense/stats-extended/abc" data-toggle="popover"
+                       title="Mongo db"
+                       data-content="Mongo db extended-stats."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/mongodb/expense/stats-extended/{pattern}
+                    </a>
+                </div>
+
+                <br>
+                <br>
+
+                <div>
+                    <a href="/postgre/reset-and-load/100" data-toggle="popover"
+                       title="Postgre db"
                        data-content="Postgre SQL create sample."
                        data-placement="right"
                        data-trigger="hover">
@@ -556,6 +601,19 @@
                     <a href="/postgre/expensive/100">{100}</a>
                     <a href="/postgre/expensive/200">{200}</a>
                     <a href="/postgre/expensive/500">{500}</a>
+                </div>
+
+                <div>
+                    <a href="/postgre/count-expensive-part/10" data-toggle="popover"
+                       title="Postgre DB"
+                       data-content="Postgre db get back all results where name part 10."
+                       data-placement="right"
+                       data-trigger="hover">
+                        localhost:8080/postgre/count-expensive-part/10
+                    </a>
+                    <a href="/postgre/count-expensive-part/100">{100}</a>
+                    <a href="/postgre/count-expensive-part/200">{200}</a>
+                    <a href="/postgre/count-expensive-part/500">{500}</a>
                 </div>
 
                 <div>

@@ -5,6 +5,7 @@ import com.example.filedemo.service.ProductService;
 import com.example.filedemo.model.Product;
 import io.micrometer.core.instrument.Counter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -45,10 +46,30 @@ public class ProductController {
 
         long count = productService.countExpensiveProducts(priceThreshold);
 
+        System.out.println(count);
+
         long stop = System.currentTimeMillis();
         long elapsedTime = stop - start;
 
         GenericResponse<String, BigDecimal, Long, Long> response = new GenericResponse<>("Product Mean Price Response", priceThreshold, count, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    // Endpoint: Count products where price is less than priceThreshold
+    @GetMapping("/count-expensive-part/{part}")
+    public GenericResponse countNameContaining(@PathVariable String part) {
+
+        long start = System.currentTimeMillis();
+
+        long count = productService.countNameContaining(part);
+
+        System.out.println(count);
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        GenericResponse<String, String, Long, Long> response = new GenericResponse<>("Product Mean Price Response", part, count, elapsedTime, ipAddress);
 
         return response;
     }
