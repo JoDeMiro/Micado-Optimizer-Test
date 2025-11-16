@@ -3,6 +3,7 @@ package com.example.filedemo.service;
 import com.example.filedemo.model.Expense;
 import com.example.filedemo.model.ExpenseCategory;
 import com.example.filedemo.repository.ExpenseRepository;
+import com.example.filedemo.responses.AdvancedExpenseStats;
 import com.example.filedemo.responses.ExpensesStats;
 import com.example.filedemo.responses.ExtendedExpenseStats;
 import org.springframework.stereotype.Service;
@@ -162,6 +163,16 @@ public class ExpenseService {
         }
         return statsList.get(0);
     }
+
+    public AdvancedExpenseStats getAdvancedStatsByPattern(String pattern) {
+        String regex = pattern; // vagy ".*" + pattern + ".*", ahogy te használod
+        List<AdvancedExpenseStats> statsList = expenseRepository.getAdvancedStatsByNameRegex(regex);
+        if (statsList.isEmpty()) {
+            return new AdvancedExpenseStats(); // vagy null-safe alapértékek
+        }
+        return statsList.get(0);
+    }
+
 
     public void deleteExpense(String id) {
         expenseRepository.deleteById(id);

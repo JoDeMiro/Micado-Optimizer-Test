@@ -1,6 +1,7 @@
 package com.example.filedemo.repository;
 
 import com.example.filedemo.model.Expense;
+import com.example.filedemo.responses.AdvancedExpenseStats;
 import com.example.filedemo.responses.ExpensesStats;
 import com.example.filedemo.responses.ExtendedExpenseStats;
 import org.springframework.data.mongodb.repository.Aggregation;
@@ -48,5 +49,34 @@ public interface ExpenseRepository extends MongoRepository<Expense, String> {
                     "} }"
     })
     List<ExtendedExpenseStats> getExtendedStatsByNameRegex(String regex);
+
+
+    @Aggregation(pipeline = {
+            // 1) Regex szűrés
+            "{ '$match': { 'name': { $regex: ?0 } } }",
+
+            // 2) Sort NÉV szerint (nem indexelt mező + n log n költség)
+            "{ '$sort': { 'name': 1 } }",
+
+            // 3) Projektálás: name hossza + amountNum (double-ként)
+            "{ '$project': { " +
+                    "'name': 1, " +
+                    "'amountNum': { '$toDouble': '$amount' }, " +
+                    "'nameLength': { '$strLenCP': '$name' } " +
+                    "} }",
+
+            // 4) Csoportosítás: több statisztika
+            "{ '$group': { " +
+                    "'_id': null, " +
+                    "'count': { '$sum': 1 }, " +
+                    "'avgAmount': { '$avg': '$amountNum' }, " +
+                    "'minAmount': { '$min': '$amountNum' }, " +
+                    "'maxAmount': { '$max': '$amountNum' }, " +
+                    "'sumAmount': { '$sum': '$amountNum' }, " +
+                    "'stdDevAmount': { '$stdDevPop': '$amountNum' }, " +
+                    "'avgNameLength': { '$avg': '$nameLength' } " +
+                    "} }"
+    })
+    List<AdvancedExpenseStats> getAdvancedStatsByNameRegex(String regex);
 
 }

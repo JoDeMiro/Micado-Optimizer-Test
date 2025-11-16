@@ -1,6 +1,7 @@
 package com.example.filedemo.controller;
 
 import com.example.filedemo.model.Expense;
+import com.example.filedemo.responses.AdvancedExpenseStats;
 import com.example.filedemo.responses.ExpensesStats;
 import com.example.filedemo.responses.ExtendedExpenseStats;
 import com.example.filedemo.responses.GenericResponse;
@@ -204,6 +205,22 @@ public class ExpenseController {
 
         GenericResponse<String, String, ExtendedExpenseStats, Long> response;
         response = new GenericResponse<>("MongoDBStatsExtended", pattern, stats, elapsedTime, ipAddress);
+
+        return response;
+    }
+
+    @GetMapping("/stats-advanced/{pattern}")
+    public GenericResponse getAdvancedStats(@PathVariable String pattern) {
+
+        long start = System.currentTimeMillis();
+
+        AdvancedExpenseStats stats = expenseService.getAdvancedStatsByPattern(pattern);
+
+        long stop = System.currentTimeMillis();
+        long elapsedTime = stop - start;
+
+        GenericResponse<String, String, AdvancedExpenseStats, Long> response;
+        response = new GenericResponse<>("MongoDBStatsAdvanced", pattern, stats, elapsedTime, ipAddress);
 
         return response;
     }
